@@ -4,4 +4,3 @@
 ## Team Members:
 * CORTEL, Lorraine Renee B.
 * CO, Sean Timothy S.
-* Lu, Dennis H.
