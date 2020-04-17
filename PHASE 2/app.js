@@ -84,6 +84,10 @@ app.get('/userAcct', function (req, res) {
     res.render('userAcct')
 });
 
+app.get('/postFull', function (req, res) {
+    res.render('postFull')
+});
+
 // Create comment
 app.post('/addComment', function(req,res) {
     var Comments = new commentsModel({
