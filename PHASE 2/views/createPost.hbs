@@ -1,0 +1,143 @@
+{{#section 'scriptJS'}}
+    <script src="../../scripts/create-post.js"></script> 
+{{/section}}
+
+
+<div class="container-fluid" id="create">
+
+    {{!-- CREATE POST START --}}
+
+    <div class="container-fluid" id="create-content">
+        <div class="row">
+
+            {{!-- Create Post Area --}}
+            <div class="col-7 create-post">
+
+                {{!-- Create Card --}}
+                <div class="card" id="post-box">
+                    <form action="" name="post" onsubmit="return validateForm();"   >
+                        <div class="card-body">
+
+                            {{!-- Post Heading --}}
+                            <span class="intro-heading">
+                                <h3>Share your recipe!</h3>
+                            </span>
+
+                            {{!-- Title --}}
+                            <label class="create-content" for="title-text">Recipe Title</label>
+                            <span class="title-content">
+                                <input type="text" class="form-control" id="title-text" placeholder="Enter title." rows="1" maxlength="300">
+                            </span>
+
+                            <hr>                        
+                            
+                            {{!-- Introductory Text --}}
+                            <label class="create-content" for="body-text">Introductory Text</label>
+                            <span class="intro-content">
+                                <textarea type="text" class="form-control" id="body-text" placeholder="Enter content." rows="5"></textarea>
+                            </span>
+
+                            {{!-- <button class="btn" onclick="checkConsole()">Check</button> --}}
+
+                            <hr>
+
+                            {{!-- Ingredients --}}
+                            <label class="create-content" for="ingredients">Add the recipe's ingredients</label>
+                            <div class="wrapper">
+                                <div class="ingredients-input">
+                                    <input type="text" class="form-control" id="ingredients" />
+                                </div>
+                                <div class="ingredients-button">
+                                    <button class="btn" id="i-add" onclick="addIng()">Add</button>
+                                    <button class="btn" id="i-edit" onclick="editIng()">Edit</button>
+                                    <button class="btn" id="i-delete" onclick="deleteIng()">Delete</button>
+                                </div>
+                            </div>
+                            <div class="ingredients-list">
+                                <ul id="ing-list">
+                                </ul>
+                            </div>
+
+                            <hr>
+
+                            {{!-- Ingredients --}}
+                            <label class="create-content" for="directions">Add how to prepare the recipe</label>
+                            <div class="wrapper">
+                                <div class="directions-input">
+                                    <textarea type="text" class="form-control" id="directions" rows="2"></textarea>
+                                </div>
+                                <div class="directions-button">
+                                    <button class="btn" id="d-add" onclick="addDir()">Add</button>
+                                    <button class="btn" id="d-edit" onclick="editDir()">Edit</button>
+                                    <button class="btn" id="d-delete" onclick="deleteDir()">Delete</button>
+                                </div>
+                            </div>
+                            <div class="directions-list">
+                                <ol id="dir-list">
+                                </ol>
+                            </div>
+
+                            <hr>
+
+                            {{!-- Tags --}}
+                            <label class="create-content" for="recipe-tags">Add tag/s to the recipe</label>
+                            <div class="tags-container" id="tags">
+                                <div class="tag-container">
+                                    <input type="text" class="form-control" id="recipe-tags" />
+                                    <button class="btn" id="t-add" onclick="toAdd()">Add</button>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            {{!-- Images --}}
+                            <label class="create-content" for="file-input">Add pictures of the recipe</label>
+                            <div class="img-wrapper">
+                                <input id="file-input" type="file" multiple />
+                                <div id="preview"></div>
+                            </div>
+                        </div>
+
+                        {{!-- Card Footer --}}
+                        <div class="card-footer text-muted">
+                            <span class="buttons">
+                                <button class="btn" id="cancel-create" type="button">Cancel</button>
+                                <button class="btn" id="proceed-create" type="submit">Post</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Cancel Modal Popup --}}
+<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    {{!-- Modal Dialogue Box --}}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+
+            {{!-- Modal Header --}}
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure you want to cancel your post?</h5>
+                <button class="close" type="button" data-dismiss="modal">
+                    <span class="close-button">&times;</span>
+                </button>
+            </div>
+
+            {{!-- Modal Body --}}
+            <div class="modal-body">
+                <p class="body-text">Your post will not be saved.</p>                    
+            </div>
+
+            {{!-- Modal Footer --}}
+            <div class="modal-footer">
+                <button class="btn" id="cancel-cancel" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn" id="proceed-cancel" type="button" href="#">Proceed</button>
+            </div>
+        </div>
+    </div>
+</div>
+

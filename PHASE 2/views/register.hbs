@@ -1,0 +1,85 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/register.js"></script> 
+{{/section}}
+
+<div class="loginImg">
+
+    <!-- Color BackGround -->
+    <div class="loginBg">
+        <form method = "POST" action = "/register" enctype="multipart/form-data">
+        <!-- Register Form -->
+        <div class="col-lg-4" id="registerleft">
+            <!-- Logo with link -->
+            <a href="homepage">
+                <img src="img/recipeep-logo-whiteorange.png" class="logo" alt width="260" height="110">
+            </a>
+
+            <h1>Welcome to Recipeep!</h1>
+        </div>
+
+        <div class="col-lg-4" id="registercenter">
+            <!-- Username -->
+            <div class="form-group mb-2">
+                <label for="inputUser" class="forLabels">Username</label>
+                <input type="text" id="username" name="username" class="formTextBox" placeholder="Username" required autofocus>
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group mb-2">
+                <label for="EmailAdress" class="forLabels">Email Address</label>
+                <input type="email" id="email" name="email" class="formTextBox" placeholder="Email Address" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mb-2">
+                <label for="inputPassword" class="forLabels">Password</label>
+                <input type="password" id="password" name="password" class="formTextBox password" placeholder="Password" required>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4" id="registerright" height=200px;>
+            
+            <!-- Avatar -->
+            <div class="form-group mb-2">
+                <div class="custom-file">
+                    <label text-align="left" class="custom-file-label">Choose</label>
+                    <input type="file" id="profPic" name ="profPic" class="form-control custom-file-input" accept="image/*">
+                </div>
+            </div> 
+
+            <!-- Description -->
+            <div class="form-row">
+                <label for="description" class="forLabels">Short Description(Optional)</label>
+                <textarea type="text" id="description" name="description" class="description" placeholder="Short Description (Optional)"></textarea>
+            </div>
+
+
+            <!-- Confirm Password 
+            <div class="group">
+                <label for="inputPassword" class="forLabels">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="formTextBox password" placeholder="Confirm Password"
+                    required>
+            </div>
+            -->
+
+            <!-- Log In Button -->
+            <div class="form-group mb-2">
+                <button class="loginButton" type="submit">Register</button></a>
+            </div>
+        </form>
+            <!-- Foot Link -->
+            <div class="hr"></div>
+            <div class="footLink">
+                <a href="login">Already a Member?</a>
+            </div>
+
+            <!-- Credit -->
+            <p style="margin-top: 3rem; margin-bottom: 1rem; color: #ffffffc5">© 2020</p>
+
+        </div>
+
+        <!-- End of Form -->
+
+    </div>
+</div>
