@@ -1,0 +1,227 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+/* FORM */
+.loginForm > h1 {
+    font-size: 22px;
+    font-weight: 400;
+    font: 600 25px 'Open Sans',sans-serif;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+body {
+    margin: 0;
+    background: #c8c8c8;
+    font: 600 16px/18px 'Open Sans',sans-serif;
+    text-align: center !important;
+    align-items: center;
+}
+
+.loginForm{
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    display: inline-block;
+	margin: 0;
+}
+
+.loginBg{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 90px 70px 50px 70px;
+    background: rgba(189, 140, 77, 0.877);
+    display: flex;
+}
+
+/* Image Retrieved From: https://www.foodiesfeed.com/free-food-photo/pizza-ready-for-baking/download/ */
+.loginImg{
+    width:100%;
+    height: 100%;
+	margin:auto;
+	position:relative;
+	background:url(img/regBG.jpg) no-repeat center;
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+.forLabels{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.formTextBox{
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+
+
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.logo{
+    vertical-align: middle;
+    border-style: none;
+}
+
+
+.loginButton{
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+
+    color: #fff;
+    background-color: #ff9d4f;
+    border-color: #ff9d4f;
+
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+
+    /* overflow: visible; */
+    margin: 0;
+}
+
+.loginButton:hover {
+    color: #000000;
+    background-color: #dddddd;
+}
+
+
+/* For Register Form */
+
+#registerleft{
+	float: left
+}
+
+#registercenter{
+	margin: 0;
+}
+
+#registerright{
+	margin: 0;
+	float: right;
+}
+
+/* For Avatar */
+.avatarBlock{
+    position: relative;
+	height: 200px;
+	width: 200px;
+	margin: 30px auto;
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 1px 1px 15px -5px black;
+    transition: all .3s ease;    
+}
+
+.avatar{
+    /* font-family: FontAwesome; */
+    content: "\f007";
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 190px;
+    background: #ecf0f1;
+    color: #34495e;
+    text-align: center;
+}
+
+.chooseAvatar{
+    margin-left: 3.3rem;
+    margin-bottom: 2rem;
+}
+
+.upload-button {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.fa-arrow-circle-up {
+    position: absolute;
+    font-size: 234px;
+    top: -17px;
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    transition: all .3s ease;
+    color: #34495e;
+}
+
+.avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
+    opacity: .9;
+  }
+
+/* End of Avatar */
+
+.group{
+    margin-bottom: 25px;
+}
+
+/* Text Area */
+.description{
+    height: 10rem;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 0.4em 0.4em 0.4em 0.4em;
+    text-align: left;
+
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+
+/* Foot Link */
+.hr{
+    height: 2px;
+    margin: 45px 0 40px 0;
+    background: rgba(255,255,255,.2);
+}
+
+a{
+    color: rgb(211, 197, 178);
+    text-decoration: none;
+}
+
+a:hover{
+    color: rgb(230, 215, 195);
+    text-decoration: none;
+}
