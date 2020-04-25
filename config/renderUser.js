@@ -83,3 +83,42 @@ module.exports.renderUser = (req, res) => {
             });
     }
 }
+
+module.exports.viewCreatePost = (req, res) => {
+    const db = getDb();
+
+    const collection = db.collection('uploads.files');
+    const collectionChunks = db.collection('uploads.chunks');
+
+    if (!req.isAuthenticated()) {
+        res.redirect('/login');
+    } else {
+        const fileName = res.locals.photo;
+        var userId = req.session.passport.user;
+        console.log(userId);
+        UserAccount.findById(userId)
+            //.populate('', '')
+            .exec(function (err, result) {
+                collection.find({ filename: fileName }).toArray(function (err, docs) {
+                    console.log(docs._id + " id");
+                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
+                        let fileData = [];
+                        for (let i = 0; i < chunks.length; i++) {
+
+                            //This is in Binary JSON or BSON format, which is stored
+                            //in fileData array in base64 endocoded string format
+                            fileData.push(chunks[i].data.toString('base64'));
+                        }
+                        let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+                        
+                        var params = {
+                            layout: 'loggedIn',
+                            profPic: finalFile
+                        }
+
+                        res.render('createPost',params);
+                    });
+                });
+            });
+    }
+}

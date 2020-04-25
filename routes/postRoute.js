@@ -11,6 +11,8 @@ const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 
+const viewUser = require('../config/renderUser');
+
 
 const initDb = require("../config/db").initDb;
 const getDb = require("../config/db").getDb;
@@ -48,9 +50,7 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/createPost', function (req, res) {
-    res.render('createPost')
-});
+router.get('/createPost', viewUser.viewCreatePost);
 
 router.post('/createPost', upload.array('pfImages'), (req,res) => {
     postFullModel.findOne('post_full.pfTitle')
