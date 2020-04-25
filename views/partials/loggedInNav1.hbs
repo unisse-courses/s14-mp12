@@ -33,13 +33,13 @@
         {{!-- Profile Icon --}}
         <div class="col-1" id="header-pfp">
             <button type="button" class="btn pull-right" data-toggle="tooltip" data-placement="bottom" title="Go to profile">
-                <a class="pfp" href="/viewUser"><img src="{{profPic}}"></a> 
+                <a class="pfp" href="/viewProfile"><img src="{{profPic}}"></a> 
             </button>
         </div>
 
         {{!-- Logout Button --}}
         <div class="col-1" id="header-logout" method="GET" action="/logout">
-            <a href="/" class="pull-right btn">
+            <a href="/logout" class="pull-right btn">
                 <button type="button">Logout</button>
             </a>
         </div>

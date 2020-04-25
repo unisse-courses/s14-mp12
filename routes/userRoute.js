@@ -101,15 +101,15 @@ router.post('/register', upload.single('profPic'), (req, res) => {
 // Login User
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-  successRedirect: '/viewUser',
+  successRedirect: '/viewProfile',
   failureRedirect: '/',
   })(req, res, next);
 });
 
 //View User
-router.get('/viewUser', viewUser.renderUser);
+router.get('/viewProfile', viewUser.renderUser);
 
-//View Profile
+//View Other Users
 router.get('/viewUser/:userId', (req, res, next) => {
   var userId = req.params.userId;
   UserAccount.findById(userId)
@@ -166,7 +166,7 @@ router.get('/logout', function (req, res, next) {
       if (err) {
         return next(err);
       } else {
-        return res.redirect('/').render({layout: main});
+        return res.render('login',{layout: 'main'});
       }
     });
   }
