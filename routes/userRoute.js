@@ -47,6 +47,7 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage: storage });
 
+
 // Render register page
 router.get('/register', function (req, res) {
   res.render('register')

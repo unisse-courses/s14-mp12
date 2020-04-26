@@ -108,7 +108,12 @@ initDb(function (err) {
         console.log("API Up and running on port " + port);
         //ROUTES
         app.get('/', function (req, res) {
-            res.render('login')
+            if(!req.user)
+                res.render('homepage',{layout: 'main'})
+            else{
+                const viewUser = require('./config/renderUser');
+                viewUser.getProfPic(req,res);
+            }
         });
 
         // Import Routes
@@ -117,10 +122,6 @@ initDb(function (err) {
         app.use('/', require('./routes/ingredientRoute'));
         app.use('/', require('./routes/ratingRoute'));
         app.use('/', require('./routes/postRoute'));
-
-        app.get('/home', function (req, res) {
-            res.render('homepage')
-        });
 
         app.get('/login', function (req, res) {
             res.render('login');

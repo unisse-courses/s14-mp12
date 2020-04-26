@@ -50,7 +50,7 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/createPost', viewUser.viewCreatePost);
+router.get('/createPost', viewUser.getProfPic);
 
 router.post('/createPost', upload.array('pfImages',5), (req,res) => {
     const post = new postFullModel({

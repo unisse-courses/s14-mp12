@@ -79,6 +79,7 @@ module.exports.renderUser = (req, res) => {
                                     date: date,
                                     profPic: finalFile
                                 }
+                                req.app.locals.profPic = finalFile
 
                                 res.render('userAccount', params);
                             });
@@ -89,7 +90,7 @@ module.exports.renderUser = (req, res) => {
     }
 }
 
-module.exports.viewCreatePost = (req, res) => {
+module.exports.getProfPic = (req, res) => {
     
     if (!req.isAuthenticated()) {
         res.redirect('/login');
@@ -116,7 +117,10 @@ module.exports.viewCreatePost = (req, res) => {
                             profPic: finalFile
                         }
 
-                        res.render('createPost',params);
+                        if(req.path == '/createPost')
+                            res.render('createPost',params);
+                        else if(req.path == '/')
+                            res.render('homepage', params)
                     });
                 });
             });
