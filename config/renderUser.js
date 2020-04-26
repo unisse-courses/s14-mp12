@@ -1,17 +1,21 @@
 const getDb = require('./db').getDb;
 const UserAccount = require('../models/userAccountModel');
 
+// Variables
+const db = getDb();
+
+const collection = db.collection('uploads.files');
+const collectionChunks = db.collection('uploads.chunks');
+
 module.exports.renderUser = (req, res) => {
-    const db = getDb();
-
-    const collection = db.collection('uploads.files');
-    const collectionChunks = db.collection('uploads.chunks');
-
+    
     if (!req.isAuthenticated()) {
         res.redirect('/login');
     } else {
         const fileName = res.locals.photo;
         var userId = req.session.passport.user;
+        console.log(req.session)
+        console.log(req.session.passport);
         UserAccount.findById(userId)
             //.populate('', '')
             .exec(function (err, result) {
@@ -75,6 +79,7 @@ module.exports.renderUser = (req, res) => {
                                     date: date,
                                     profPic: finalFile
                                 }
+
                                 res.render('userAccount', params);
                             });
                         }
@@ -85,17 +90,12 @@ module.exports.renderUser = (req, res) => {
 }
 
 module.exports.viewCreatePost = (req, res) => {
-    const db = getDb();
-
-    const collection = db.collection('uploads.files');
-    const collectionChunks = db.collection('uploads.chunks');
-
+    
     if (!req.isAuthenticated()) {
         res.redirect('/login');
     } else {
         const fileName = res.locals.photo;
         var userId = req.session.passport.user;
-        console.log(userId);
         UserAccount.findById(userId)
             //.populate('', '')
             .exec(function (err, result) {

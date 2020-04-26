@@ -15,7 +15,7 @@
 
                 {{!-- Create Card --}}
                 <div class="card" id="post-box">
-                    <form action="" name="post" onsubmit="return validateForm();"   >
+                    <form method="POST" onsubmit="validateForm()" enctype="multipart/form-data">
                         <div class="card-body">
 
                             {{!-- Post Heading --}}
@@ -48,9 +48,9 @@
                                     <input type="text" class="form-control" id="ingredients" />
                                 </div>
                                 <div class="ingredients-button">
-                                    <button class="btn" id="i-add" onclick="addIng()">Add</button>
-                                    <button class="btn" id="i-edit" onclick="editIng()">Edit</button>
-                                    <button class="btn" id="i-delete" onclick="deleteIng()">Delete</button>
+                                    <button class="btn" id="i-add" type="button" onclick="addIng()">Add</button>
+                                    <button class="btn" id="i-edit" type="button" onclick="editIng()">Edit</button>
+                                    <button class="btn" id="i-delete" type="button" onclick="deleteIng()">Delete</button>
                                 </div>
                             </div>
                             <div class="ingredients-list">
@@ -67,9 +67,9 @@
                                     <textarea type="text" class="form-control" id="directions" rows="2"></textarea>
                                 </div>
                                 <div class="directions-button">
-                                    <button class="btn" id="d-add" onclick="addDir()">Add</button>
-                                    <button class="btn" id="d-edit" onclick="editDir()">Edit</button>
-                                    <button class="btn" id="d-delete" onclick="deleteDir()">Delete</button>
+                                    <button class="btn" id="d-add" type="button" onclick="addDir()">Add</button>
+                                    <button class="btn" id="d-edit" type="button" onclick="editDir()">Edit</button>
+                                    <button class="btn" id="d-delete" type="button" onclick="deleteDir()">Delete</button>
                                 </div>
                             </div>
                             <div class="directions-list">
@@ -84,7 +84,7 @@
                             <div class="tags-container" id="tags">
                                 <div class="tag-container">
                                     <input type="text" class="form-control" id="recipe-tags" />
-                                    <button class="btn" id="t-add" onclick="toAdd()">Add</button>
+                                    <button class="btn" id="t-add" type="button" onclick="toAdd()">Add</button>
                                 </div>
                             </div>
 
@@ -93,7 +93,7 @@
                             {{!-- Images --}}
                             <label class="create-content" for="file-input">Add pictures of the recipe</label>
                             <div class="img-wrapper">
-                                <input id="file-input" type="file" multiple />
+                                <input id="file-input" type="file" name="pfImages" multiple />
                                 <div id="preview"></div>
                             </div>
                         </div>

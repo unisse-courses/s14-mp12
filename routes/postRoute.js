@@ -52,32 +52,26 @@ const upload = multer({storage: storage});
 
 router.get('/createPost', viewUser.viewCreatePost);
 
-router.post('/createPost', upload.array('pfImages'), (req,res) => {
-    postFullModel.findOne('post_full.pfTitle')
-    .then(post => {
-        if(post){
-            console.log("post title exists");
-        }
-        else{
-            const post = new postFullModel({
-                pfTitle: req.body.pfTitle,
-                pfImages: req.file.filename,
-                pfIngredients: req.body.pfIngredients,
-                pfDirections: req.body.pfDirections,
-                pfTags: req.body.pfTags
-            });
+router.post('/createPost', upload.array('pfImages',5), (req,res) => {
+    const post = new postFullModel({
+        pfTitle: req.body.pfTitle,
+        pfUsername: req.session.passport.user,
+        pfImages: req.files.filename,
+        pfIngredients: req.body.pfIngredients,
+        pfDirections: req.body.pfDirections,
+        pfTags: req.body.pfTags,
+        pfDate: new Date()
+    });
 
-            console.log(post.pfTitle);
-            
-            post.save()
-            .then(post => {
-                res.redirect('/homepage');
-            })
-            .catch(err => {
-                res.json({message: err});
-            });
-        }
+    console.log(post);
+    
+    post.save()
+    .then(post => {
+        res.redirect('/homepage');
     })
+    .catch(err => {
+        res.json({message: err});
+    });
 });
 
 //getting the Post With ID

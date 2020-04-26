@@ -1,7 +1,19 @@
+// Prevent Submit on Pressing Enter
+$(document).ready(function() {
+    $(document).on("keydown", "form", function(event) { 
+        return event.key != "Enter";
+    });
+});
+
+
 // Function for validating the form.
 function validateForm()
 {
-    return false;
+    // $(document).on("keydown", ":input:not(text)", function(event) {
+    //     if (event.key == "Enter") {
+    //         event.preventDefault();
+    //     }
+    // });
 }
 
 function checkConsole() {
@@ -27,6 +39,7 @@ function addIng() {
         listIng.appendChild(list);
         inputText.value = "";
     }
+    console.log(ings);
 
     refreshArray();
 
@@ -259,9 +272,11 @@ function previewImages() {
         image.height = 200;
         image.title  = file.name;
         image.src    = this.result;
+        image.style.width = "100%"
         preview.appendChild(image);
       });
-      
+
+
       reader.readAsDataURL(file);
     }  
 }

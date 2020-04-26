@@ -41,7 +41,6 @@ const PostFullSchema = mongoose.Schema({
         type: [String],
         required: true
     },
-    pfNumComments: Number,
     pfURL: {
         type: String,
         required: true 
