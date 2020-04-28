@@ -1,114 +1,127 @@
-{{#section 'scriptJS'}}
+{{#section 'scriptJQ'}}
     <script src="../../scripts/create-post.js"></script> 
 {{/section}}
 
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/createpost.css">
+{{/section}}
 
-<div class="container-fluid" id="create">
-
+<div class="container-fluid" id="createpost">
     {{!-- CREATE POST START --}}
+    <div class="column" id="cp-content">
+        
+        <div class="intro-heading">
+            <h3>Share your recipe!</h3>
+        </div>
 
-    <div class="container-fluid" id="create-content">
-        <div class="row">
+        {{!-- Form Start --}}
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-part">
+                {{!-- Title --}}
+                <label class="create-content" for="pfTitle">Recipe Title</label>
+                <input type="text" class="form-control" name="pfTitle" placeholder="Enter title." rows="1" maxlength="300" required autofocus>
+            </div>
 
-            {{!-- Create Post Area --}}
-            <div class="col-7 create-post">
+            <div class="form-part">
+                {{!-- Introductory Text --}}
+                <label class="create-content" for="pfDescription">Introductory Text</label>
+                <textarea type="text" class="form-control" name="pfDescription" placeholder="Enter content." rows="5" required></textarea>
+            </div>
 
-                {{!-- Create Card --}}
-                <div class="card" id="post-box">
-                    <form method="POST" onsubmit="validateForm()" enctype="multipart/form-data">
-                        <div class="card-body">
+            <hr>
 
-                            {{!-- Post Heading --}}
-                            <span class="intro-heading">
-                                <h3>Share your recipe!</h3>
-                            </span>
-
-                            {{!-- Title --}}
-                            <label class="create-content" for="title-text">Recipe Title</label>
-                            <span class="title-content">
-                                <input type="text" class="form-control" id="title-text" placeholder="Enter title." rows="1" maxlength="300">
-                            </span>
-
-                            <hr>                        
-                            
-                            {{!-- Introductory Text --}}
-                            <label class="create-content" for="body-text">Introductory Text</label>
-                            <span class="intro-content">
-                                <textarea type="text" class="form-control" id="body-text" placeholder="Enter content." rows="5"></textarea>
-                            </span>
-
-                            {{!-- <button class="btn" onclick="checkConsole()">Check</button> --}}
-
-                            <hr>
-
-                            {{!-- Ingredients --}}
-                            <label class="create-content" for="ingredients">Add the recipe's ingredients</label>
-                            <div class="wrapper">
-                                <div class="ingredients-input">
-                                    <input type="text" class="form-control" id="ingredients" />
-                                </div>
-                                <div class="ingredients-button">
-                                    <button class="btn" id="i-add" type="button" onclick="addIng()">Add</button>
-                                    <button class="btn" id="i-edit" type="button" onclick="editIng()">Edit</button>
-                                    <button class="btn" id="i-delete" type="button" onclick="deleteIng()">Delete</button>
-                                </div>
-                            </div>
-                            <div class="ingredients-list">
-                                <ul id="ing-list">
-                                </ul>
-                            </div>
-
-                            <hr>
-
-                            {{!-- Directions --}}
-                            <label class="create-content" for="directions">Add how to prepare the recipe</label>
-                            <div class="wrapper">
-                                <div class="directions-input">
-                                    <textarea type="text" class="form-control" id="directions" rows="2"></textarea>
-                                </div>
-                                <div class="directions-button">
-                                    <button class="btn" id="d-add" type="button" onclick="addDir()">Add</button>
-                                    <button class="btn" id="d-edit" type="button" onclick="editDir()">Edit</button>
-                                    <button class="btn" id="d-delete" type="button" onclick="deleteDir()">Delete</button>
-                                </div>
-                            </div>
-                            <div class="directions-list">
-                                <ol id="dir-list">
-                                </ol>
-                            </div>
-
-                            <hr>
-
-                            {{!-- Tags --}}
-                            <label class="create-content" for="recipe-tags">Add tag/s to the recipe</label>
-                            <div class="tags-container" id="tags">
-                                <div class="tag-container">
-                                    <input type="text" class="form-control" id="recipe-tags" />
-                                    <button class="btn" id="t-add" type="button" onclick="toAdd()">Add</button>
-                                </div>
-                            </div>
-
-                            <hr>
-
-                            {{!-- Images --}}
-                            <label class="create-content" for="file-input">Add pictures of the recipe</label>
-                            <div class="img-wrapper">
-                                <input id="file-input" type="file" name="pfImages" multiple />
-                                <div id="preview"></div>
-                            </div>
-                        </div>
-
-                        {{!-- Card Footer --}}
-                        <div class="card-footer text-muted">
-                            <span class="buttons">
-                                <button class="btn" id="cancel-create" type="button">Cancel</button>
-                                <button class="btn" id="proceed-create" type="submit">Post</button>
-                            </span>
-                        </div>
-                    </form>
+            <div class="form-part" id="ingredients">
+                {{!-- Ingredients --}}
+                <label class="create-content" for="pfIngredients">Ingredients of the Recipe</label>
+                <div class="row" id="new-row0">
+                    <div class="col">
+                        <input type="text" name="pfIngredients[0][name]" class="form-control" id="name" placeholder="Name" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfIngredients[0][quanity]" class="form-control" id="quantity" placeholder="Quantity" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfIngredients[0][unit]" class="form-control" id="unit" placeholder="Unit" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <button class="btn ing-add" id="i-add" type="button">Add</button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <hr>
+
+            <div class="form-part" id="directions">
+                {{!-- Directions --}}
+                <label class="create-content" for="pfDirections">How to Prepare the Recipe</label>
+                <div class="row" id="newrow0">
+                    <div class="col-9">
+                        <textarea type="text" name="pfDirections[0]" class="form-control" id="instruction" placeholder="Enter recipe steps here." rows="2" required></textarea>
+                    </div>
+                    <div class="col">
+                        <button class="btn ing-dir" id="i-dir" type="button">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="taglist">
+                {{!-- Tags  --}}
+                <label class="create-content" for="pfTags">Add tag/s to the recipe</label>
+                <div class="row" id="tag-row">
+                    <div class="col">
+                        <input type="text" name="pfTags[0]" class="form-control tag" id="tag-1" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[1]" class="form-control tag" id="tag-2" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[2]" class="form-control tag" id="tag-3" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[3]" class="form-control tag" id="tag-4" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[4]" class="form-control tag" id="tag-5" placeholder="Add tag." rows="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="imagelist">
+                {{!-- Tags --}}
+                <label class="create-content" for="pfImages">Add images/s to the recipe</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" class="form-control" id="image" name="pfImages[0]" accept=".png, .jpeg, .jpg" />
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control" id="image" name="pfImages[1]" accept=".png, .jpeg, .jpg" />
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control" id="image" name="pfImages[2]" accept=".png, .jpeg, .jpg" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" class="form-control" id="image" name="pfImages[3]" accept=".png, .jpeg, .jpg" />
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control" id="image" name="pfImages[4]" accept=".png, .jpeg, .jpg" />
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+
+            <div class="post-footer">
+                <span class="buttons">
+                    <button class="btn" id="cancel-create" type="button" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
+                    <button class="btn" id="proceed-create" type="submit">Post</button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -135,9 +148,10 @@
             {{!-- Modal Footer --}}
             <div class="modal-footer">
                 <button class="btn" id="cancel-cancel" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn" id="proceed-cancel" type="button" href="#">Proceed</button>
+                <a href="/viewProfile">
+                    <button class="btn" id="proceed-cancel" type="button">Proceed</button>
+                </a>
             </div>
         </div>
     </div>
 </div>
-

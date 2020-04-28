@@ -1,8 +1,3 @@
-$('document').ready(function(){
-    var sortBlock = document.querySelector('.sort-dd');
-    sortBlock.style.display = "none";
-})
-
 function checkPagination() {
     // Declaring the SortBlock
     var sortBlock = document.querySelector('.sort-dd');
