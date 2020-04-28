@@ -1,0 +1,173 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/sort-posts.js"></script> 
+{{/section}}
+
+<div class="container-fluid" id="homapage">
+
+    {{!-- USER ACCOUNT START --}}
+
+    {{!-- User Account Content --}}
+    <div class="container-fluid" id="user-account">
+
+        {{!-- Blog Posts Column --}}
+        <div class="row">
+
+            {{!-- Profile Area --}}
+            <div class="col-4" id="user-profile">
+                <div class="profile-area">
+
+                    {{!-- Profile Picture --}}
+                    <div class="p-pfp">
+                        <img class="u-pfp" src="{{profPic}}" />
+                    </div>
+
+                    {{!-- Bio --}}
+                    <div class="p-written">
+
+                        {{!-- Information --}}
+                        <span class="p-username">
+                            {{user.username}}
+                        </span>
+                        <div class="p-bio">
+                            About me
+                        </div>
+                        <div class="p-bio-details">
+                            {{user.description}} 
+                        </div>
+
+                        <hr>
+
+                        {{!-- Cake Day --}}
+                        <div class="cake-day">
+                            <div class="p-day">
+                                Joined on
+                                <span class="p-day-details">
+                                    {{date}}         <!-- This should be fix -->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-7" id="acc-posts">
+                {{!-- New/Popular Sorter  --}}
+                <div class="col posts-area">
+                    
+                    {{!-- Paginator --}}
+                    <ul class="pagination pop-new-sorter">
+                        <li class="page-item">
+                            <a class="page-link active" id="new" onclick="checkPagination()">
+                                <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" id="popular" onclick="checkPagination()">
+                                <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                {{!-- Star Sorter  --}}
+                <div class="col sort-area">
+                    
+                    {{!-- Star Drop Down --}}
+                    <div class="btn-group dropright sort-dd" id="star-dd">
+                        <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                            Sort&nbsp;
+                            <i class="fas fa-caret-right"></i>
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">5-star</a>
+                            <a class="dropdown-item" href="#">4-star</a>
+                            <a class="dropdown-item" href="#">3-star</a>
+                            <a class="dropdown-item" href="#">2-star</a>
+                            <a class="dropdown-item" href="#">1-star</a>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Blog Posts --}}
+                <div class="col blog-posts">
+
+                    {{!-- Post --}}
+                    <div class="card">
+                        <div class="card-body">
+
+                            {{!-- Title --}}
+                            <a href="#">
+                                <h2 class="card-title">
+                                    <span class="title">
+                                        Instant Pot® Pork Chops and Gravy
+                                    </span>
+                                </h2>
+                            </a>
+
+                            {{!-- Description --}}
+                            <p class="card-text">
+                                Recipe creator Bren says, "I seldom use canned soup, but I make an exception for this. So moist and tender, pure comfort food!" And reviewers ate it up! "Excellent," raves Dyanna11. "Easy recipe to make, I made mostly as is but added a basket of fresh white mushrooms to the garlic saute step."
+                            </p>
+
+                            <hr>
+
+                            <div class="tags">
+                                <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="post-tags">#porkchop</span>&nbsp;&nbsp;
+                                <span class="post-tags">#gravy</span>&nbsp;&nbsp;
+                                <span class="post-tags">#instant</span>&nbsp;&nbsp;
+                            </div>
+                        </div>
+
+                        {{!-- Footer --}}
+                        <div class="card-footer text-muted">
+
+                            {{!-- Date --}}
+                            <i class="far fa-clock"></i>&nbsp;&nbsp;February 29, 2020&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-user"></i>&nbsp;
+
+                            {{!-- Username --}}
+                            <a href="profile_new-notloggedin-dummy1.html" id="username">
+                                <span class="un">felixcityscapes</span>
+                            </a>
+                            <span class="comments">
+
+                                {{!-- Number of Comments --}}
+                                <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;12 comments&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                {{!-- Star Rating --}}
+                                <span class="ratings">
+                                    <i class="fas fa-star"></i>&nbsp;
+                                    <i class="fas fa-star"></i>&nbsp;
+                                    <i class="fas fa-star"></i>&nbsp;
+                                    <i class="fas fa-star"></i>&nbsp;
+                                    <span class="ratings-nope">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Page Navigation --}}
+                <div class="col posts-area">
+                    
+                    {{!-- Paginator --}}
+                    <ul class="pagination justify-content-center page-count">
+                        <li class="page-item disabled">
+                            <a class="page-link disabled" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link active" href="homepage_new-notloggedin.html">1</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link disabled" href="homepage_new-notloggedin.html">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
