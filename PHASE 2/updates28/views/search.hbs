@@ -1,0 +1,138 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/sort-posts.js"></script> 
+{{/section}}
+
+<div class="container-fluid" id="homapage">
+
+    {{!-- SEARCH PAGE START --}}
+
+    {{!-- Search Page Content --}}
+    <div class="container-fluid" id="posts">
+
+        {{!-- Search Blog Posts Column --}}
+        <div class="row">
+
+            {{!-- New/Popular Sorter  --}}
+            <div class="col-8 posts-area">
+
+                {{!-- Search Results Text --}}
+                <div class="search-results">
+                    <h2 id="search-text">Search results</h2>
+                </div>
+                
+                {{!-- Paginator --}}
+                <ul class="pagination pop-new-sorter">
+                    <li class="page-item">
+                        <a class="page-link active" id="new" onclick="checkPagination()">
+                            <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"  id="popular" onclick="checkPagination()">
+                            <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            {{!-- Star Sorter  --}}
+            <div class="col-8 sort-area">
+                
+                {{!-- Star Drop Down --}}
+                <div class="btn-group dropright sort-dd">
+                    <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                        Sort&nbsp;
+                        <i class="fas fa-caret-right"></i>
+                    </button>
+
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">5-star</a>
+                        <a class="dropdown-item" href="#">4-star</a>
+                        <a class="dropdown-item" href="#">3-star</a>
+                        <a class="dropdown-item" href="#">2-star</a>
+                        <a class="dropdown-item" href="#">1-star</a>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Blog Posts --}}
+            <div class="col-8 blog-posts">
+
+                {{!-- Post --}}
+                <div class="card">
+                    <div class="card-body">
+
+                        {{!-- Title --}}
+                        <a href="#">
+                            <h2 class="card-title">
+                                <span class="title">
+                                    Instant Pot® Pork Chops and Gravy
+                                </span>
+                            </h2>
+                        </a>
+
+                        {{!-- Description --}}
+                        <p class="card-text">
+                            Recipe creator Bren says, "I seldom use canned soup, but I make an exception for this. So moist and tender, pure comfort food!" And reviewers ate it up! "Excellent," raves Dyanna11. "Easy recipe to make, I made mostly as is but added a basket of fresh white mushrooms to the garlic saute step."
+                        </p>
+
+                        <hr>
+
+                        <div class="tags">
+                            <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="post-tags">#porkchop</span>&nbsp;&nbsp;
+                            <span class="post-tags">#gravy</span>&nbsp;&nbsp;
+                            <span class="post-tags">#instant</span>&nbsp;&nbsp;
+                        </div>
+                    </div>
+
+                    {{!-- Footer --}}
+                    <div class="card-footer text-muted">
+
+                        {{!-- Date --}}
+                        <i class="far fa-clock"></i>&nbsp;&nbsp;February 29, 2020&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="far fa-user"></i>&nbsp;
+
+                        {{!-- Username --}}
+                        <a href="profile_new-notloggedin-dummy1.html" id="username">
+                            <span class="un">felixcityscapes</span>
+                        </a>
+                        <span class="comments">
+
+                            {{!-- Number of Comments --}}
+                            <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;12 comments&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            {{!-- Star Rating --}}
+                            <span class="ratings">
+                                <i class="fas fa-star"></i>&nbsp;
+                                <i class="fas fa-star"></i>&nbsp;
+                                <i class="fas fa-star"></i>&nbsp;
+                                <i class="fas fa-star"></i>&nbsp;
+                                <span class="ratings-nope">
+                                    <i class="fas fa-star"></i>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Page Navigation --}}
+            <div class="col-8 posts-area">
+                
+                {{!-- Paginator --}}
+                <ul class="pagination justify-content-center page-count">
+                    <li class="page-item disabled">
+                        <a class="page-link disabled" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link active" href="homepage_new-notloggedin.html">1</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link disabled" href="homepage_new-notloggedin.html">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
