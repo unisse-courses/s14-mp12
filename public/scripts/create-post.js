@@ -54,13 +54,31 @@ $(document).ready(function() {
 
             var dirFields = '<div class="row" id="newrow' + y + '">' +
                 '<div class="col-9">' + '<textarea type="text" name="pfDirections[' + y + 
-                ']" class="form-control" id="insstruction" placeholder="Enter recipe steps here." rows="2" required></textarea>' +
+                ']" class="form-control" id="instruction" placeholder="Enter recipe steps here." rows="2" required></textarea>' +
                 '</div><div class="col">' + 
-                '<button class="btn dir-delete" type="button"' + 
-                'style="background-color: #c0392b;color: #ffffff;letter-spacing: 0.5px;font-size: 15px;font-weight: 600;float: right;padding-left: 20px;padding-right: 20px;cursor: pointer;">Delete</button>' + '</div>' + '</div>';
+                
+                //Button
+                '<button type="button" id="dirButton' + y + '" ' +
+                '>Delete</button>' + '</div>' + '</div>';
             
             $(directionWrapper).append(dirFields);
+
+            // Adding Class to Button
+            var curID = "dirButton" + y;
+            var curButton = document.querySelector('#' + curID)
+            curButton.classList.add('btn','dir-delete');
+
             console.log('AFTER ADDING = ' + y);
+
+            // Deleting the Previous Delete Button
+            if(y > 1)
+            {
+                var num = y-1
+                var id = "dirButton" + num
+                var deleteButton = document.querySelector("#" + id)
+
+                deleteButton.style.display = "none";
+            }
         }
     });
 
