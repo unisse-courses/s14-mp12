@@ -1,11 +1,11 @@
-#createpost {
+#editpost {
     margin-top: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#createpost > .column {
+#editpost > .column {
     width: 800px;
     background-color: #ffffff;
     border-radius: 15px;
@@ -14,7 +14,7 @@
     padding-right: 20px;
 }
 
-#createpost > .column > .intro-heading {
+#editpost > .column > .intro-heading {
     background-color: #ff9600;
     padding-top: 6px;
     padding-right: 10px;
@@ -24,15 +24,15 @@
     align-items: center;
 }
 
-#createpost > .column > .intro-heading > h3 {
+#editpost > .column > .intro-heading > h3 {
     color: #ffffff;
 }
 
-#createpost > .column > form > .form-part {
+#editpost > .column > form > .form-part {
     margin-top: 10px;
 }
 
-#createpost > .column > form > .form-part > .create-content {
+#editpost > .column > form > .form-part > .edit-content {
     font-weight: 700;
     text-transform: uppercase;
     font-size: 12px;
@@ -40,22 +40,22 @@
     margin-bottom: 10px;
 }
 
-#createpost > .column > form > .form-part > input,
-#createpost > .column > form > .form-part > textarea {
+#editpost > .column > form > .form-part > input,
+#editpost > .column > form > .form-part > textarea {
     margin-top: 5px;
     font-size: 15px;
     padding-left: 10px;
     padding-right: 10px;
 }
 
-#createpost > .column > form > .form-part > .row > .col > input,
-#createpost > .column > form > .form-part > .row > .col-9 > textarea {
+#editpost > .column > form > .form-part > .row > .col > input,
+#editpost > .column > form > .form-part > .row > .col-9 > textarea {
     font-size: 15px;
 }
 
-#createpost > .column > form > .form-part > .row > .col > #i-add,
-#createpost > .column > form > .form-part > .row > .col > #i-dir,
-#createpost > .column > form > .form-part > .row > .col > #t-add {
+#editpost > .column > form > .form-part > .row > .col > #i-add,
+#editpost > .column > form > .form-part > .row > .col > #i-dir,
+#editpost > .column > form > .form-part > .row > .col > #t-add {
     background-color: #05b41c;
     color: #ffffff;
     letter-spacing: 0.5px;
@@ -67,23 +67,23 @@
     cursor: pointer;
 }
 
-#createpost > .column > form > .form-part > .row {
+#editpost > .column > form > .form-part > .row {
     margin-bottom: 10px;
 }
 
-#createpost > .column > form > .form-part > .row > .col > .img {
+#editpost > .column > form > .form-part > .row > .col > .img {
     padding: 0px;
     border: none;
     font-size: 15px;
 }
 
-#createpost > .column > form > .form-part > .row > .col > .preview-area {
+#editpost > .column > form > .form-part > .row > .col > .preview-area {
     width: 233px;
     max-width: 233px;
     margin-bottom: 20px;
 }
 
-#createpost > .column > form > .form-part > .row > .col > .preview-area > img {
+#editpost > .column > form > .form-part > .row > .col > .preview-area > img {
     width: 233px;
     max-width: 233px;
 }
@@ -111,12 +111,12 @@
     vertical-align: middle;
 }
 
-.post-footer > .buttons > #cancel-create {
+.post-footer > .buttons > #cancel-edit {
     margin-right: 8px;
 }
 
-.post-footer > .buttons > #proceed-create,
-.post-footer > .buttons > #cancel-create,
+.post-footer > .buttons > #proceed-edit,
+.post-footer > .buttons > #cancel-edit,
 #cancel-modal .modal-dialog .modal-footer .btn {
     color: #ffffff;
     font-size: 15px;
@@ -131,28 +131,28 @@
     font-size: 15px;
 }
 
-.post-footer > .buttons > #proceed-create,
+.post-footer > .buttons > #proceed-edit,
 #cancel-modal .modal-dialog .modal-footer #proceed-cancel {
     background-color: #ff9600;
 }
 
-.post-footer > .buttons > #proceed-create:hover, 
+.post-footer > .buttons > #proceed-edit:hover, 
 #cancel-modal .modal-dialog .modal-footer #proceed-cancel:hover {
     background-color: #ff7b10;
 }
 
-.post-footer > .buttons > #cancel-create,
+.post-footer > .buttons > #cancel-edit,
 #cancel-modal .modal-dialog .modal-footer #cancel-cancel {
     background-color: #999999;
 }
 
-.post-footer > .buttons > #cancel-create:hover,
+.post-footer > .buttons > #cancel-edit:hover,
 #cancel-modal .modal-dialog .modal-footer #cancel-cancel:hover {
     background-color: #595959;
 }
 
-#createpost > .column > form > .form-part > .row > .col > .ing-delete,
-#createpost > .column > form > .form-part > .row > .col > .dir-delete {
+#editpost > .column > form > .form-part > .row > .col > .ing-delete,
+#editpost > .column > form > .form-part > .row > .col > .dir-delete {
     background-color: #c0392b;
     color: #ffffff;
     letter-spacing: 0.5px;

@@ -3,13 +3,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const postFullModel = require('../models/postFullModel');
 const crypto = require("crypto");
 const multer = require('multer');
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+
+// Models
+const postFullModel = require('../models/postFullModel');
+const ratingModel = require('../models/ratingModel')
+const commentModel = require('../models/commentsModel')
 
 const viewUser = require('../config/renderUser');
 
@@ -53,46 +57,67 @@ const upload = multer({storage: storage});
 router.get('/createPost', viewUser.getProfPic);
 
 router.post('/createPost', upload.array('pfImages',5), (req,res) => {
-    const post = new postFullModel({
-        pfTitle: req.body.pfTitle,
-        pfUsername: req.session.passport.user,
-        pfImages: req.files.filename,
-        pfIngredients: req.body.pfIngredients,
-        pfDirections: req.body.pfDirections,
-        pfTags: req.body.pfTags,
-        pfDate: new Date()
-    });
+  
+  var filenames = req.files.map(function(file) {
+    return file.filename;
+  })
 
-    console.log(post);
+  const post = new postFullModel({
+      pfTitle: req.body.pfTitle,
+      pfUserId: req.session.passport.user,    // User id
+      pfImages: filenames,
+      pfIngredients: req.body.pfIngredients,
+      pfDirections: req.body.pfDirections,
+      pfTags: req.body.pfTags,
+      pfDate: new Date(),
+      pfRatings: new ratingModel(),
+      pfComments: new commentModel(),
+      pfURL: ''
+  });
+
+  console.log(post);
     
-    post.save()
-    .then(post => {
-        res.redirect('/homepage');
+  post.save()
+  .then(result => {
+
+    var URL = '/viewPost/' + result._id;
+
+    result.updateOne({pfURL: URL})
+
+    .then(reason => {
+      console.log(result)
+      console.log(result.pfURL)
+      console.log(reason);
+      res.redirect(URL)
     })
-    .catch(err => {
-        res.json({message: err});
-    });
+
+  })
+  .catch(err => {
+      res.status(404).json(err);
+  });
 });
 
 //getting the Post With ID
-router.get('/viewPost/:postId', function(req, res){
-    var postId = req.params._id;
+// router.get('/viewPost/:postId', function(req, res){
+//     var postId = req.params._id;
 
-    postFullModel.findById(postId)
-        .populate('rating')
-        .populate('ingrdients')
-        .populate('comments')
-        .exec(function(err, post) {
-            if(err) {
-                console.log(err);
-            } 
-            else {
-                res.send(post);
-                console.log(post);
-                //res.render('postFull');
-            }    
-        });
-});
+//     postFullModel.findById(postId)
+//         .populate('rating')
+//         .populate('comments')
+//         .exec(function(err, post) {
+//             if(err) {
+//                 console.log(err);
+//             } 
+//             else {
+//                 console.log(post);
+//                 res.render('postFull'); //viewUser.getPostFull
+//              }    
+//         });
+// });
+
+router.get('/viewPost/:postId', (req, res) => {
+  res.render('postFull', viewUser.getPostFull(req,res));
+})
 
 
 

@@ -4,7 +4,7 @@
 <head>
     {{!-- Metadata --}}
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Recipeep: Your Online Recipe Forum</title>
     <link rel="icon" href="/img/recipeep-favicon.ico" type="image/gif">
@@ -26,10 +26,10 @@
 
     {{!-- CSS --}}
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/stylesextra.css">
+    <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/footer.css">
     {{{_sections.headCSS}}}
-    
-    {{!-- <link rel="stylesheet" href="/css/navbar.css"> --}}
 
     {{!-- Font --}}
     <script src="https://kit.fontawesome.com/748aeda77d.js" crossorigin="anonymous"></script>
@@ -39,7 +39,7 @@
 </head>
 
 <body>
-    {{> loggedOutNav}}
+    {{> loggedOutNav2}}
     {{{body}}}
     {{> pageFooter}}
 

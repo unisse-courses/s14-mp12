@@ -1,0 +1,11 @@
+// Multer
+https://github.com/expressjs/multer#fieldsfields
+
+
+// Express , Request Responce
+https://expressjs.com/en/api.html#req.originalUrl
+
+
+// Mongodb Mongoose
+https://tech-blog.maddyzone.com/node.js/add-update-delete-object-array-schema-mongoosemongodb
+https://mongoosejs.com/docs/populate.html

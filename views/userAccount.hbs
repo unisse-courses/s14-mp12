@@ -18,7 +18,7 @@
 
                     {{!-- Profile Picture --}}
                     <div class="p-pfp">
-                        <img class="u-pfp" src="{{profPic}}" />
+                        <img class="u-pfp" src="{{this.profPic}}" />
                     </div>
 
                     {{!-- Bio --}}
@@ -42,7 +42,7 @@
                             <div class="p-day">
                                 Joined on
                                 <span class="p-day-details">
-                                    {{date}}         <!-- This should be fix -->
+                                    {{'formatDate': user.dateJoined}}         <!-- This should be fix -->
                                 </span>
                             </div>
                         </div>

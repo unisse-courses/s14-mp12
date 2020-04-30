@@ -6,6 +6,7 @@ const app = express();
 // HBS
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
+const moment = require('moment');   //Moment
 
 // Parser
 const cookieParser = require('cookie-parser');

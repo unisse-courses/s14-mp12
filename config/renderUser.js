@@ -1,11 +1,14 @@
 const getDb = require('./db').getDb;
 const UserAccount = require('../models/userAccountModel');
+const postFullModel = require('../models/postFullModel');
 
 // Variables
 const db = getDb();
 
 const collection = db.collection('uploads.files');
 const collectionChunks = db.collection('uploads.chunks');
+
+
 
 module.exports.renderUser = (req, res) => {
     
@@ -15,7 +18,6 @@ module.exports.renderUser = (req, res) => {
         const fileName = res.locals.photo;
         var userId = req.session.passport.user;
         console.log(req.session)
-        console.log(req.session.passport);
         UserAccount.findById(userId)
             //.populate('', '')
             .exec(function (err, result) {
@@ -51,35 +53,15 @@ module.exports.renderUser = (req, res) => {
                                 }
                                 //Display the chunks using the data URI format
                                 let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+                                
                                 var user = JSON.parse(JSON.stringify(result));
-                                var date = result.dateJoined;
-                                var year = date.getFullYear();
-                                var day = date.getDate();
-                                var month = date.getMonth();
-                                var monthWord = new Array();
-                                monthWord[0] = "January";
-                                monthWord[1] = "February";
-                                monthWord[2] = "March";
-                                monthWord[3] = "April";
-                                monthWord[4] = "May";
-                                monthWord[5] = "June";
-                                monthWord[6] = "July";
-                                monthWord[7] = "August";
-                                monthWord[8] = "September";
-                                monthWord[9] = "October";
-                                monthWord[10] = "November";
-                                monthWord[11] = "December";
-
-                                date = monthWord[month] + ' ' + day + ', ' + year
-
+                          
                                 var params = {
                                     layout: 'loggedIn',
                                     isUser: true,
                                     user: user,
-                                    date: date,
                                     profPic: finalFile
                                 }
-                                req.app.locals.profPic = finalFile
 
                                 res.render('userAccount', params);
                             });
@@ -125,4 +107,62 @@ module.exports.getProfPic = (req, res) => {
                 });
             });
     }
+}
+
+module.exports.getPostFull = (req, res) => {
+    const postId = req.params.postId;
+
+    postFullModel.findById(postId)
+    .populate('ratings')
+    .populate('comments')
+    .exec((err, post) =>{
+        if(err) throw err
+
+        const filenames = post.pfImages;
+        console.log("filenames: " + filenames)
+
+        collection.find({ filename: {$in: filenames} }, function (err, docs) {
+            if (err) throw err;
+            console.log("docs: " + docs)
+
+            let imageList = docs.map(function(data){return data._id});
+
+            console.log("imageList: " + imageList)
+
+            collectionChunks.find({ files_id: {$in: imageList} }, function (err, chunks) {
+                if(err) throw err;
+
+                let fileData = chunks.map(function(data){return data.chunks});
+                let finalFile = [];
+
+                for(let j = 0; j < fileData.length; j++)
+                {
+                    console.log("fileData.chunks.length: " + fileData.chunks[j].length)
+                    for (let i = 0; i < fileData.chunks[j].length; i++) {
+
+                        //This is in Binary JSON or BSON format, which is stored
+                        //in fileData array in base64 endocoded string format
+                        fileData.push(chunks[i].data.toString('base64'));
+                    }
+                    finalFile[j] = 'data:' + imageList[j][0].contentType + ';base64,' + fileData.join('');
+                    console.log("finalFile[" + j + "]: "  + finalFile[j])
+                }
+
+                var params ={
+                    pfImages: finalFile,
+                    post: post,
+                    layout: ''
+                }
+                
+                // if(!req.isAuthenticated()){
+                //     params.layout = 'main';
+                //     res.render('postFull', params)
+                // }else {
+                //     params.layout = 'loggedIn'
+                //     res.render('postFull', params)
+                // }
+
+            });
+        });
+    })
 }

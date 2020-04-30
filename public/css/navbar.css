@@ -1,34 +1,27 @@
 #header > .navbar {
     background-color: #ffffff;
     height: 50px;
-    border-radius: 0px;
-}
-
-#header > .navbar > .row {
-    height: inherit;
-}
-
-#header > .navbar > .row > .co {
-    height: inherit;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 #header-logo > .logo > img {
     height: 40px;
 }
 
-#header-search > .search-container > input {
+#header-search > form > input {
     height: 30px;
-    width: 300px;
-    padding-left: 20px;
-    padding-right: 20px;
+    width: 360px;
+    padding-left: 10px;
+    padding-right: 10px;
     background-color: #ececec;
+    border: 1px solid #ececec;
     border-radius: 25px;
-    border: none;
-    font-size: 15px!important;
 }
 
-#header-search .search-container button {
-    font-size: 15px!important;
+#header-search > form > button {
     height: 30px;
     padding-left: 10px;
     padding-right: 10px;
@@ -38,7 +31,88 @@
     cursor: pointer;
 }
 
-#header-search .search-container button:hover {
-    color: #ececec;
+#header-search > form > button:hover,
+#header-login > a > button:hover,
+#header-register > a > button:hover {
+    background-color: #ff7b10;
+}
+
+#header-space > img,
+#header-create-post > img {
+    height: 40px;
+    float: right;
+    margin-top: 4px;
+}
+
+#header-login {
+    padding-right: 30px;
+}
+
+#header-login > a {
+    float: right;
+}
+
+#header-register {
+    padding-left: 30px;
+}
+
+#header-login > a > button,
+#header-register > a > button {
+    height: 30px;
+    width: 150px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: #ff9600;
+    border-radius: 25px;
     border: none;
+    cursor: pointer;
+}
+
+#header-create-post > a > button {
+    height: 30px;
+    width: 150px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: #ff9600;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+#header-create-post > a > button:hover {
+    background-color: #ff7b10;
+}
+
+#header-logout > a > button {
+    height: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background-color: #d7d7d7;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+#header-pfp > button {
+    float: right;
+    padding-right: 30px;
+}
+
+#header-pfp > button > .pfp > img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1pt #d7d7d7;
+    border: none;
+    cursor: pointer;
+}
+
+#header-pfp > button > .pfp > img:hover {
+    box-shadow: 0 0 0 2.5pt #d7d7d7;
+}
+
+#header-logout > a > button:hover {
+    background-color: #999999;
 }
