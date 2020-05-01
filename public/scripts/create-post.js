@@ -14,9 +14,9 @@ $(document).ready(function() {
             x++;
 
             var ingFields = '<div class="row" id="new-row' + x + '">' + 
+                '<div class="col"><input type="text" name="pfIngredients[' + x + '][quantity]" class="form-control" id="quantity" placeholder="Quantity" rows="1" required></div>' + 
+                '<div class="col"><input type="text" name="pfIngredients[' + x + '][unit]" class="form-control" id="unit" placeholder="Unit" rows="1" required></div>' + 
                 '<div class="col"><input type="text" name="pfIngredients[' + x + '][name]" class="form-control" id="name" placeholder="Name" rows="1" required></div>' + 
-                '<div class="col"><input type="text" name="pfIngredients[' + x + '][name]" class="form-control" id="quantity" placeholder="Quantity" rows="1" required></div>' + 
-                '<div class="col"><input type="text" name="pfIngredients[' + x + '][name]" class="form-control" id="unit" placeholder="Unit" rows="1" required></div>' + 
                 '<div class="col">' + 
                 // Button
                 '<button type="button" id="ingButton' + x + '">Delete</button>' + '</div>' + '</div>';
