@@ -95,6 +95,10 @@ app.engine('hbs', exphbs({
         },
         'formatDate': function (dateTime) {
             return moment(dateTime).format('MMMM DD, YYYY');
+        },
+        // exoerimenting
+        isRating: function (rating) {
+            return rating !== undefined;
         }
     }
 }));

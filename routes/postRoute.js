@@ -65,6 +65,7 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
   const post = new postFullModel({
       pfTitle: req.body.pfTitle,
       pfUserId: req.session.passport.user,    // User id
+      pfDescription: req.body.pfDescription,
       pfImages: filenames,
       pfIngredients: req.body.pfIngredients,
       pfDirections: req.body.pfDirections,
@@ -115,9 +116,7 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
 //         });
 // });
 
-router.get('/viewPost/:postId', (req, res) => {
-  res.render('postFull', viewUser.getPostFull(req,res));
-})
+router.get('/viewPost/:postId',viewUser.getPostFull);
 
 
 

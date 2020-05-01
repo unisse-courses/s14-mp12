@@ -8,13 +8,13 @@
             <div class="details-top">
                     <!-- Title -->
                     <h1 class="mt-4" id="post-title">
-                        {{pfTitle}}
+                        {{post.pfTitle}}
                     </h1>
                 
                     <!-- Author -->
                     <p class="lead" id="user-name">Posted by
-                        <a href="profile_new-loggedin-dummy1.html" id="username">
-                            <span class="un">felixcityscapes</span>
+                        <a href="/viewUser/{{poster._id}}" id="username">
+                            <span class="un">{{poster.username}}</span>
                         </a>
                     </p>
 
@@ -24,7 +24,7 @@
                     <div id="details">
                         <p id="date-rate">
                             <span class="date">
-                                <i class="far fa-clock"></i>&nbsp;&nbsp;February 29, 2020
+                                <i class="far fa-clock"></i>&nbsp;&nbsp;{{'formatDate': post.pfDate}}
                             </span>
                             <span class="ratings">
                                 <i class="fas fa-star"></i>&nbsp;
@@ -57,25 +57,11 @@
 
                     {{!-- Images --}}
                     <div class="carousel-inner">
+                        {{#each pfImages}}
                         <div class="carousel-item active" data-interval="5000">
-                            <img src="/img/banner-1.png" alt="Main Banner">
+                            <img src="{{pfImages}}" alt="Main Banner">
                         </div>
-
-                        <div class="carousel-item" data-interval="5000">
-                            <img src="/img/banner-2.png" alt="Banner 1">
-                        </div>
-
-                        <div class="carousel-item" data-interval="5000">
-                            <img src="/img/banner-3.png" alt="Banner 2">
-                        </div>
-
-                        <div class="carousel-item" data-interval="5000">
-                            <img src="/img/banner-4.png" alt="Banner 3">
-                        </div>
-
-                        <div class="carousel-item" data-interval="5000">
-                            <img src="/img/banner-5.png" alt="Banner 4">
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>

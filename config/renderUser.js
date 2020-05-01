@@ -109,60 +109,151 @@ module.exports.getProfPic = (req, res) => {
     }
 }
 
+// module.exports.getPostFull = (req, res) => {
+//     const postId = req.params.postId;
+
+//     postFullModel.findById(postId)
+//     .populate('ratings')
+//     .populate('comments')
+//     .exec((err, post) =>{
+//         if(err) throw err
+
+//         const filenames = post.pfImages;
+//         console.log("filenames: " + filenames)
+
+//         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
+//             if (err) throw err;
+
+//             let imageList = docs.map(function(data){return data._id});
+
+//             console.log("imageList: " + imageList)
+
+//             collectionChunks.find({ files_id: {$in: imageList} }).sort({n: 1}).toArray(function (err, chunks) {
+//                 if(err) throw err;
+
+//                 let fileData = chunks.map(function(data){return data.chunks});
+//                 console.log(fileData);
+//                 let finalFile = [];
+
+//                 for(let j = 0; j < fileData.length; j++)
+//                 {
+//                     console.log("fileData.chunks.length: " + fileData.chunks[j].length)
+//                     for (let i = 0; i < fileData.chunks[j].length; i++) {
+
+//                         //This is in Binary JSON or BSON format, which is stored
+//                         //in fileData array in base64 endocoded string format
+//                         fileData.push(chunks[i].data.toString('base64'));
+//                     }
+//                     finalFile[j] = 'data:' + imageList[j][0].contentType + ';base64,' + fileData.join('');
+//                     console.log("finalFile[" + j + "]: "  + finalFile[j])
+//                 }
+
+//                 var params ={
+//                     pfImages: finalFile,
+//                     post: post,
+//                     layout: ''
+//                 }
+                
+//                 if(!req.isAuthenticated()){
+//                     params.layout = 'main';
+//                     res.render('postFull', params)
+//                 }else {
+//                     params.layout = 'loggedIn'
+//                     res.render('postFull', params)
+//                 }
+
+//             });
+//         });
+//     })
+// }
+
 module.exports.getPostFull = (req, res) => {
     const postId = req.params.postId;
-
+    
     postFullModel.findById(postId)
     .populate('ratings')
     .populate('comments')
     .exec((err, post) =>{
         if(err) throw err
-
+    
         const filenames = post.pfImages;
-        console.log("filenames: " + filenames)
-
-        collection.find({ filename: {$in: filenames} }, function (err, docs) {
+        // console.log("filenames: " + filenames)
+    
+        collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
             if (err) throw err;
-            console.log("docs: " + docs)
-
+            // Uncomment to see the data returned
+            // docs.forEach((data) => {
+            // console.log(data);
+            // });
+        
             let imageList = docs.map(function(data){return data._id});
-
-            console.log("imageList: " + imageList)
-
-            collectionChunks.find({ files_id: {$in: imageList} }, function (err, chunks) {
+        
+            collectionChunks.find({ files_id: {$in : imageList} }).toArray(function (err, chunks) {
                 if(err) throw err;
-
-                let fileData = chunks.map(function(data){return data.chunks});
+        
+                // got all the chunks for ALL images... So you need to "group by"
+                // Reference: https://medium.com/@edisondevadoss/javascript-group-an-array-of-objects-by-key-afc85c35d07e
+                let group = chunks.reduce((total, currentVal) => {
+                    total[currentVal.files_id] = [...total[currentVal.files_id] || [], currentVal];
+                    return total;
+                }, {});
+        
                 let finalFile = [];
+                let entries = Object.entries(group);
+                
+                // Needed to get ID and values in object with the files_id as the key
+                // https://zellwk.com/blog/looping-through-js-objects/
+                entries.forEach(([file, content]) => {
+        
+                    // Reduce helps loop through the array and "join" the content
+                    let mergedBase64 = content.reduce((total, current) => {
+                        let base64 = current.data.toString('base64');
+                        return total + base64;
+                }, '');
+        
+                // get contentType of the image from docs
+                    let image = docs.find((element) => {
+                        return element._id == file;
+                    });
+        
+                // build the image file
+                finalFile.push('data:' + image.contentType + ';base64,' + mergedBase64);
+            });
 
-                for(let j = 0; j < fileData.length; j++)
-                {
-                    console.log("fileData.chunks.length: " + fileData.chunks[j].length)
-                    for (let i = 0; i < fileData.chunks[j].length; i++) {
+            // Other Things needed for hbs
+            let postObj = post.toObject();
 
-                        //This is in Binary JSON or BSON format, which is stored
-                        //in fileData array in base64 endocoded string format
-                        fileData.push(chunks[i].data.toString('base64'));
-                    }
-                    finalFile[j] = 'data:' + imageList[j][0].contentType + ';base64,' + fileData.join('');
-                    console.log("finalFile[" + j + "]: "  + finalFile[j])
-                }
 
-                var params ={
+            var userId = postObj.pfUserId;
+            UserAccount.findById(userId, (err, poster) => {
+
+                poster = poster.toObject();
+                // Rating
+                // var totalRating = 0;
+                // for(let i = 0; i < post.pfRatings.size; i++)
+                //     totalRating += post.pfRating[i].numRating;
+                // totalRating /= post.pfRatings.size;
+
+                //
+            
+                var params = {
                     pfImages: finalFile,
-                    post: post,
+                    post: postObj,
+                    poster: poster,
+                    // rating: totalRating,
                     layout: ''
                 }
-                
-                // if(!req.isAuthenticated()){
-                //     params.layout = 'main';
-                //     res.render('postFull', params)
-                // }else {
-                //     params.layout = 'loggedIn'
-                //     res.render('postFull', params)
-                // }
+            
+                if(!req.isAuthenticated()){
+                    params.layout = 'main';
+                } else {
+                    params.layout = 'loggedIn'
+                }
 
+                res.render('postFull', params);
             });
         });
+    });
     })
 }
+    
