@@ -16,6 +16,10 @@ const RatingSchema = mongoose.Schema({
     numRating: {
         type: Number,
         required: true
+    },
+    postId: {
+        type: String,
+        required: true
     }
 });
 

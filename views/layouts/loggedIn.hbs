@@ -4,13 +4,15 @@
 <head>
     {{!-- Metadata --}}
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Recipeep: Your Online Recipe Forum</title>
     <link rel="icon" href="/img/recipeep-favicon.ico" type="image/gif">
 
     {{!-- JQuery --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{{_sections.scriptJQ}}}
+
     {{!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" 
@@ -24,15 +26,15 @@
 
     {{!-- CSS --}}
     <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    {{{_sections.headCSS}}}
 
     {{!-- Font --}}
     <script src="https://kit.fontawesome.com/748aeda77d.js" crossorigin="anonymous"></script>
 
     {{!-- Local JQuery --}}
     <script src="/scripts/register.js" type="text/javascript"></script>
-
-    {{{_sections.scriptJQ}}}
 </head>
 
 <body>

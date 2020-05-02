@@ -13,7 +13,11 @@ const PostFullSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    pfUsername: {
+    pfUserId: {
+        type: String,
+        required: true
+    },
+    pfDescription: {
         type: String,
         required: true
     },
@@ -30,7 +34,11 @@ const PostFullSchema = mongoose.Schema({
         required: true
     }, 
     pfIngredients: {
-        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'ingredients'}],
+        type: [{
+            quantity: String,
+            unit: String, 
+            name: String
+        }],
         required: true
     },
     pfDirections: {
@@ -41,10 +49,8 @@ const PostFullSchema = mongoose.Schema({
         type: [String],
         required: true
     },
-    pfNumComments: Number,
     pfURL: {
-        type: String,
-        required: true 
+        type: String
     },
     pfCommentList: [{type: mongoose.Schema.Types.ObjectId, ref: 'comments'}]  
 });

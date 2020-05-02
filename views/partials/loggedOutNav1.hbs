@@ -1,4 +1,4 @@
-{{!-- NAVIGATION BAR - LOGGED IN 1 --}}
+{{!-- NAVIGATION BAR - LOGGED OUT 1 --}}
 
 <div class="container-fluid fixed-top" id="header">
     <div class="row no-gutters navbar">
@@ -15,24 +15,20 @@
                 <button type="submit" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>
             </form>
         </div>
-        {{!-- Create Post --}}
-        <div class="col-3" id="header-create-post">
-             <a href="createPost" class="btn">
-                <button type="button">Create a post</button>
-            </a>
-
+        {{!-- Space --}}
+        <div class="col-1" id="header-space">
             <img src="/img/vertical-line.png" class="vl" />
         </div>
-        {{!-- Profile Picture --}}
-        <div class="col-1" id="header-pfp">
-            <button type="button" class="btn pull-right" data-toggle="tooltip" data-placement="bottom" title="Go to profile">
-                <a class="pfp" href="/viewProfile"><img src="{{profPic}}"></a> 
-            </button>
+        {{!-- Login --}}
+        <div class="col-2" id="header-login">
+            <a href="/login" class="button">
+                <button type="button"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</button>
+            </a>
         </div>
-        {{!-- Logout --}}
-        <div class="col-1" id="header-logout" method="GET" action="/logout">
-            <a href="/logout" class="pull-right btn">
-                <button type="button">Logout</button>
+        {{!-- Register --}}
+        <div class="col-2" id="header-register">
+            <a href="/register" class="button">
+                <button type="button"><i class="fa fa-pen"></i>&nbsp;&nbsp;Register</button>
             </a>
         </div>
     </div>

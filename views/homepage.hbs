@@ -1,17 +1,21 @@
 {{#section 'scriptJQ'}}
-    <script src="../../scripts/sort-posts.js"></script> 
+    <script src="../../scripts/sort-posts.js"></script>
+    <script src="../../scripts/pagination.js"></script> 
 {{/section}}
 
-<div class="container-fluid" id="homapage">
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/homepage.css">
+{{/section}}
 
-    {{!-- HOMEPAGE START --}}
+{{!-- HOMEPAGE --}}
 
-    {{!-- Homepage Banner --}}
-    <div class="container-fluid" id="banner">
+<div class="container-fluid" id="homepage">
 
-        {{!-- Homepage Carousel --}}
-        <div id="banner-carousel" class="carousel slide carousel-fade bg-success" data-ride="carousel">
-
+    {{!-- Banner --}}
+    <div id="banner">
+        {{!-- Banner Carousel --}}
+        <div id="banner-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+            
             {{!-- Indicators --}}
             <ol class="carousel-indicators">
                 <li data-target="#banner-carousel" data-slide-to="0" class="active"></li>
@@ -27,82 +31,76 @@
                     <img src="/img/banner-1.png" alt="Main Banner">
                 </div>
 
-                <div class="carousel-item" data-interval="5000">
+                <div class="carousel-item" data-interval="4000">
                     <img src="/img/banner-2.png" alt="Banner 1">
                 </div>
 
-                <div class="carousel-item" data-interval="5000">
+                <div class="carousel-item" data-interval="4000">
                     <img src="/img/banner-3.png" alt="Banner 2">
                 </div>
 
-                <div class="carousel-item" data-interval="5000">
+                <div class="carousel-item" data-interval="4000">
                     <img src="/img/banner-4.png" alt="Banner 3">
                 </div>
 
-                <div class="carousel-item" data-interval="5000">
+                <div class="carousel-item" data-interval="4000">
                     <img src="/img/banner-5.png" alt="Banner 4">
                 </div>
             </div>
         </div>
     </div>
 
-    {{!-- Homepage Content --}}
+    {{!-- Posts Content --}}
     <div class="container-fluid" id="posts">
-
-        {{!-- Blog Posts Column --}}
-        <div class="row">
-
-            {{!-- New/Popular Sorter  --}}
-            <div class="col-8 posts-area">
-                
-                {{!-- Paginator --}}
-                <ul class="pagination pop-new-sorter">
-                    <li class="page-item">
-                        <a class="page-link active new" id="new" onclick="checkPagination()">
+        <div class="row no-gutters" id="new-popular">
+            <div class="col-8 sort-area">
+                {{!-- Buttons for Sorting --}}
+                <div class="button-area">
+                    {{!-- New --}}
+                    <div class="sort-link active" id="new-link">
+                        <a class="new" id="new">
                             <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
                         </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link popular" id="popular" onclick="checkPagination()">
+                    </div>
+                    {{!-- Popular --}}
+                    <div class="sort-link" id="popular-link">
+                        <a class="popular" id="popular">
                             <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
                         </a>
-                    </li>
-                </ul>
-            </div>
+                    </div>
+                </div>
+                {{!-- Stars for Popular --}}
+                <div class="star-area">
+                    <div class="btn-group dropright" id="star-dd">
+                        <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                            Sort&nbsp;
+                            <i class="fas fa-caret-right"></i>
+                        </button>
 
-            {{!-- Star Sorter  --}}
-            <div class="col-8 sort-area">
-                
-                {{!-- Star Drop Down --}}
-                <div class="btn-group dropright sort-dd" id="star-dd">
-                    <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
-                        Sort&nbsp;
-                        <i class="fas fa-caret-right"></i>
-                    </button>
-
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">5-star</a>
-                        <a class="dropdown-item" href="#">4-star</a>
-                        <a class="dropdown-item" href="#">3-star</a>
-                        <a class="dropdown-item" href="#">2-star</a>
-                        <a class="dropdown-item" href="#">1-star</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/">5-star</a>
+                            <a class="dropdown-item" href="/">4-star</a>
+                            <a class="dropdown-item" href="/">3-star</a>
+                            <a class="dropdown-item" href="/">2-star</a>
+                            <a class="dropdown-item" href="/">1-star</a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            {{!-- Blog Posts --}}
+        <div class="row no-gutters" id="post-here">
             <div class="col-8 blog-posts">
 
-                {{!-- Post --}}
-                <div class="card">
-                    <div class="card-body">
+                {{!-- Card --}}
+                <div class="card" id="blog">
 
+                    {{!-- Card Body --}}
+                    <div class="card-body">
                         {{!-- Title --}}
-                        <a href="#">
+                        <a href="/">
                             <h2 class="card-title">
-                                <span class="title">
-                                    Instant Pot® Pork Chops and Gravy
-                                </span>
+                                Instant Pot® Pork Chops and Gravy
                             </h2>
                         </a>
 
@@ -113,9 +111,12 @@
 
                         <hr>
 
+                        {{!-- Tags --}}
                         <div class="tags">
                             <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="post-tags">#porkchop</span>&nbsp;&nbsp;
+                            <span class="post-tags">#gravy</span>&nbsp;&nbsp;
+                            <span class="post-tags">#instant</span>&nbsp;&nbsp;
                             <span class="post-tags">#gravy</span>&nbsp;&nbsp;
                             <span class="post-tags">#instant</span>&nbsp;&nbsp;
                         </div>
@@ -123,17 +124,13 @@
 
                     {{!-- Footer --}}
                     <div class="card-footer text-muted">
-
                         {{!-- Date --}}
                         <i class="far fa-clock"></i>&nbsp;&nbsp;February 29, 2020&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="far fa-user"></i>&nbsp;
-
                         {{!-- Username --}}
-                        <a href="profile_new-notloggedin-dummy1.html" id="username">
-                            <span class="un">felixcityscapes</span>
-                        </a>
-                        <span class="comments">
+                        <a href="/" id="username">felixcityscapes</a>
 
+                        <span class="comments">
                             {{!-- Number of Comments --}}
                             <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;12 comments&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -151,20 +148,25 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            {{!-- Page Navigation --}}
-            <div class="col-8 posts-area">
+        <div class="row no-gutters" id="page-here">
+             {{!-- Page Navigation --}}
+            <div class="col-8 page-area">
                 
                 {{!-- Paginator --}}
-                <ul class="pagination justify-content-center page-count">
+                <ul class="pagination">
                     <li class="page-item disabled">
-                        <a class="page-link disabled" href="#" tabindex="-1">Previous</a>
+                        <a class="page-link disabled" href="/" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link active" href="/">1</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link active" href="homepage_new-notloggedin.html">1</a>
+                        <a class="page-link" href="/">2</a>
                     </li>
                     <li class="page-item disabled">
-                        <a class="page-link disabled" href="homepage_new-notloggedin.html">Next</a>
+                        <a class="page-link disabled" href="/">Next</a>
                     </li>
                 </ul>
             </div>

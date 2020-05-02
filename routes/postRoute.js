@@ -3,13 +3,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
-const postFullModel = require('../models/postFullModel');
 const crypto = require("crypto");
 const multer = require('multer');
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+
+// Models
+const postFullModel = require('../models/postFullModel');
+const ratingModel = require('../models/ratingModel')
+const commentModel = require('../models/commentsModel')
 
 const viewUser = require('../config/renderUser');
 
@@ -50,55 +54,71 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/createPost', viewUser.viewCreatePost);
+router.get('/createPost', viewUser.getProfPic);
 
-router.post('/createPost', upload.array('pfImages'), (req,res) => {
-    postFullModel.findOne('post_full.pfTitle')
-    .then(post => {
-        if(post){
-            console.log("post title exists");
-        }
-        else{
-            const post = new postFullModel({
-                pfTitle: req.body.pfTitle,
-                pfImages: req.file.filename,
-                pfIngredients: req.body.pfIngredients,
-                pfDirections: req.body.pfDirections,
-                pfTags: req.body.pfTags
-            });
+router.post('/createPost', upload.array('pfImages',5), (req,res) => {
+  
+  var filenames = req.files.map(function(file) {
+    return file.filename;
+  })
 
-            console.log(post.pfTitle);
-            
-            post.save()
-            .then(post => {
-                res.redirect('/homepage');
-            })
-            .catch(err => {
-                res.json({message: err});
-            });
-        }
+  let ratings = new ratingModel();
+  let comments = new commentModel();
+
+
+  const post = new postFullModel({
+      pfTitle: req.body.pfTitle,
+      pfUserId: req.session.passport.user,    // User id
+      pfDescription: req.body.pfDescription,
+      pfImages: filenames,
+      pfIngredients: req.body.pfIngredients,
+      pfDirections: req.body.pfDirections,
+      pfTags: req.body.pfTags,
+      pfDate: new Date(),
+      pfRatings: ratings,
+      pfComments: comments,
+      pfURL: ''
+  });
+
+  console.log(post);
+    
+  post.save()
+  .then(result => {
+
+    var URL = '/viewPost/' + result._id;
+
+    result.updateOne({pfURL: URL})
+
+    .then(reason => {
+      res.redirect(URL)
     })
+
+  })
+  .catch(err => {
+      res.status(404).json(err);
+  });
 });
 
 //getting the Post With ID
-router.get('/viewPost/:postId', function(req, res){
-    var postId = req.params._id;
+// router.get('/viewPost/:postId', function(req, res){
+//     var postId = req.params._id;
 
-    postFullModel.findById(postId)
-        .populate('rating')
-        .populate('ingrdients')
-        .populate('comments')
-        .exec(function(err, post) {
-            if(err) {
-                console.log(err);
-            } 
-            else {
-                res.send(post);
-                console.log(post);
-                //res.render('postFull');
-            }    
-        });
-});
+//     postFullModel.findById(postId)
+//         .populate('rating')
+//         .populate('comments')
+//         .exec(function(err, post) {
+//             if(err) {
+//                 console.log(err);
+//             } 
+//             else {
+//                 console.log(post);
+//                 res.render('postFull'); //viewUser.getPostFull
+//              }    
+//         });
+// });
+
+router.get('/viewPost/:postId',viewUser.getPostFull);
+
 
 
 

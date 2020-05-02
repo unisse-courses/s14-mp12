@@ -6,6 +6,7 @@ const app = express();
 // HBS
 const exphbs = require('express-handlebars');
 const handlebars = require('handlebars');
+const moment = require('moment');   //Moment
 
 // Parser
 const cookieParser = require('cookie-parser');
@@ -94,6 +95,10 @@ app.engine('hbs', exphbs({
         },
         'formatDate': function (dateTime) {
             return moment(dateTime).format('MMMM DD, YYYY');
+        },
+        // exoerimenting
+        isRating: function (rating) {
+            return rating !== undefined;
         }
     }
 }));
@@ -108,7 +113,17 @@ initDb(function (err) {
         console.log("API Up and running on port " + port);
         //ROUTES
         app.get('/', function (req, res) {
-            res.render('login')
+            if(!req.user){
+                var params = {
+                    layout: 'main',
+                    // partials: ['loggedOutNav1', 'pageFooter']
+                }
+                res.render('homepage',params)
+            }
+            else{
+                const viewUser = require('./config/renderUser');
+                viewUser.getProfPic(req,res);
+            }
         });
 
         // Import Routes
@@ -118,12 +133,8 @@ initDb(function (err) {
         app.use('/', require('./routes/ratingRoute'));
         app.use('/', require('./routes/postRoute'));
 
-        app.get('/home', function (req, res) {
-            res.render('homepage')
-        });
-
         app.get('/login', function (req, res) {
-            res.render('login');
+            res.render('login')
         });
 
         app.get('/search', function (req, res) {
