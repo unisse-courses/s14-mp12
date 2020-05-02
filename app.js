@@ -113,8 +113,13 @@ initDb(function (err) {
         console.log("API Up and running on port " + port);
         //ROUTES
         app.get('/', function (req, res) {
-            if(!req.user)
-                res.render('homepage',{layout: 'main'})
+            if(!req.user){
+                var params = {
+                    layout: 'main',
+                    // partials: ['loggedOutNav1', 'pageFooter']
+                }
+                res.render('homepage',params)
+            }
             else{
                 const viewUser = require('./config/renderUser');
                 viewUser.getProfPic(req,res);
@@ -129,7 +134,7 @@ initDb(function (err) {
         app.use('/', require('./routes/postRoute'));
 
         app.get('/login', function (req, res) {
-            res.render('login');
+            res.render('login')
         });
 
         app.get('/search', function (req, res) {

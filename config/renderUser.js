@@ -98,17 +98,21 @@ module.exports.getPostFull = (req, res) => {
     .populate('ratings')
     .populate('comments')
     .exec((err, post) =>{
-        if(err) throw err
-    
+        if (err) throw err;
+        if(post.pfImages == null || post.pfImages == undefined) {
+            console.log('Debug')
+            res.redirect('/');
+        }
+        
         const filenames = post.pfImages;
-        // console.log("filenames: " + filenames)
+        console.log(filenames)
     
         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
             if (err) throw err;
             // Uncomment to see the data returned
-            // docs.forEach((data) => {
-            // console.log(data);
-            // });
+            docs.forEach((data) => {
+                console.log(data);
+            });
         
             let imageList = docs.map(function(data){return data._id});
         
@@ -166,11 +170,13 @@ module.exports.getPostFull = (req, res) => {
                     poster: poster,
                     // rating: totalRating,
                     layout: '',
+                    partial: '',
                     profPic: req.session.profPic
                 }
 
                 if(!req.isAuthenticated()){
                     params.layout = 'main';
+                    params.partial = 'loggedOutNav1'
                 } else {
                     params.layout = 'loggedIn'
                 }
