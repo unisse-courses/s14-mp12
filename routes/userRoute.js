@@ -107,13 +107,15 @@ router.get('/login', function (req, res) {
 // Login User
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-  successRedirect: '/viewProfile',
+  successRedirect: '/setProfile',
   failureRedirect: '/',
   })(req, res, next);
 });
 
 //View User
-router.get('/viewProfile', viewUser.renderUser);
+router.get('/setProfile', viewUser.renderUser);
+
+router.get('/viewProfile', viewUser.getUser);
 
 //View Other Users
 router.get('/viewUser/:userId', (req, res, next) => {

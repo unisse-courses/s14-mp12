@@ -14,6 +14,7 @@ const path = require('path');
 const postFullModel = require('../models/postFullModel');
 const ratingModel = require('../models/ratingModel')
 const commentModel = require('../models/commentsModel')
+const userModel = require('../models/userAccountModel')
 
 const viewUser = require('../config/renderUser');
 
@@ -54,7 +55,7 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/createPost', viewUser.getProfPic);
+router.get('/createPost', viewUser.getUser);
 
 router.post('/createPost', upload.array('pfImages',5), (req,res) => {
   
@@ -79,17 +80,24 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
   console.log(post);
     
   post.save()
-  .then(result => {
+  .then(resultPost => {
 
-    var URL = '/viewPost/' + result._id;
+    var URL = '/viewPost/' + resultPost._id;
+    var userId = resultPost.pfUserId;
 
-    result.updateOne({pfURL: URL})
-
+    resultPost.updateOne({pfURL: URL})
     .then(reason => {
-      console.log(result)
-      console.log(result.pfURL)
-      console.log(reason);
-      res.redirect(URL)
+
+      userModel.findById(userId, (err, userObj) =>{
+          userObj.updateOne({recipePost: resultPost})
+          .then(resultUser => {
+
+            console.log(resultPost);
+            console.log(userObj)
+                        
+            res.redirect(URL)
+          });
+        });
     })
 
   })

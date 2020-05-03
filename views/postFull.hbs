@@ -24,7 +24,7 @@
                     <div id="details">
                         <p id="date-rate">
                             <span class="date">
-                                <i class="far fa-clock"></i>&nbsp;&nbsp;{{'formatDate': post.pfDate}}
+                                <i class="far fa-clock"></i>&nbsp;&nbsp;{{datePosted}}
                             </span>
                             <span class="ratings">
                                 <i class="fas fa-star"></i>&nbsp;
@@ -48,18 +48,17 @@
 
                     {{!-- Indicators --}}
                     <ol class="carousel-indicators">
-                        <li data-target="#banner-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#banner-carousel" data-slide-to="1"></li>
-                        <li data-target="#banner-carousel" data-slide-to="2"></li>
-                        <li data-target="#banner-carousel" data-slide-to="3"></li>
-                        <li data-target="#banner-carousel" data-slide-to="4"></li>
+                        {{!-- Shouldn't be class="active" all --}}
+                        {{#each pfImages}}
+                        <li data-target="#banner-carousel" data-slide-to="{{@index}}" class="active"></li>
+                        {{/each}}
                     </ol>
 
                     {{!-- Images --}}
                     <div class="carousel-inner">
                         {{#each pfImages}}
                         <div class="carousel-item active" data-interval="5000">
-                            <img src="{{pfImages}}" alt="Main Banner">
+                            <img src="{{this}}" alt="Main Banner">
                         </div>
                         {{/each}}
                     </div>
@@ -70,41 +69,30 @@
 
                 <!-- Post Content -->
                 <p class="lead">
-                    Recipe creator Bren says, "I seldom use canned soup, but I make an exception for this. 
-                    So moist and tender, pure comfort food!" And reviewers ate it up! "Excellent," raves Dyanna11. 
-                    "Easy recipe to make, I made mostly as is but added a basket of fresh white mushrooms to the garlic saute step."
+                    {{post.pfDescription}}
                 </p>
                 <h4>Ingredients</h4>
                 <p>
                     <ul>
-                    <li>1/2 teaspoon avocado oil, or more as needed</li>
-                    <li>1 bone-in pork chops, trimmed of fat</li>
-                    <li>1/8 teaspoon ground black pepper</li>
-                    <li>1/4 large clove garlic, finely chopped</li>
-                    <li>2-1/2 teaspoons dry white wine</li>
-                    <li>1/4 (10.75 ounce) can condensed cream of mushroom soup</li>
-                    <li>2-1/2 teaspoons water</li>
-                    <li>1-1/4 teaspoons all-purpose flour</li>
-                    <li>1/4 teaspoon low-sodium soy sauce (such as Bragg&reg;)</li>
+                    {{#each post.pfIngredients}}
+                    <li>{{this.quantity}} {{this.unit}} {{this.name}}</li>
+                    {{/each}}
                     </ul>
                 </p>
                 <h4>Directions</h4>
                 <p>
                     <ol>
-                    <li>Heat oil in the pot of an electric pressure cooker (such as Instant Pot®) set on the Saute function.</li>
-                    <li>Season pork chops with black pepper. Cook 2 to 3 chops in the hot oil, flipping halfway, until browned, 7 to 8 minutes. Move to a plate; sear the remaining chops and place on a plate.</li>
-                    <li>Add garlic to the pot and cook until just fragrant, about 30 seconds. Deglaze the bottom of the pot with wine, scraping up any browned bits. Simmer until sauce is reduced by half, 5 to 7 minutes.</li>
-                    <li>Stir mushroom soup and 1 1/4 cup water into the pot with the sauce. Simmer until smooth, about 3 minutes. Add the seared pork chops and turn to coat. Close and lock the lid. Select high pressure according to manufacturer's instructions; set timer for 18 minutes. Allow 10 to 15 minutes for pressure to build.</li>
-                    <li>Release pressure using the natural-release method according to manufacturer's instructions, about 10 minutes. Remove chops from the pot.</li>
-                    <li>Mix 1/4 cup water and flour together; add slurry to the pot. Select Saute function and cook until gravy is thickened, about 3 minutes. Add soy sauce and stir well. Return chops to the pot and turn to coat.</li>
+                    {{#each post.pfDirections}}
+                    <li>{{this}}</li>
+                    {{/each}}
                     </ol>
                 </p>
                 
                 <div class="tags">
                     <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="post-tags">#porkchop</span>&nbsp;&nbsp;
-                    <span class="post-tags">#gravy</span>&nbsp;&nbsp;
-                    <span class="post-tags">#instant</span>&nbsp;&nbsp;
+                    {{#each post.pfTags}}
+                    <span class="post-tags">#{{this}}</span>&nbsp;&nbsp;
+                    {{/each}}
                 </div>
             </div>
 
@@ -117,7 +105,7 @@
 
                         <!-- Comment Number -->
                         <span class="comment-number">
-                            <i class="far fa-comment-alt"></i>&nbsp;&nbsp;12 comments&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="#comments-section"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;{{post.pfCommentList.length}} comments&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         </span>
 
                         <!-- Available Actions Left -->
@@ -125,7 +113,7 @@
 
                             <!-- Rate Post -->
                             <span class="rate">
-                                <a href="profile_" id="rate-post" data-toggle="modal" data-target="#rating-modal">
+                                <a href="" id="rate-post" data-toggle="modal" data-target="#rating-modal">
                                     <i class="far fa-star"></i>&nbsp;Rate
                                 </a>
                             </span>

@@ -117,7 +117,7 @@ initDb(function (err) {
                 res.render('homepage',{layout: 'main'})
             else{
                 const viewUser = require('./config/renderUser');
-                viewUser.getProfPic(req,res);
+                viewUser.getUser(req,res);
             }
         });
 

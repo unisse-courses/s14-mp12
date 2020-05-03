@@ -8,7 +8,29 @@ const db = getDb();
 const collection = db.collection('uploads.files');
 const collectionChunks = db.collection('uploads.chunks');
 
+function getDate(date) {
+    
+    var year = date.getFullYear();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var monthWord = new Array();
+    monthWord[0] = "January";
+    monthWord[1] = "February";
+    monthWord[2] = "March";
+    monthWord[3] = "April";
+    monthWord[4] = "May";
+    monthWord[5] = "June";
+    monthWord[6] = "July";
+    monthWord[7] = "August";
+    monthWord[8] = "September";
+    monthWord[9] = "October";
+    monthWord[10] = "November";
+    monthWord[11] = "December";
 
+    date = monthWord[month] + ' ' + day + ', ' + year
+
+    return date;
+}
 
 module.exports.renderUser = (req, res) => {
     
@@ -54,16 +76,14 @@ module.exports.renderUser = (req, res) => {
                                 //Display the chunks using the data URI format
                                 let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
                                 
-                                var user = JSON.parse(JSON.stringify(result));
-                          
-                                var params = {
-                                    layout: 'loggedIn',
-                                    isUser: true,
-                                    user: user,
-                                    profPic: finalFile
-                                }
-
-                                res.render('userAccount', params);
+                                var date = getDate(result.dateJoined);
+                                
+                                req.session.profPic = finalFile;   
+                                req.session.user = result;
+                                req.session.userPostsId = result.recipePost
+                                req.session.dateJoined = date;
+                                
+                                res.redirect('/viewProfile')
                             });
                         }
                     });
@@ -72,100 +92,48 @@ module.exports.renderUser = (req, res) => {
     }
 }
 
-module.exports.getProfPic = (req, res) => {
-    
+module.exports.getUser = (req, res) => {
+
     if (!req.isAuthenticated()) {
         res.redirect('/login');
     } else {
-        const fileName = res.locals.photo;
-        var userId = req.session.passport.user;
-        UserAccount.findById(userId)
-            //.populate('', '')
-            .exec(function (err, result) {
-                collection.find({ filename: fileName }).toArray(function (err, docs) {
-                    console.log(docs._id + " id");
-                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
-                        let fileData = [];
-                        for (let i = 0; i < chunks.length; i++) {
+        var params = {
+            layout: 'loggedIn',
+            profPic: req.session.profPic,
+        }
 
-                            //This is in Binary JSON or BSON format, which is stored
-                            //in fileData array in base64 endocoded string format
-                            fileData.push(chunks[i].data.toString('base64'));
-                        }
-                        let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
-                        
-                        var params = {
-                            layout: 'loggedIn',
-                            profPic: finalFile
-                        }
+        if(req.path == '/createPost')
+            res.render('createPost',params);
 
-                        if(req.path == '/createPost')
-                            res.render('createPost',params);
-                        else if(req.path == '/')
-                            res.render('homepage', params)
-                    });
-                });
+        else if(req.path == '/')
+            res.render('homepage', params);
+
+        else if(req.path == '/viewProfile') {
+            params.user = req.session.user;
+            var userPostIds = req.session.userPostsId;
+            params.dateJoined = req.session.dateJoined;
+
+            // Find the Post from array of posts in user account
+            postFullModel.find({_id: {$in: userPostIds}}, (err, userPosts) => {
+                var userPostsObj = [];
+
+                // Object all the posts
+                userPosts.forEach(function(doc) {
+                    var post = doc.toObject()
+                    var date = post.pfDate
+                    post.pfDate = getDate(date);
+                    userPostsObj.push(post);
+                })
+
+                params.userPosts = userPostsObj
+            
+                res.render('userAccount', params);
             });
-    }
+        }
+
+    }   
 }
 
-// module.exports.getPostFull = (req, res) => {
-//     const postId = req.params.postId;
-
-//     postFullModel.findById(postId)
-//     .populate('ratings')
-//     .populate('comments')
-//     .exec((err, post) =>{
-//         if(err) throw err
-
-//         const filenames = post.pfImages;
-//         console.log("filenames: " + filenames)
-
-//         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
-//             if (err) throw err;
-
-//             let imageList = docs.map(function(data){return data._id});
-
-//             console.log("imageList: " + imageList)
-
-//             collectionChunks.find({ files_id: {$in: imageList} }).sort({n: 1}).toArray(function (err, chunks) {
-//                 if(err) throw err;
-
-//                 let fileData = chunks.map(function(data){return data.chunks});
-//                 console.log(fileData);
-//                 let finalFile = [];
-
-//                 for(let j = 0; j < fileData.length; j++)
-//                 {
-//                     console.log("fileData.chunks.length: " + fileData.chunks[j].length)
-//                     for (let i = 0; i < fileData.chunks[j].length; i++) {
-
-//                         //This is in Binary JSON or BSON format, which is stored
-//                         //in fileData array in base64 endocoded string format
-//                         fileData.push(chunks[i].data.toString('base64'));
-//                     }
-//                     finalFile[j] = 'data:' + imageList[j][0].contentType + ';base64,' + fileData.join('');
-//                     console.log("finalFile[" + j + "]: "  + finalFile[j])
-//                 }
-
-//                 var params ={
-//                     pfImages: finalFile,
-//                     post: post,
-//                     layout: ''
-//                 }
-                
-//                 if(!req.isAuthenticated()){
-//                     params.layout = 'main';
-//                     res.render('postFull', params)
-//                 }else {
-//                     params.layout = 'loggedIn'
-//                     res.render('postFull', params)
-//                 }
-
-//             });
-//         });
-//     })
-// }
 
 module.exports.getPostFull = (req, res) => {
     const postId = req.params.postId;
@@ -228,19 +196,12 @@ module.exports.getPostFull = (req, res) => {
             UserAccount.findById(userId, (err, poster) => {
 
                 poster = poster.toObject();
-                // Rating
-                // var totalRating = 0;
-                // for(let i = 0; i < post.pfRatings.size; i++)
-                //     totalRating += post.pfRating[i].numRating;
-                // totalRating /= post.pfRatings.size;
-
-                //
-            
+               
                 var params = {
                     pfImages: finalFile,
                     post: postObj,
+                    datePosted: getDate(postObj.pfDate),
                     poster: poster,
-                    // rating: totalRating,
                     layout: ''
                 }
             

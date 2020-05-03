@@ -29,7 +29,7 @@ const UserAccountSchema = mongoose.Schema({
     },
     dateJoined: {
         type: Date,
-        defualt: Date.now
+        default: Date.now
     },
     recipePost: [{type: mongoose.Schema.Types.ObjectId, ref: 'post_full'}]
 });

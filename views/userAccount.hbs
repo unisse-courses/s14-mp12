@@ -44,7 +44,7 @@
                                 <div class="p-day">
                                     Joined on
                                     <span class="p-day-details">
-                                        {{'formatDate': user.dateJoined}}         <!-- This should be fix -->
+                                        {{dateJoined}}
                                     </span>
                                 </div>
                             </div>
@@ -96,6 +96,8 @@
 
             {{!-- POSTS --}}
             <div class="row no-gutters" id="post-here">
+                
+                {{#each userPosts}}
                 <div class="col blog-posts">
 
                     {{!-- Card --}}
@@ -104,15 +106,15 @@
                         {{!-- Card Body --}}
                         <div class="card-body">
                             {{!-- Title --}}
-                            <a href="/">
+                            <a href="/viewPost/{{this._id}}">
                                 <h2 class="card-title">
-                                    Instant Pot® Pork Chops and Gravy
+                                    {{this.pfTitle}}
                                 </h2>
                             </a>
 
                             {{!-- Description --}}
                             <p class="card-text">
-                                Recipe creator Bren says, "I seldom use canned soup, but I make an exception for this. So moist and tender, pure comfort food!" And reviewers ate it up! "Excellent," raves Dyanna11. "Easy recipe to make, I made mostly as is but added a basket of fresh white mushrooms to the garlic saute step."
+                                {{this.pfDescription}}
                             </p>
 
                             <hr>
@@ -120,25 +122,23 @@
                             {{!-- Tags --}}
                             <div class="tags">
                                 <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span class="post-tags">#porkchop</span>&nbsp;&nbsp;
-                                <span class="post-tags">#gravy</span>&nbsp;&nbsp;
-                                <span class="post-tags">#instant</span>&nbsp;&nbsp;
-                                <span class="post-tags">#gravy</span>&nbsp;&nbsp;
-                                <span class="post-tags">#instant</span>&nbsp;&nbsp;
+                                {{#each this.pfTags}}
+                                <span class="post-tags">{{this}}</span>&nbsp;&nbsp;
+                                {{/each}}
                             </div>
                         </div>
 
                         {{!-- Footer --}}
                         <div class="card-footer text-muted">
                             {{!-- Date --}}
-                            <i class="far fa-clock"></i>&nbsp;&nbsp;February 29, 2020&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="far fa-user"></i>&nbsp;
                             {{!-- Username --}}
-                            <a href="/" id="username">felixcityscapes</a>
+                            <a href="/viewProfile" id="username">{{../user.username}}</a>
 
                             <span class="comments">
                                 {{!-- Number of Comments --}}
-                                <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;12 comments&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;{{this.pfCommentList.length}}&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 {{!-- Star Rating --}}
                                 <span class="ratings">
@@ -154,6 +154,7 @@
                         </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
 
             {{!-- PAGINATION --}}
