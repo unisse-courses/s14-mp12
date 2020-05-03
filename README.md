@@ -1,4 +1,4 @@
-# Recipeep: Your Online Recipe Forum —
+# Recipeep: Your Online Recipe Forum
 
 ## DESCRIPTION —
 This is a discussion website that replicates the original purpose of forums such as Reddit. 
