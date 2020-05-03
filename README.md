@@ -1,4 +1,4 @@
-# Recipeep: Your Online Recipe Forum —
+# Recipeep: Your Online Recipe Forum
 
 ## Team Members:
 * Sean Timothy S. Co
