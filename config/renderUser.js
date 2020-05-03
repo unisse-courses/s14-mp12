@@ -63,8 +63,6 @@ module.exports.renderUser = (req, res) => {
                                     profPic: finalFile
                                 }
 
-                                req.session.profPic = finalFile
-
                                 res.render('userAccount', params);
                             });
                         }
@@ -79,17 +77,95 @@ module.exports.getProfPic = (req, res) => {
     if (!req.isAuthenticated()) {
         res.redirect('/login');
     } else {
-        var params = {
-            layout: 'loggedIn',
-            profPic: req.session.profPic
-        }
+        const fileName = res.locals.photo;
+        var userId = req.session.passport.user;
+        UserAccount.findById(userId)
+            //.populate('', '')
+            .exec(function (err, result) {
+                collection.find({ filename: fileName }).toArray(function (err, docs) {
+                    console.log(docs._id + " id");
+                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
+                        let fileData = [];
+                        for (let i = 0; i < chunks.length; i++) {
 
-        if(req.path == '/createPost')
-            res.render('createPost',params);
-        else if(req.path == '/')
-            res.render('homepage', params)
+                            //This is in Binary JSON or BSON format, which is stored
+                            //in fileData array in base64 endocoded string format
+                            fileData.push(chunks[i].data.toString('base64'));
+                        }
+                        let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+                        
+                        var params = {
+                            layout: 'loggedIn',
+                            profPic: finalFile
+                        }
+
+                        if(req.path == '/createPost')
+                            res.render('createPost',params);
+                        else if(req.path == '/')
+                            res.render('homepage', params)
+                    });
+                });
+            });
     }
 }
+
+// module.exports.getPostFull = (req, res) => {
+//     const postId = req.params.postId;
+
+//     postFullModel.findById(postId)
+//     .populate('ratings')
+//     .populate('comments')
+//     .exec((err, post) =>{
+//         if(err) throw err
+
+//         const filenames = post.pfImages;
+//         console.log("filenames: " + filenames)
+
+//         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
+//             if (err) throw err;
+
+//             let imageList = docs.map(function(data){return data._id});
+
+//             console.log("imageList: " + imageList)
+
+//             collectionChunks.find({ files_id: {$in: imageList} }).sort({n: 1}).toArray(function (err, chunks) {
+//                 if(err) throw err;
+
+//                 let fileData = chunks.map(function(data){return data.chunks});
+//                 console.log(fileData);
+//                 let finalFile = [];
+
+//                 for(let j = 0; j < fileData.length; j++)
+//                 {
+//                     console.log("fileData.chunks.length: " + fileData.chunks[j].length)
+//                     for (let i = 0; i < fileData.chunks[j].length; i++) {
+
+//                         //This is in Binary JSON or BSON format, which is stored
+//                         //in fileData array in base64 endocoded string format
+//                         fileData.push(chunks[i].data.toString('base64'));
+//                     }
+//                     finalFile[j] = 'data:' + imageList[j][0].contentType + ';base64,' + fileData.join('');
+//                     console.log("finalFile[" + j + "]: "  + finalFile[j])
+//                 }
+
+//                 var params ={
+//                     pfImages: finalFile,
+//                     post: post,
+//                     layout: ''
+//                 }
+                
+//                 if(!req.isAuthenticated()){
+//                     params.layout = 'main';
+//                     res.render('postFull', params)
+//                 }else {
+//                     params.layout = 'loggedIn'
+//                     res.render('postFull', params)
+//                 }
+
+//             });
+//         });
+//     })
+// }
 
 module.exports.getPostFull = (req, res) => {
     const postId = req.params.postId;
@@ -98,21 +174,17 @@ module.exports.getPostFull = (req, res) => {
     .populate('ratings')
     .populate('comments')
     .exec((err, post) =>{
-        if (err) throw err;
-        if(post.pfImages == null || post.pfImages == undefined) {
-            console.log('Debug')
-            res.redirect('/');
-        }
-        
+        if(err) throw err
+    
         const filenames = post.pfImages;
-        console.log(filenames)
+        // console.log("filenames: " + filenames)
     
         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
             if (err) throw err;
             // Uncomment to see the data returned
-            docs.forEach((data) => {
-                console.log(data);
-            });
+            // docs.forEach((data) => {
+            // console.log(data);
+            // });
         
             let imageList = docs.map(function(data){return data._id});
         
@@ -169,14 +241,11 @@ module.exports.getPostFull = (req, res) => {
                     post: postObj,
                     poster: poster,
                     // rating: totalRating,
-                    layout: '',
-                    partial: '',
-                    profPic: req.session.profPic
+                    layout: ''
                 }
-
+            
                 if(!req.isAuthenticated()){
                     params.layout = 'main';
-                    params.partial = 'loggedOutNav1'
                 } else {
                     params.layout = 'loggedIn'
                 }

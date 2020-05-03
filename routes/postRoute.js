@@ -62,10 +62,6 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
     return file.filename;
   })
 
-  let ratings = new ratingModel();
-  let comments = new commentModel();
-
-
   const post = new postFullModel({
       pfTitle: req.body.pfTitle,
       pfUserId: req.session.passport.user,    // User id
@@ -75,8 +71,8 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
       pfDirections: req.body.pfDirections,
       pfTags: req.body.pfTags,
       pfDate: new Date(),
-      pfRatings: ratings,
-      pfComments: comments,
+      pfRatings: new ratingModel(),
+      pfComments: new commentModel(),
       pfURL: ''
   });
 
@@ -90,6 +86,9 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
     result.updateOne({pfURL: URL})
 
     .then(reason => {
+      console.log(result)
+      console.log(result.pfURL)
+      console.log(reason);
       res.redirect(URL)
     })
 
@@ -118,7 +117,6 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
 // });
 
 router.get('/viewPost/:postId',viewUser.getPostFull);
-
 
 
 

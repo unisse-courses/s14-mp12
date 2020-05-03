@@ -17,6 +17,10 @@ const PostFullSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    pfDescription: {
+        type: String,
+        required: true
+    },
     pfDate: {
         type: Date,
         defualt: Date.now

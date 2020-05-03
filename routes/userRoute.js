@@ -50,7 +50,7 @@ const upload = multer({ storage: storage });
 
 // Render register page
 router.get('/register', function (req, res) {
-  res.render('register')
+  res.render('register', {layout: 'loggedOut'})
 });
 
 // Register User
@@ -97,6 +97,11 @@ router.post('/register', upload.single('profPic'), (req, res) => {
           });
       }
     });
+});
+
+// Render login page
+router.get('/login', function (req, res) {
+  res.render('login',{layout: 'loggedOut'})
 });
 
 // Login User
@@ -160,6 +165,8 @@ router.get('/viewUser/:userId', (req, res, next) => {
     });
 });
 
+
+// LogOut
 router.get('/logout', function (req, res, next) {
   if (req.session) {
     // delete session object
@@ -167,7 +174,7 @@ router.get('/logout', function (req, res, next) {
       if (err) {
         return next(err);
       } else {
-        return res.render('login',{layout: 'main'});
+        return res.render('login',{layout: 'loggedOut'});
       }
     });
   }
