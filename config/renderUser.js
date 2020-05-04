@@ -202,7 +202,8 @@ module.exports.getPostFull = (req, res) => {
                     post: postObj,
                     datePosted: getDate(postObj.pfDate),
                     poster: poster,
-                    layout: ''
+                    layout: '',
+                    profPic: req.session.profPic
                 }
             
                 if(!req.isAuthenticated()){

@@ -1,8 +1,18 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/rate-post.js"></script>
+    <script src="../../scripts/post-full.js"></script>
+{{/section}}
+
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/postfull.css">
+    <link rel="stylesheet" href="../../css/starrating.css">
+{{/section}}
+
 <div class="container-fluid" id="content">
-    <div class="row">
+    <div class="row no-gutters">
 
         <!-- Blog Entry Column -->
-        <div class="col-8" id="postsFull">
+        <div class="col-8" id="post-full">
 
             <!-- Details Top -->
             <div class="details-top">
@@ -30,9 +40,9 @@
                                 <i class="fas fa-star"></i>&nbsp;
                                 <i class="fas fa-star"></i>&nbsp;
                                 <i class="fas fa-star"></i>&nbsp;
-                                <i class="fas fa-star"></i>&nbsp;
+                                <i class="fas fa-star"></i>&nbsp;&nbsp;
                                 <span class="ratings-nope">
-                                    &nbsp;<i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
                                 </span>
                             </span>
                         </p>
@@ -41,27 +51,23 @@
                     <hr>
             </div>
 
-            <div class="container-fluid" id="banner">
-
-                {{!-- Homepage Carousel --}}
-                <div id="banner-carousel" class="carousel slide carousel-fade bg-success" data-ride="carousel">
-
-                    {{!-- Indicators --}}
-                    <ol class="carousel-indicators">
-                        {{!-- Shouldn't be class="active" all --}}
-                        {{#each pfImages}}
-                        <li data-target="#banner-carousel" data-slide-to="{{@index}}" class="active"></li>
-                        {{/each}}
-                    </ol>
-
-                    {{!-- Images --}}
-                    <div class="carousel-inner">
-                        {{#each pfImages}}
-                        <div class="carousel-item active" data-interval="5000">
-                            <img src="{{this}}" alt="Main Banner">
-                        </div>
-                        {{/each}}
+            <div class="container-fluid" id="images">
+                {{!-- <div class="row no-gutters">
+                    {{#each pfImages}}
+                    <div class="col">
+                        <img src="{{this}}" width="250">
                     </div>
+                    {{/each}}
+                </div> --}}
+
+                <div class="row text-center text-lg-left">
+                    {{#each pfImages}}
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <a href="#" class="d-block mb-4 h-100 pop">
+                            <img class="img-fluid img-thumbnail" src="{{this}}">
+                        </a>
+                    </div>
+                    {{/each}}
                 </div>
             </div>
     
@@ -69,7 +75,7 @@
 
                 <!-- Post Content -->
                 <p class="lead">
-                    {{post.pfDescription}}
+                    <p>{{post.pfDescription}}</p>
                 </p>
                 <h4>Ingredients</h4>
                 <p>
@@ -105,7 +111,7 @@
 
                         <!-- Comment Number -->
                         <span class="comment-number">
-                            <a href="#comments-section"><i class="far fa-comment-alt"></i>&nbsp;&nbsp;{{post.pfCommentList.length}} comments&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                            <i class="far fa-comment-alt"></i>&nbsp;&nbsp;{{post.pfCommentList.length}} comments&nbsp;&nbsp;&nbsp;&nbsp;
                         </span>
 
                         <!-- Available Actions Left -->
@@ -124,21 +130,21 @@
 
                             <!-- Edit Post -->
                             <span class="edit">
-                                <a href="edit_post-loggedin.html" id="edit-post">
+                                <a href="/" id="edit-post">
                                     <i class="far fa-edit"></i>&nbsp;Edit
                                 </a>
                             </span>
 
                             <!-- Delete Post -->
                             <span class="delete">
-                                <a href="homepage_new-loggedin.html" id="delete-post">
+                                <a href="/" id="delete-post">
                                     <i class="far fa-trash-alt"></i>&nbsp;Delete
                                 </a>
                             </span>
 
                             <!-- Share Post -->
                             <span class="share">
-                                <a href="#" id="share-post">
+                                <a href="/" id="share-post">
                                     <i class="far fa-share-square"></i>&nbsp;Share
                                 </a>
                             </span>
@@ -171,7 +177,7 @@
                             <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
                             <div class="media-body">
                                 <p class="mt-0 comment-un">
-                                    <a href="profile_new-loggedin-dummy1.html">felixcityscapes</a>
+                                    <a href="/">felixcityscapes</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/02/20 23:59
                                     </span>
@@ -180,7 +186,7 @@
                                     good recipe!
                                 </div>
 
-                                <!-- Comment Actions -->
+                                {{!-- <!-- Comment Actions -->
                                 <div class="comment-actions">
 
                                         <!-- Edit Post -->
@@ -196,7 +202,7 @@
                                             <i class="far fa-trash-alt"></i>&nbsp;Delete
                                         </a>
                                     </span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -205,7 +211,7 @@
                             <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
                             <div class="media-body">
                                 <p class="mt-0 comment-un">
-                                    <a href="profile_new-loggedin-dummy2.html">chaneltee</a>
+                                    <a href="/">chaneltee</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/04/20 12:59
                                     </span>
@@ -222,7 +228,7 @@
                             <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
                             <div class="media-body">
                                 <p class="mt-0 comment-un">
-                                    <a href="profile_new-loggedin-dummy3.html">dianaicing</a>
+                                    <a href="/">dianaicing</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/19/20 20:39
                                     </span>
@@ -239,7 +245,7 @@
                             <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
                             <div class="media-body">
                                 <p class="mt-0 comment-un">
-                                    <a href="profile_new-loggedin-dummy4.html">allieseafowl</a>
+                                    <a href="/">allieseafowl</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/20/20 13:19
                                     </span>
@@ -256,7 +262,7 @@
                             <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
                             <div class="media-body">
                                 <p class="mt-0 comment-un">
-                                    <a href="profile_new-loggedin-dummy5.html">tigerphillip</a>
+                                    <a href="/">tigerphillip</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/29/20 22:58
                                     </span>
@@ -303,40 +309,52 @@
             </div>
 
             <!-- Modal Body -->
-            <div class="modal-body">
+            <div class="modal-body" id="m-body">
 
                 <!-- Give Star Rating for Post -->
-                <div id="post-rating">
-                    <fieldset class="rates">
+                <form id="rating-form">
+                    <div class="form-group row">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfStarRating" id="inlineRadio1" value="1-star" required>
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfStarRating" id="inlineRadio2" value="2-stars">
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfStarRating" id="inlineRadio3" value="3-stars">
+                            <label class="form-check-label" for="inlineRadio3">3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfStarRating" id="inlineRadio4" value="4-stars">
+                            <label class="form-check-label" for="inlineRadio4">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfStarRating" id="inlineRadio5" value="5-stars">
+                            <label class="form-check-label" for="inlineRadio5">5</label>
+                        </div>
+                    </div>
 
-                        <!-- 5 Stars -->
-                        <input type="radio" id="5-star" name="rate" value="5" />
-                        <label id="5s" for="star5" title="Awesome"></label>
+                    <hr> 
 
-                        <!-- 4 Stars -->
-                        <input type="radio" id="4-star" name="rate" value="4" />
-                        <label id="4s" for="star4" title="Pretty good"></label>
-
-                        <!-- 3 Stars -->
-                        <input type="radio" id="3-star" name="rate" value="3" />
-                        <label id="3s" for="star3" title="Good"></label>
-
-                        <!-- 2 Stars -->
-                        <input type="radio" id="2-star" name="rate" value="2" />
-                        <label id="2s" for="star2" title="Kinda bad"></label>
-
-                        <!-- 1 Stars -->
-                        <input type="radio" id="1-star" name="rate" value="1" />
-                        <label id="1s" for="star1" title="Bad"></label>
-                    </fieldset>
-                </div>
-            </div>
-            
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button class="btn" id="cancel-star" type="button" data-dismiss="modal">Cancel</button>
-                <a href="post-loggedin.html" class="btn" id="rate-star">Rate</a>
+                    <div class="modal-buttons">
+                        <button class="btn" id="cancel-star" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn" id="proceed-star" type="submit">Rate</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+      <div class="modal-body" id="i-body">
+      	{{!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button> --}}
+        <img src="" class="image-preview">
+      </div>
+    </div>
+  </div>
 </div>
