@@ -92,14 +92,86 @@ module.exports.renderUser = (req, res) => {
     }
 }
 
+module.exports.getOtherUser = (req, res) => {
+
+    var params = {}
+    var username = req.params.username;
+
+    if(!req.isAuthenticated())
+        params.layout = 'main';
+    else {
+        params.navProfPic = req.session.profPic;
+        params.layout = 'loggedIn';
+    }
+
+
+    UserAccount.findOne({username: username}, (err, user) => {
+        if(user) {
+
+            console.log(user);
+            // Save to params for Layout
+            params.dateJoined = getDate(user.dateJoined)
+            params.user = user.toObject();
+
+            // Variables for ProfPic
+            var userId = user._id;
+            var filename = user.profPic
+
+            collection.find({ filename: filename }).toArray(function (err, docs) {
+
+                //Retrieving the chunks from the db
+                collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
+                    
+                    //Append Chunks
+                    let fileData = [];
+                    for (let i = 0; i < chunks.length; i++) {
+
+                        //This is in Binary JSON or BSON format, which is stored
+                        //in fileData array in base64 endocoded string format
+                        fileData.push(chunks[i].data.toString('base64'));
+                    }
+
+                    //Saving To Final File (Converted)
+                    let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+                    params.profPic = finalFile;
+
+                    postFullModel.find({_id: userId}).sort({_id: -1}).limit(15).then(userPosts => {
+                        var userPostsObj = [];
+
+                        if(userPosts.length) {
+                            // Object all the posts
+                            userPosts.forEach(function(doc) {
+                                var post = doc.toObject()
+                                var date = post.pfDate
+                                post.pfDate = getDate(date);
+                                userPostsObj.push(post);
+                            })
+
+                            params.userPosts = userPostsObj
+                        }
+        
+                        res.render('userAccount', params);
+                    });
+                });
+            });
+
+        } else {
+            alert("No user found");
+            res.render('homepage',params);
+        }
+    });
+}
+
+
 module.exports.getUser = (req, res) => {
 
+    //Others
     if (!req.isAuthenticated()) {
         res.redirect('/login');
     } else {
         var params = {
             layout: 'loggedIn',
-            profPic: req.session.profPic,
+            navProfPic: req.session.profPic,
         }
 
         if(req.path == '/createPost')
@@ -110,28 +182,81 @@ module.exports.getUser = (req, res) => {
 
         else if(req.path == '/viewProfile') {
             params.user = req.session.user;
-            var userPostIds = req.session.userPostsId;
             params.dateJoined = req.session.dateJoined;
+            params.profPic = req.session.profPic;
+            var userPostIds = req.session.userPostsId;
 
             // Find the Post from array of posts in user account
-            postFullModel.find({_id: {$in: userPostIds}}, (err, userPosts) => {
+            postFullModel.find({_id: {$in: userPostIds}}).sort({_id: -1}).limit(15).then(userPosts => {
                 var userPostsObj = [];
 
-                // Object all the posts
-                userPosts.forEach(function(doc) {
-                    var post = doc.toObject()
-                    var date = post.pfDate
-                    post.pfDate = getDate(date);
-                    userPostsObj.push(post);
-                })
+                if(userPosts.length) {
+                    // Object all the posts
+                    userPosts.forEach(function(doc) {
+                        var post = doc.toObject()
+                        var date = post.pfDate
+                        post.pfDate = getDate(date);
+                        userPostsObj.push(post);
+                    })
 
-                params.userPosts = userPostsObj
+                    params.userPosts = userPostsObj
+                }
             
                 res.render('userAccount', params);
             });
         }
-
     }   
+}
+
+
+module.exports.homepage = (req, res) => {
+    // New 
+    // req.locals.numPost = 0;
+
+    if(req.path == '/new') {
+
+        var params = {};
+
+        postFullModel.find({}).sort({_id: -1}).limit(15)
+            .exec((err, posts) => {
+                if (err) throw err;
+
+                let postObj = [];
+
+                if(posts.length) {
+                    posts.forEach(function(doc){
+                        var post = doc.toObject()
+                        var date = post.pfDate
+                        post.pfDate = getDate(date);
+
+                        UserAccount.findById(post.pfUserId, (err, doc) => {
+                            if (err) throw err;
+                            
+                            post.username = doc.username;
+                            postObj.push(post);
+                        });
+                    });
+
+                    params.posts = postObj;
+                }
+
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.profPic = req.session.profPic;
+                }
+
+                res.render('homepage', params);
+            });
+    }
+
+    // Popular 
+    else if(req.path == '/popular'){
+
+    }
+    
 }
 
 

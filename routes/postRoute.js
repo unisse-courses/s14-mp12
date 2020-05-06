@@ -16,7 +16,7 @@ const ratingModel = require('../models/ratingModel')
 const commentModel = require('../models/commentsModel')
 const userModel = require('../models/userAccountModel')
 
-const viewUser = require('../config/renderUser');
+const viewUser = require('../config/controller');
 
 
 const initDb = require("../config/db").initDb;
@@ -105,24 +105,6 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
       res.status(404).json(err);
   });
 });
-
-//getting the Post With ID
-// router.get('/viewPost/:postId', function(req, res){
-//     var postId = req.params._id;
-
-//     postFullModel.findById(postId)
-//         .populate('rating')
-//         .populate('comments')
-//         .exec(function(err, post) {
-//             if(err) {
-//                 console.log(err);
-//             } 
-//             else {
-//                 console.log(post);
-//                 res.render('postFull'); //viewUser.getPostFull
-//              }    
-//         });
-// });
 
 router.get('/viewPost/:postId',viewUser.getPostFull);
 

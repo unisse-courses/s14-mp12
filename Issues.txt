@@ -1,6 +1,0 @@
-then problem now is:
-1. Comment & Rating (Read)
-2. yung view other profile marunong na ako but di ko pa ginawa
-3. Sending Partial parameter
-   ex. sa main page, 'loggedOutNav1' dpt yung navBar (if LoggedOut)
-       sa Post Full Page, 'loggedOutNav1' rin dpt yung NavBar (if LoggedOut)

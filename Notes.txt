@@ -1,0 +1,13 @@
+then problem now is:
+1. Comment & Rating (Read)
+2. yung view other profile marunong na ako but di ko pa ginawa
+
+
+Session Variable
+req.session ={
+    profPic = profPic
+    user = user logged in (user model)
+    dateJoined = formatted date Joined
+    userPostsId = array of post/s of user
+
+}

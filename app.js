@@ -62,6 +62,9 @@ app.use((req, res, next) => {
     if (req.user) {
         res.locals.photo = req.user.profPic;
     }
+
+    //For Number of Post in Home Page
+
     next();
 });
 
@@ -96,9 +99,9 @@ app.engine('hbs', exphbs({
         'formatDate': function (dateTime) {
             return moment(dateTime).format('MMMM DD, YYYY');
         },
-        // exoerimenting
-        isRating: function (rating) {
-            return rating !== undefined;
+        // experimenting
+        ifEqual: function (var1, var2) {
+            return (var1 == var2);
         }
     }
 }));
@@ -112,14 +115,22 @@ initDb(function (err) {
         }
         console.log("API Up and running on port " + port);
         //ROUTES
-        app.get('/', function (req, res) {
-            if(!req.user)
-                res.render('homepage',{layout: 'main'})
-            else{
-                const viewUser = require('./config/renderUser');
-                viewUser.getUser(req,res);
-            }
-        });
+
+        app.get('/', (req, res) => {
+            res.redirect('/new');
+        })
+
+        // Home Page (New)
+        app.get('/new', (req, res) => {
+            const viewUser = require('./config/controller');
+            viewUser.homepage(req,res);
+        })
+
+        // Home Page (Popular)
+        app.get('/popular', (req, res) => {
+            const viewUser = require('./config/controller');
+            viewUser.homepage(req,res);
+        })
 
         // Import Routes
         app.use('/', require('./routes/userRoute'));
@@ -130,12 +141,6 @@ initDb(function (err) {
 
         app.get('/search', function (req, res) {
             res.render('search')
-        });
-
-        app.get('/postFull', function (req, res) {
-            res.render('postFull')
-        });
-
-
+        })
     });
 }); 
