@@ -9,7 +9,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const path = require('path');
-const viewUser = require('../config/renderUser');
+const viewUser = require('../config/controller');
 const passport = require('passport');
 const initDb = require("../config/db").initDb;
 const getDb = require("../config/db").getDb;
@@ -118,54 +118,7 @@ router.get('/setProfile', viewUser.renderUser);
 router.get('/viewProfile', viewUser.getUser);
 
 //View Other Users
-router.get('/viewUser/:userId', (req, res, next) => {
-  var userId = req.params.userId;
-  UserAccount.findById(userId)
-    //.populate('','')
-    .exec(function (err, result) {
-      if (err) {
-        res.send(err)
-      } else if (!result) {
-        // User not Found
-        res.redirect('/login');
-      } else {
-        var user = JSON.parse(JSON.stringify(result));
-        //Goes to user profile
-        var bool = false;
-        if (req.user) {
-            if (req.session.passport.user == userId)
-                bool = true;       
-        }
-        var date = result.dateJoined;
-        var year = date.getFullYear();
-        var day = date.getDate();
-        var month = date.getMonth();
-        var monthWord = new Array();
-        monthWord[0] = "January";
-        monthWord[1] = "February";
-        monthWord[2] = "March";
-        monthWord[3] = "April";
-        monthWord[4] = "May";
-        monthWord[5] = "June";
-        monthWord[6] = "July";
-        monthWord[7] = "August";
-        monthWord[8] = "September";
-        monthWord[9] = "October";
-        monthWord[10] = "November";
-        monthWord[11] = "December";
-
-        date = monthWord[month] + ' ' + day + ', ' + year
-        var params = {
-          layout: 'main',
-          isUser: bool,
-          user: user,
-          date: date,
-          profPic: finalFile
-        }
-        res.render('userAccount', params);
-      }
-    });
-});
+router.get('/viewUser/:username', viewUser.getOtherUser);
 
 
 // LogOut

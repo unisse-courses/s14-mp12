@@ -97,6 +97,7 @@
             {{!-- POSTS --}}
             <div class="row no-gutters" id="post-here">
                 
+                {{#if userPosts}}
                 {{#each userPosts}}
                 <div class="col blog-posts">
 
@@ -155,6 +156,9 @@
                     </div>
                 </div>
                 {{/each}}
+                {{else}}
+                <p class="col">You Don't Have Any Posts Yet!</p>
+                {{/if}}
             </div>
 
             {{!-- PAGINATION --}}
@@ -171,7 +175,7 @@
                             <a class="page-link active" href="/">1</a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" href="/">2</a>
+                            <a class="page-link" href="">2</a>
                         </li>
                         <li class="page-item disabled">
                             <a class="page-link disabled" href="/">Next</a>
