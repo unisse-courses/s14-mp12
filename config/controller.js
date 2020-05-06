@@ -135,7 +135,7 @@ module.exports.getOtherUser = (req, res) => {
                     let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
                     params.profPic = finalFile;
 
-                    postFullModel.find({_id: userId}).sort({_id: -1}).limit(15).then(userPosts => {
+                    postFullModel.find({pfUserId: userId}).sort({_id: -1}).limit(15).then(userPosts => {
                         var userPostsObj = [];
 
                         if(userPosts.length) {
@@ -217,39 +217,42 @@ module.exports.homepage = (req, res) => {
 
         var params = {};
 
-        postFullModel.find({}).sort({_id: -1}).limit(15)
-            .exec((err, posts) => {
-                if (err) throw err;
+        postFullModel.find({}).sort({_id: -1}).limit(15).then(posts => {
 
+            // Returning the users Id
+            var userIds = [];
+            posts.forEach(function(doc){userIds.push(doc.pfUserId)})
+
+                UserAccount.find({_id: {$in: userIds}}).then(users => {
+                // Working with Post Object
+                var usernames = [];
+                users.forEach(function(user){usernames.push(user.username)})
+                
                 let postObj = [];
 
-                if(posts.length) {
-                    posts.forEach(function(doc){
-                        var post = doc.toObject()
-                        var date = post.pfDate
-                        post.pfDate = getDate(date);
+                posts.forEach(function(doc){
+                    var post = doc.toObject()
+                    var date = post.pfDate
+                    post.pfDate = getDate(date);
+                    post.username = usernames;
+                    postObj.push(post);
+                });
+    
+                params.posts = postObj;
 
-                        UserAccount.findById(post.pfUserId, (err, doc) => {
-                            if (err) throw err;
-                            
-                            post.username = doc.username;
-                            postObj.push(post);
-                        });
-                    });
-
-                    params.posts = postObj;
-                }
-
+                // Check if Logged in or not
                 if(!req.user){
                     params.layout = 'main';
                 }
                 else {
                     params.layout = 'loggedIn';
-                    params.profPic = req.session.profPic;
+                    params.navProfPic = req.session.profPic;
                 }
 
                 res.render('homepage', params);
+            
             });
+        });
     }
 
     // Popular 
@@ -328,7 +331,7 @@ module.exports.getPostFull = (req, res) => {
                     datePosted: getDate(postObj.pfDate),
                     poster: poster,
                     layout: '',
-                    profPic: req.session.profPic
+                    navProfPic: req.session.profPic
                 }
             
                 if(!req.isAuthenticated()){
