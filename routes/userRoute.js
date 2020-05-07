@@ -9,7 +9,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const path = require('path');
-const viewUser = require('../config/controller');
+const controller = require('../config/controller');
 const passport = require('passport');
 const initDb = require("../config/db").initDb;
 const getDb = require("../config/db").getDb;
@@ -113,12 +113,12 @@ router.post('/login', (req, res, next) => {
 });
 
 //View User
-router.get('/setProfile', viewUser.renderUser);
+router.get('/setProfile', controller.renderUser);
 
-router.get('/viewProfile', viewUser.getUser);
+router.get('/viewProfile', controller.getUser);
 
 //View Other Users
-router.get('/viewUser/:username', viewUser.getOtherUser);
+router.get('/viewUser/:username', controller.getOtherUser);
 
 
 // LogOut

@@ -25,9 +25,8 @@ const PostFullSchema = mongoose.Schema({
         type: Date,
         defualt: Date.now
     },
-    pfStarRating: {
-        type: [{type: mongoose.Schema.Types.ObjectId, ref: 'rating'}],
-        required: true
+    pfRatings: {
+        type: [Number],
     },
      pfImages: {
         type: [String],

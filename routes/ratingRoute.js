@@ -2,31 +2,22 @@
 
 const express = require('express');
 const router = express.Router();
-const ratingModel = require('../models/ratingModel');
+const postModel = require('../models/postFullModel')
 
-//Read
-router.get('/rating', (req,res) => {
-    ratingModel.find({}, function(err, rating) {
-        if (err) throw err;
-        console.log(rating);
-        res.send(rating);
-    });
-});
 
 //Create
-router.post('/makeRating', (req,res) => {
-    const rating = new ratingModel({
-        username: req.body.username,
-        numRating: req.body.numRating,
-    });
+router.post('/viewPost/:postId/makeRating', (req,res) => {
+    if(!req.user)
+        res.redirect('/login');
 
-    rating.save()
-    .then(data => {
-        res.json(data);
+    postModel.findById(req.params.postId)
+    .exec((err, post) => {
+        post.pfRatings.push(req.body.rating);
+        post.save();
+
+        var url = '/viewPost/' + req.params.postId;
+        res.redirect(url)
     })
-    .catch(err => {
-        res.json({message: err});
-    });
 });
 
 module.exports = router;

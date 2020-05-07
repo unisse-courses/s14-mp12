@@ -1,6 +1,7 @@
 const getDb = require('./db').getDb;
 const UserAccount = require('../models/userAccountModel');
 const postFullModel = require('../models/postFullModel');
+const commentModel = require('../models/commentsModel');
 
 // Variables
 const db = getDb();
@@ -8,28 +9,50 @@ const db = getDb();
 const collection = db.collection('uploads.files');
 const collectionChunks = db.collection('uploads.chunks');
 
-function getDate(date) {
+function getDate(date, kind) {
     
     var year = date.getFullYear();
     var day = date.getDate();
     var month = date.getMonth();
     var monthWord = new Array();
-    monthWord[0] = "January";
-    monthWord[1] = "February";
-    monthWord[2] = "March";
-    monthWord[3] = "April";
-    monthWord[4] = "May";
-    monthWord[5] = "June";
-    monthWord[6] = "July";
-    monthWord[7] = "August";
-    monthWord[8] = "September";
-    monthWord[9] = "October";
-    monthWord[10] = "November";
-    monthWord[11] = "December";
 
-    date = monthWord[month] + ' ' + day + ', ' + year
+    if(kind == 1){
+        monthWord[0] = "January";
+        monthWord[1] = "February";
+        monthWord[2] = "March";
+        monthWord[3] = "April";
+        monthWord[4] = "May";
+        monthWord[5] = "June";
+        monthWord[6] = "July";
+        monthWord[7] = "August";
+        monthWord[8] = "September";
+        monthWord[9] = "October";
+        monthWord[10] = "November";
+        monthWord[11] = "December";
+
+        date = monthWord[month] + ' ' + day + ', ' + year
+    } else if (kind == 2) {
+        for(let i = 0; i < 12;i++) {
+            if(i < 9)
+                monthWord[i] = '0' + (i+1);
+            else
+                monthWord[i] = (i+1);
+        }
+        year = year % 100;
+        date = monthWord[month] + '/' + day + '/' + year;
+    }
 
     return date;
+}
+
+function getTime(time){
+    var hour = time.getHours()
+    var minute = time.getMinutes();
+
+    if(minute < 10)
+        minute = '0' + minute;
+
+    return hour + ':' + minute;
 }
 
 module.exports.renderUser = (req, res) => {
@@ -76,7 +99,7 @@ module.exports.renderUser = (req, res) => {
                                 //Display the chunks using the data URI format
                                 let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
                                 
-                                var date = getDate(result.dateJoined);
+                                var date = getDate(result.dateJoined, 1);
                                 
                                 req.session.profPic = finalFile;   
                                 req.session.user = result;
@@ -110,7 +133,7 @@ module.exports.getOtherUser = (req, res) => {
 
             console.log(user);
             // Save to params for Layout
-            params.dateJoined = getDate(user.dateJoined)
+            params.dateJoined = getDate(user.dateJoined, 1)
             params.user = user.toObject();
 
             // Variables for ProfPic
@@ -143,7 +166,7 @@ module.exports.getOtherUser = (req, res) => {
                             userPosts.forEach(function(doc) {
                                 var post = doc.toObject()
                                 var date = post.pfDate
-                                post.pfDate = getDate(date);
+                                post.pfDate = getDate(date, 1);
                                 userPostsObj.push(post);
                             })
 
@@ -195,7 +218,7 @@ module.exports.getUser = (req, res) => {
                     userPosts.forEach(function(doc) {
                         var post = doc.toObject()
                         var date = post.pfDate
-                        post.pfDate = getDate(date);
+                        post.pfDate = getDate(date, 1);
                         userPostsObj.push(post);
                     })
 
@@ -233,7 +256,7 @@ module.exports.homepage = (req, res) => {
                 posts.forEach(function(doc){
                     var post = doc.toObject()
                     var date = post.pfDate
-                    post.pfDate = getDate(date);
+                    post.pfDate = getDate(date, 1);
                     post.username = usernames;
                     postObj.push(post);
                 });
@@ -267,8 +290,6 @@ module.exports.getPostFull = (req, res) => {
     const postId = req.params.postId;
     
     postFullModel.findById(postId)
-    .populate('ratings')
-    .populate('comments')
     .exec((err, post) =>{
         if(err) throw err
     
@@ -277,10 +298,6 @@ module.exports.getPostFull = (req, res) => {
     
         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
             if (err) throw err;
-            // Uncomment to see the data returned
-            // docs.forEach((data) => {
-            // console.log(data);
-            // });
         
             let imageList = docs.map(function(data){return data._id});
         
@@ -319,31 +336,49 @@ module.exports.getPostFull = (req, res) => {
             // Other Things needed for hbs
             let postObj = post.toObject();
 
+            // Comments
+            let commentIds = post.pfCommentList
+            commentModel.find({_id: { $in: commentIds}})
+            .exec((err,comments) => {
+                
+                let commentsObj = [];
+                //Changing the format of cDateJoined
+                comments.forEach((doc) => {
+                    var comment = doc.toObject();
+                    comment.cDatePosted = getDate(comment.cDatePosted, 2) + ' ' + getTime(comment.cDatePosted)
+                    commentsObj.push(comment);
+                });
+                
+                // User Who Post the Post
+                var userId = postObj.pfUserId;
+                UserAccount.findById(userId, (err, poster) => {
 
-            var userId = postObj.pfUserId;
-            UserAccount.findById(userId, (err, poster) => {
+                    // User Who Post
+                    poster = poster.toObject();
+                
+                    // Parameters
+                    var params = {
+                        pfImages: finalFile,
+                        post: postObj,
+                        datePosted: getDate(postObj.pfDate, 1),
+                        poster: poster,
+                        layout: '',
+                        navProfPic: req.session.profPic,
+                        comments: commentsObj
+                    }
+                
+                    if(!req.isAuthenticated()){
+                        params.layout = 'main';
+                    } else {
+                        params.layout = 'loggedIn'
+                        params.loggedInUsername = req.session.user.username
+                    }
 
-                poster = poster.toObject();
-               
-                var params = {
-                    pfImages: finalFile,
-                    post: postObj,
-                    datePosted: getDate(postObj.pfDate),
-                    poster: poster,
-                    layout: '',
-                    navProfPic: req.session.profPic
-                }
-            
-                if(!req.isAuthenticated()){
-                    params.layout = 'main';
-                } else {
-                    params.layout = 'loggedIn'
-                }
-
-                res.render('postFull', params);
+                    res.render('postFull', params);
+                });
             });
-        });
+        })
     });
-    })
+    });
 }
     

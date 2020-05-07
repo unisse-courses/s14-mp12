@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const commentsModel = require('../models/commentsModel');
+const postModel = require('../models/postFullModel')
 
 //Read
 router.get('/comments', (req,res) => {
@@ -14,15 +15,29 @@ router.get('/comments', (req,res) => {
 });
 
 //Create
-router.post('/addComment', (req,res) => {
+router.post('/viewPost/:postId/addComment', (req,res) => {
+
+    if(!req.user)
+        res.redirect('/login');
+
     const comment = new commentsModel({
-        cUsername: req.body.cUsername,
-        content: req.body.content,
+        cUsername: req.session.user.username,
+        cDatePosted: new Date(),
+        content: req.body.comment
     });
+
+    console.log(comment);
 
     comment.save()
     .then(data => {
-        res.json(data);
+        postModel.findById(req.params.postId, (err, post) =>{
+            post.pfCommentList.push(comment);
+            post.save();
+            // res.redirect(req.baseUrl);
+
+            var url = '/viewPost/' + req.params.postId;
+            res.redirect(url);
+        })
     })
     .catch(err => {
         res.json({message: err});

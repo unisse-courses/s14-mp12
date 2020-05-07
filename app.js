@@ -99,9 +99,10 @@ app.engine('hbs', exphbs({
         'formatDate': function (dateTime) {
             return moment(dateTime).format('MMMM DD, YYYY');
         },
-        // experimenting
-        ifEqual: function (var1, var2) {
-            return (var1 == var2);
+        
+        isEqual: function (var1, var2, options) {
+            if (var1 == var2) { return options.fn(this); }
+            return options.inverse(this);
         }
     }
 }));
@@ -122,20 +123,19 @@ initDb(function (err) {
 
         // Home Page (New)
         app.get('/new', (req, res) => {
-            const viewUser = require('./config/controller');
-            viewUser.homepage(req,res);
+            const controller = require('./config/controller');
+            controller.homepage(req,res);
         })
 
         // Home Page (Popular)
         app.get('/popular', (req, res) => {
-            const viewUser = require('./config/controller');
-            viewUser.homepage(req,res);
+            const controller = require('./config/controller');
+            controller.homepage(req,res);
         })
 
         // Import Routes
         app.use('/', require('./routes/userRoute'));
         app.use('/', require('./routes/commentRoute'));
-        app.use('/', require('./routes/ingredientRoute'));
         app.use('/', require('./routes/ratingRoute'));
         app.use('/', require('./routes/postRoute'));
 

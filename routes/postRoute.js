@@ -16,7 +16,7 @@ const ratingModel = require('../models/ratingModel')
 const commentModel = require('../models/commentsModel')
 const userModel = require('../models/userAccountModel')
 
-const viewUser = require('../config/controller');
+const controller = require('../config/controller');
 
 
 const initDb = require("../config/db").initDb;
@@ -55,7 +55,7 @@ const storage = new GridFsStorage({
 
 const upload = multer({storage: storage});
 
-router.get('/createPost', viewUser.getUser);
+router.get('/createPost', controller.getUser);
 
 router.post('/createPost', upload.array('pfImages',5), (req,res) => {
   
@@ -72,7 +72,6 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
       pfDirections: req.body.pfDirections,
       pfTags: req.body.pfTags,
       pfDate: new Date(),
-      pfRatings: new ratingModel(),
       pfComments: new commentModel(),
       pfURL: ''
   });
@@ -89,14 +88,14 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
     .then(reason => {
 
       userModel.findById(userId, (err, userObj) =>{
-          userObj.updateOne({recipePost: resultPost})
-          .then(resultUser => {
+          userObj.recipePost.push(resultPost)
 
-            console.log(resultPost);
-            console.log(userObj)
+          console.log(resultPost);
+          console.log(userObj);
+
+          userObj.save();
                         
-            res.redirect(URL)
-          });
+          res.redirect(URL)
         });
     })
 
@@ -106,7 +105,7 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
   });
 });
 
-router.get('/viewPost/:postId',viewUser.getPostFull);
+router.get('/viewPost/:postId',controller.getPostFull);
 
 
 

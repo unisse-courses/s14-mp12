@@ -160,7 +160,7 @@
                     <!-- Comments Form -->
                     <div class="card my-4" id="comment-form">
                         <div class="card-body">
-                            <form class="submit-comment" method="GET" action="addComment">
+                            <form class="submit-comment" method="post" action="{{post._id}}/addComment">
                                 <div class="form-group">
                                     <textarea class="form-control" name="comment" rows="3" placeholder="Leave a comment and join the cooking!"></textarea>
                                 </div>
@@ -172,21 +172,23 @@
                     <!-- Start of Comment -->
                     <div id="comments-section">
 
-                        <!-- Single Comment 1 -->
+                        <!-- Single Comment -->
+                        {{#each comments}}
                         <div class="media">
                             <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
                             <div class="media-body">
                                 <p class="mt-0 comment-un">
-                                    <a href="/">felixcityscapes</a>
+                                    <a href="/viewUser/{{cUsername}}">{{cUsername}}</a>
                                     <span class="date-posted">
-                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/02/20 23:59
+                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted {{cDatePosted}}
                                     </span>
                                 </p>
                                 <div class="comment-details">
-                                    good recipe!
+                                    {{content}}
                                 </div>
 
-                                {{!-- <!-- Comment Actions -->
+                                {{#isEqual ../loggedInUsername cUsername }}
+                                <!-- Comment Actions -->
                                 <div class="comment-actions">
 
                                         <!-- Edit Post -->
@@ -202,77 +204,11 @@
                                             <i class="far fa-trash-alt"></i>&nbsp;Delete
                                         </a>
                                     </span>
-                                </div> --}}
-                            </div>
-                        </div>
-
-                        <!-- Single Comment 2 -->
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
-                            <div class="media-body">
-                                <p class="mt-0 comment-un">
-                                    <a href="/">chaneltee</a>
-                                    <span class="date-posted">
-                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/04/20 12:59
-                                    </span>
-                                </p>
-                                <div class="comment-details">
-                                    nice
                                 </div>
-                                
+                                {{/isEqual}}
                             </div>
                         </div>
-
-                        <!-- Single Comment 3    -->
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
-                            <div class="media-body">
-                                <p class="mt-0 comment-un">
-                                    <a href="/">dianaicing</a>
-                                    <span class="date-posted">
-                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/19/20 20:39
-                                    </span>
-                                </p>
-                                <div class="comment-details">
-                                    approved
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Comment 4 -->
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
-                            <div class="media-body">
-                                <p class="mt-0 comment-un">
-                                    <a href="/">allieseafowl</a>
-                                    <span class="date-posted">
-                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/20/20 13:19
-                                    </span>
-                                </p>
-                                <div class="comment-details">
-                                    pork chop!
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Single Comment 5 -->
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
-                            <div class="media-body">
-                                <p class="mt-0 comment-un">
-                                    <a href="/">tigerphillip</a>
-                                    <span class="date-posted">
-                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted 03/29/20 22:58
-                                    </span>
-                                </p>
-                                <div class="comment-details">
-                                    thank you
-                                </div>
-
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
 
