@@ -142,5 +142,9 @@ initDb(function (err) {
         app.get('/search', function (req, res) {
             res.render('search')
         })
+
+        app.get('/viewPost', (req, res) => {
+            res.render('postFull', {layout: 'main'})
+        })
     });
 }); 

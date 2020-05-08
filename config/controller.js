@@ -335,6 +335,22 @@ module.exports.getPostFull = (req, res) => {
 
             // Other Things needed for hbs
             let postObj = post.toObject();
+            
+            //rating
+            var ratings = postObj.pfRatings;
+            var rating = 0;
+            var ratingLayout = new Array(5).fill(false);
+            console.log(ratingLayout)
+            
+            ratings.forEach((doc) => { rating += doc });
+            rating = rating / ratings.length
+
+            for(let i=0; i < rating; i++)
+                ratingLayout[i] = true;
+
+            console.log(ratingLayout)
+            console.log(ratings)
+            console.log(rating);
 
             // Comments
             let commentIds = post.pfCommentList
@@ -364,7 +380,8 @@ module.exports.getPostFull = (req, res) => {
                         poster: poster,
                         layout: '',
                         navProfPic: req.session.profPic,
-                        comments: commentsObj
+                        comments: commentsObj,
+                        rating: ratingLayout
                     }
                 
                     if(!req.isAuthenticated()){
