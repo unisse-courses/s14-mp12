@@ -26,7 +26,10 @@ const PostFullSchema = mongoose.Schema({
         defualt: Date.now
     },
     pfRatings: {
-        type: [Number],
+        type: [{
+            rating: Number,
+            ratingUser: String
+        }]
     },
      pfImages: {
         type: [String],
@@ -51,7 +54,7 @@ const PostFullSchema = mongoose.Schema({
     pfURL: {
         type: String
     },
-    pfCommentList: [{type: mongoose.Schema.Types.ObjectId, ref: 'comments'}]  
+    pfCommentList: [{type: mongoose.Schema.Types.ObjectId, ref: 'comments'}],
 });
 
 module.exports = mongoose.model('post_full', PostFullSchema);

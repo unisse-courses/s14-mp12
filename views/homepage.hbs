@@ -136,13 +136,15 @@
 
                             {{!-- Star Rating --}}
                             <span class="ratings">
-                                <i class="fas fa-star"></i>&nbsp;
-                                <i class="fas fa-star"></i>&nbsp;
-                                <i class="fas fa-star"></i>&nbsp;
-                                <i class="fas fa-star"></i>&nbsp;
-                                <span class="ratings-nope">
-                                    <i class="fas fa-star"></i>
-                                </span>
+                                {{#each this.ratingLayout}}
+                                    {{#if this}}
+                                        <i class="fas fa-star"></i>&nbsp;
+                                    {{else}}
+                                        <span class="ratings-nope">
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    {{/if}}
+                                {{/each}}
                             </span>
                         </span>
                     </div>

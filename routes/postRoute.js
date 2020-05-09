@@ -73,7 +73,8 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
       pfTags: req.body.pfTags,
       pfDate: new Date(),
       pfComments: new commentModel(),
-      pfURL: ''
+      pfURL: '',
+      pfRatingLayout: 0
   });
 
   console.log(post);
@@ -91,7 +92,6 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
           userObj.recipePost.push(resultPost)
 
           console.log(resultPost);
-          console.log(userObj);
 
           userObj.save();
                         

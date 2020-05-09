@@ -37,10 +37,11 @@
                                 <i class="far fa-clock"></i>&nbsp;&nbsp;{{datePosted}}
                             </span>
                             <span class="ratings">
-                                {{#each ratingLayout}}
-                                    {{#if ratingLayout[@index]}}
+                                {{#each rating}}
+                                    {{#if this}}
                                         <i class="fas fa-star"></i>&nbsp;
                                     {{else}}
+                                        &nbsp;
                                         <span class="ratings-nope">
                                             <i class="fas fa-star"></i>
                                         </span>

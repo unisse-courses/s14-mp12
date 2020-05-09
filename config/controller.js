@@ -55,6 +55,27 @@ function getTime(time){
     return hour + ':' + minute;
 }
 
+function getRating(ratings) {
+    var rating = 0;
+
+    if(ratings.length != 0) {
+        ratings.forEach((doc) => {
+            rating += doc.rating
+        })
+        rating = rating / ratings.length;
+    }
+
+    return rating;
+}
+
+function getRatingLayout(rating) {
+    var ratingLayout = new Array(5).fill(false)
+    for(i=0; i<rating; i++)
+        ratingLayout = true;
+    return ratingLayout
+}
+
+
 module.exports.renderUser = (req, res) => {
     
     if (!req.isAuthenticated()) {
@@ -256,8 +277,12 @@ module.exports.homepage = (req, res) => {
                 posts.forEach(function(doc){
                     var post = doc.toObject()
                     var date = post.pfDate
+                    var rating = getRating(doc.pfRatings)
+
                     post.pfDate = getDate(date, 1);
                     post.username = usernames;
+                    post.ratingLayout = getRatingLayout(rating);
+
                     postObj.push(post);
                 });
     
@@ -294,7 +319,9 @@ module.exports.getPostFull = (req, res) => {
         if(err) throw err
     
         const filenames = post.pfImages;
-        // console.log("filenames: " + filenames)
+
+        if(filenames == null)
+            res.redirect('/');
     
         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
             if (err) throw err;
@@ -336,21 +363,11 @@ module.exports.getPostFull = (req, res) => {
             // Other Things needed for hbs
             let postObj = post.toObject();
             
-            //rating
-            var ratings = postObj.pfRatings;
-            var rating = 0;
-            var ratingLayout = new Array(5).fill(false);
-            console.log(ratingLayout)
-            
-            ratings.forEach((doc) => { rating += doc });
-            rating = rating / ratings.length
+            /**** rating *****/
+            var rating = getRating(post.pfRatings);
 
-            for(let i=0; i < rating; i++)
-                ratingLayout[i] = true;
-
-            console.log(ratingLayout)
-            console.log(ratings)
-            console.log(rating);
+            // For the layout
+            var ratingLayout = getRatingLayout(rating);
 
             // Comments
             let commentIds = post.pfCommentList
