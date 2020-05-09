@@ -1,9 +1,4 @@
-then problem now is:
-1. Comment & Rating (Read)
-2. yung view other profile marunong na ako but di ko pa ginawa
-
-
-Session Variable
+#Session Variable
 req.session ={
     profPic = profPic
     user = user logged in (user model)
