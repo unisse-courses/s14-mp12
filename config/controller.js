@@ -59,7 +59,7 @@ function getRating(ratings) {
     var rating = 0;
 
     if(ratings.length != 0) {
-        ratings.forEach((doc) => {
+        ratings.map((doc) => {
             rating += doc.rating
         })
         rating = rating / ratings.length;
@@ -71,7 +71,7 @@ function getRating(ratings) {
 function getRatingLayout(rating) {
     var ratingLayout = new Array(5).fill(false)
     for(i=0; i<rating; i++)
-        ratingLayout = true;
+        ratingLayout[i] = true;
     return ratingLayout
 }
 
@@ -87,8 +87,8 @@ module.exports.renderUser = (req, res) => {
         UserAccount.findById(userId)
             //.populate('', '')
             .exec(function (err, result) {
-                if (err) {
-                    res.send(err);
+                if (!result) {
+                    console.log("User not yet registered!");
                 } else {
 
                     collection.find({ filename: fileName }).toArray(function (err, docs) {
@@ -126,7 +126,7 @@ module.exports.renderUser = (req, res) => {
                                 req.session.user = result;
                                 req.session.userPostsId = result.recipePost
                                 req.session.dateJoined = date;
-                                
+
                                 res.redirect('/viewProfile')
                             });
                         }
@@ -369,9 +369,7 @@ module.exports.getPostFull = (req, res) => {
             var ratingLayout = getRatingLayout(rating);
 
             // Push to Model
-            post.updateOne({pfNumberRating: rating}, (err, raw) => {
-
-                if (err) throw err;
+            post.updateOne({pfNumberRating: rating}).exec(postUpdated => {
 
                 // Comments
                 let commentIds = post.pfCommentList

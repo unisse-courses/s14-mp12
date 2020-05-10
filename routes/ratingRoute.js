@@ -10,10 +10,9 @@ router.post('/viewPost/:postId/makeRating', (req,res) => {
     if(!req.user)
         res.redirect('/login');
 
-    postModel.findById(req.params.postId)
-    .exec((err, post) => {
+    postModel.findById(req.params.postId, (err, postResult) => {
 
-        post = post.toObject();
+        var post = postResult.toObject();
 
         var ratedUsers = post.pfRatings
         console.log(ratedUsers);
@@ -31,13 +30,14 @@ router.post('/viewPost/:postId/makeRating', (req,res) => {
         
         // Push the Data
         else {
+            var rate = parseInt(req.body.pfRating);
             var rating = {
-                rating: req.body.rating,
+                rating: rate,
                 ratingUser: req.session.user.username
             }
-
-            post.pfRatings.push(rating);
-            post.save();
+            
+            postResult.pfRatings.push(rating);
+            postResult.save();
 
             var url = '/viewPost/' + req.params.postId;
             res.redirect(url)
