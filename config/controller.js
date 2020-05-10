@@ -85,7 +85,6 @@ module.exports.renderUser = (req, res) => {
         var userId = req.session.passport.user;
         console.log(req.session)
         UserAccount.findById(userId)
-            //.populate('', '')
             .exec(function (err, result) {
                 if (!result) {
                     console.log("User not yet registered!");
@@ -179,7 +178,8 @@ module.exports.getOtherUser = (req, res) => {
                     let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
                     params.profPic = finalFile;
 
-                    postFullModel.find({pfUserId: userId}).sort({_id: -1}).limit(15).then(userPosts => {
+                    postFullModel.find({pfUserId: userId}).sort({_id: -1}).limit(15).populate('pfUserId')
+                    .then(userPosts => {
                         var userPostsObj = [];
 
                         if(userPosts.length) {
@@ -187,6 +187,7 @@ module.exports.getOtherUser = (req, res) => {
                             userPosts.forEach(function(doc) {
                                 var post = doc.toObject()
                                 var date = post.pfDate
+                                console.log(doc);
                                 post.pfDate = getDate(date, 1);
                                 userPostsObj.push(post);
                             })
@@ -264,45 +265,49 @@ module.exports.homepage = (req, res) => {
 
         var params = {};
 
-        postFullModel.find({}).sort({_id: -1}).limit(15).then(posts => {
+        postFullModel.find({}).sort({_id: -1}).limit(15).populate('pfUser').
+        then(posts => {
 
             // Returning the users Id
-            var userIds = [];
-            posts.forEach(function(doc){userIds.push(doc.pfUserId)})
+            // var userIds = [];
+            // posts.forEach(function(doc){
+            //     userIds.push(doc.pfUserId)
+            // })
 
-                UserAccount.find({_id: {$in: userIds}}).then(users => {
-                // Working with Post Object
-                var usernames = [];
-                users.forEach(function(user){usernames.push(user.username)})
+            // UserAccount.find({_id: {$in: userIds}}).then(users => {
+            //     // Working with Post Object
+            //     var usernames = [];
+            //     users.forEach(function(user){
+            //         usernames.push(user.username)
+            //     })
+
                 
-                let postObj = [];
+            let postObj = [];
 
-                posts.forEach(function(doc){
-                    var post = doc.toObject()
-                    var date = post.pfDate
-                    var rating = getRating(doc.pfRatings)
+            posts.forEach(function(doc){
+                var post = doc.toObject()
+                var date = post.pfDate
+                var rating = getRating(doc.pfRatings)
 
-                    post.pfDate = getDate(date, 1);
-                    post.username = usernames;
-                    post.ratingLayout = getRatingLayout(rating);
+                post.pfDate = getDate(date, 1);
+                post.username = post.pfUser.username;
+                post.ratingLayout = getRatingLayout(rating);
 
-                    postObj.push(post);
-                });
-    
-                params.posts = postObj;
-
-                // Check if Logged in or not
-                if(!req.user){
-                    params.layout = 'main';
-                }
-                else {
-                    params.layout = 'loggedIn';
-                    params.navProfPic = req.session.profPic;
-                }
-
-                res.render('homepage', params);
-            
+                postObj.push(post);
             });
+
+            params.posts = postObj;
+
+            // Check if Logged in or not
+            if(!req.user){
+                params.layout = 'main';
+            }
+            else {
+                params.layout = 'loggedIn';
+                params.navProfPic = req.session.profPic;
+            }
+
+            res.render('homepage', params);
         });
     }
 

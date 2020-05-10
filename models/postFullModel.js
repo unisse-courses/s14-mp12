@@ -13,8 +13,9 @@ const PostFullSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    pfUserId: {
-        type: String,
+    pfUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user_accounts',
         required: true
     },
     pfDescription: {
