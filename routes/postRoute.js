@@ -74,7 +74,7 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
       pfDate: new Date(),
       pfComments: new commentModel(),
       pfURL: '',
-      pfRatingLayout: 0
+      pfNumberRating: 0
   });
 
   console.log(post);

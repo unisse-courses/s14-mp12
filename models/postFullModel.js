@@ -55,6 +55,9 @@ const PostFullSchema = mongoose.Schema({
         type: String
     },
     pfCommentList: [{type: mongoose.Schema.Types.ObjectId, ref: 'comments'}],
+    pfNumberRating: {
+        type: Number
+    }
 });
 
 module.exports = mongoose.model('post_full', PostFullSchema);

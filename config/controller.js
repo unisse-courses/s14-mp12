@@ -369,6 +369,9 @@ module.exports.getPostFull = (req, res) => {
             // For the layout
             var ratingLayout = getRatingLayout(rating);
 
+            // Push to Model
+            post.update({pfNumberRating: rating}).exec(callback);
+
             // Comments
             let commentIds = post.pfCommentList
             commentModel.find({_id: { $in: commentIds}})
