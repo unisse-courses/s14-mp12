@@ -86,6 +86,10 @@
     margin-top: 50px;
 }
 
+#blog {
+    margin-bottom: 50px;
+}
+
 #blog > .card-body > a {
     color: #000000;
     word-wrap: break-word;

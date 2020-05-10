@@ -98,9 +98,9 @@
             <div class="row no-gutters" id="post-here">
                 
                 {{#if userPosts}}
-                {{#each userPosts}}
                 <div class="col blog-posts">
 
+                    {{#each userPosts}}
                     {{!-- Card --}}
                     <div class="card" id="blog">
 
@@ -156,8 +156,8 @@
                             </span>
                         </div>
                     </div>
+                    {{/each}}
                 </div>
-                {{/each}}
                 {{else}}
                 <p class="col">Don't Have Any Posts Yet!</p>
                 {{/if}}
