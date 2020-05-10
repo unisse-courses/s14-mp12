@@ -316,12 +316,11 @@ module.exports.getPostFull = (req, res) => {
     
     postFullModel.findById(postId)
     .exec((err, post) =>{
-        if(err) throw err
     
-        const filenames = post.pfImages;
-
-        if(filenames == null)
+        if(post.pfImages == null)
             res.redirect('/');
+
+        const filenames = post.pfImages;
     
         collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
             if (err) throw err;
@@ -370,49 +369,52 @@ module.exports.getPostFull = (req, res) => {
             var ratingLayout = getRatingLayout(rating);
 
             // Push to Model
-            post.update({pfNumberRating: rating}).exec(callback);
+            post.updateOne({pfNumberRating: rating}, (err, raw) => {
 
-            // Comments
-            let commentIds = post.pfCommentList
-            commentModel.find({_id: { $in: commentIds}})
-            .exec((err,comments) => {
-                
-                let commentsObj = [];
-                //Changing the format of cDateJoined
-                comments.forEach((doc) => {
-                    var comment = doc.toObject();
-                    comment.cDatePosted = getDate(comment.cDatePosted, 2) + ' ' + getTime(comment.cDatePosted)
-                    commentsObj.push(comment);
-                });
-                
-                // User Who Post the Post
-                var userId = postObj.pfUserId;
-                UserAccount.findById(userId, (err, poster) => {
+                if (err) throw err;
 
-                    // User Who Post
-                    poster = poster.toObject();
-                
-                    // Parameters
-                    var params = {
-                        pfImages: finalFile,
-                        post: postObj,
-                        datePosted: getDate(postObj.pfDate, 1),
-                        poster: poster,
-                        layout: '',
-                        navProfPic: req.session.profPic,
-                        comments: commentsObj,
-                        rating: ratingLayout
-                    }
-                
-                    if(!req.isAuthenticated()){
-                        params.layout = 'main';
-                    } else {
-                        params.layout = 'loggedIn'
-                        params.loggedInUsername = req.session.user.username
-                    }
+                // Comments
+                let commentIds = post.pfCommentList
+                commentModel.find({_id: { $in: commentIds}})
+                .exec((err,comments) => {
+                    
+                    let commentsObj = [];
+                    //Changing the format of cDateJoined
+                    comments.forEach((doc) => {
+                        var comment = doc.toObject();
+                        comment.cDatePosted = getDate(comment.cDatePosted, 2) + ' ' + getTime(comment.cDatePosted)
+                        commentsObj.push(comment);
+                    });
+                    
+                    // User Who Post the Post
+                    var userId = postObj.pfUserId;
+                    UserAccount.findById(userId, (err, poster) => {
 
-                    res.render('postFull', params);
-                });
+                        // User Who Post
+                        poster = poster.toObject();
+                    
+                        // Parameters
+                        var params = {
+                            pfImages: finalFile,
+                            post: postObj,
+                            datePosted: getDate(postObj.pfDate, 1),
+                            poster: poster,
+                            layout: '',
+                            navProfPic: req.session.profPic,
+                            comments: commentsObj,
+                            rating: ratingLayout
+                        }
+                    
+                        if(!req.isAuthenticated()){
+                            params.layout = 'main';
+                        } else {
+                            params.layout = 'loggedIn'
+                            params.loggedInUsername = req.session.user.username
+                        }
+
+                        res.render('postFull', params);
+                    });
+                })
             });
         })
     });
