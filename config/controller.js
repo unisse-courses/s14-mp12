@@ -239,7 +239,10 @@ module.exports.getUser = (req, res) => {
                     userPosts.forEach(function(doc) {
                         var post = doc.toObject()
                         var date = post.pfDate
+                        var rating = getRating(doc.pfRatings);
+
                         post.pfDate = getDate(date, 1);
+                        post.ratingLayout = getRatingLayout(rating);
                         userPostsObj.push(post);
                     })
 
