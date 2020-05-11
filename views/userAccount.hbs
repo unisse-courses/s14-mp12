@@ -1,0 +1,196 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/sort-posts.js"></script>
+    <script src="../../scripts/pagination.js"></script> 
+{{/section}}
+
+{{#section 'headCSS'}}
+    {{!-- <link rel="stylesheet" href="../../css/homepage.css"> --}}
+    <link rel="stylesheet" href="../../css/useraccount.css">
+{{/section}}
+
+{{!-- USER ACCOUNT --}}
+
+<div class="container-fluid" id="user-account">
+
+    <div class="row no-gutters">
+        {{!-- LEFT --}}
+        <div class="col-4" id="user-acc-left">
+            <div class="row no-gutters" id="pp-area">
+                <div class="col" id="user-profile">
+                    <div class="profile-area">
+                        {{!-- Profile Picture --}}
+                        <div class="p-pfp">
+                            <img class="u-pfp" src="{{this.profPic}}" />
+                        </div>
+
+                        {{!-- Bio --}}
+                        <div class="p-written">
+
+                            {{!-- Information --}}
+                            <span class="p-username">
+                                {{user.username}}
+                            </span>
+                            <div class="p-bio">
+                                About me
+                            </div>
+                            <div class="p-bio-details">
+                                {{user.description}} 
+                            </div>
+
+                            <hr>
+
+                            {{!-- Cake Day --}}
+                            <div class="cake-day">
+                                <div class="p-day">
+                                    Joined on
+                                    <span class="p-day-details">
+                                        {{dateJoined}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- RIGHT --}}
+        <div class="col" id="user-acc-right">
+            {{!-- SORT AREA --}}
+            <div class="row no-gutters" id="new-popular">
+                <div class="col sort-area">
+                    {{!-- Buttons for Sorting --}}
+                    <div class="button-area">
+                        {{!-- New --}}
+                        <div class="sort-link active" id="new-link">
+                            <a class="new" id="new">
+                                <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                            </a>
+                        </div>
+                        {{!-- Popular --}}
+                        <div class="sort-link" id="popular-link">
+                            <a class="popular" id="popular">
+                                <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                            </a>
+                        </div>
+                    </div>
+                    {{!-- Stars for Popular --}}
+                    <div class="star-area">
+                        <div class="btn-group dropleft" id="star-dd">
+                            <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                                <i class="fas fa-caret-left"></i>
+                                &nbsp;Sort
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/">5-star</a>
+                                <a class="dropdown-item" href="/">4-star</a>
+                                <a class="dropdown-item" href="/">3-star</a>
+                                <a class="dropdown-item" href="/">2-star</a>
+                                <a class="dropdown-item" href="/">1-star</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- POSTS --}}
+            <div class="row no-gutters" id="post-here">
+                
+                {{#if userPosts}}
+                <div class="col blog-posts">
+
+                    {{#each userPosts}}
+                    {{!-- Card --}}
+                    <div class="card" id="blog">
+
+                        {{!-- Card Body --}}
+                        <div class="card-body">
+                            {{!-- Title --}}
+                            <a href="/viewPost/{{this._id}}">
+                                <h2 class="card-title">
+                                    {{this.pfTitle}}
+                                </h2>
+                            </a>
+
+                            {{!-- Description --}}
+                            <p class="card-text">
+                                {{this.pfDescription}}
+                            </p>
+
+                            <hr>
+
+                            {{!-- Tags --}}
+                            <div class="tags">
+                                <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{#each this.pfTags}}
+                                <span class="post-tags">{{this}}</span>&nbsp;&nbsp;
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        {{!-- Footer --}}
+                        <div class="card-footer text-muted">
+                            {{!-- Date --}}
+                            <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-user"></i>&nbsp;
+
+                            {{!-- Username --}}
+                            {{#if ../viewProfile}}
+                            <a href="/viewProfile" id="username">
+                            {{else}}
+                            <a href="/viewUser/{{../user.username}}" id="username">
+                            {{/if}}
+                            {{../user.username}}</a>
+
+                            <span class="comments">
+                                {{!-- Number of Comments --}}
+                                <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;{{this.pfCommentList.length}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                {{!-- Star Rating --}}
+                                <span class="ratings">
+                                    {{#each this.ratingLayout}}
+                                        {{#if this}}
+                                            <i class="fas fa-star"></i>&nbsp;
+                                        {{else}}
+                                            <span class="ratings-nope">
+                                                <i class="fas fa-star"></i>
+                                            </span>
+                                        {{/if}}
+                                    {{/each}}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="col">Don't Have Any Posts Yet!</p>
+                {{/if}}
+            </div>
+
+            {{!-- PAGINATION --}}
+            <div class="row no-gutters" id="page-here">
+                {{!-- Page Navigation --}}
+                <div class="col-8 page-area">
+                    
+                    {{!-- Paginator --}}
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link disabled" href="/" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link active" href="/">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="">2</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link disabled" href="/">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

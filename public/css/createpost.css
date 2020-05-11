@@ -1,0 +1,165 @@
+#createpost {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#createpost > .column {
+    width: 800px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#createpost > .column > .intro-heading {
+    background-color: #ff9600;
+    padding-top: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#createpost > .column > .intro-heading > h3 {
+    color: #ffffff;
+}
+
+#createpost > .column > form > .form-part {
+    margin-top: 10px;
+}
+
+#createpost > .column > form > .form-part > .create-content {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+#createpost > .column > form > .form-part > input,
+#createpost > .column > form > .form-part > textarea {
+    margin-top: 5px;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#createpost > .column > form > .form-part > .row > .col > input,
+#createpost > .column > form > .form-part > .row > .col-9 > textarea {
+    font-size: 15px;
+}
+
+#createpost > .column > form > .form-part > .row > .col > #i-add,
+#createpost > .column > form > .form-part > .row > .col > #i-dir,
+#createpost > .column > form > .form-part > .row > .col > #t-add {
+    background-color: #05b41c;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+    font-weight: 600;
+    float: right;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+}
+
+#createpost > .column > form > .form-part > .row {
+    margin-bottom: 10px;
+}
+
+#createpost > .column > form > .form-part > .row > .col > .img {
+    padding: 0px;
+    border: none;
+    font-size: 15px;
+}
+
+#createpost > .column > form > .form-part > .row > .col > .preview-area {
+    width: 233px;
+    max-width: 233px;
+    margin-bottom: 20px;
+}
+
+#createpost > .column > form > .form-part > .row > .col > .preview-area > img {
+    width: 233px;
+    max-width: 233px;
+}
+
+
+#imagelist > .row > .col > input[type=file] {
+    border-radius: 0px!important;
+}
+
+.post-footer {
+    margin-top: 20px;
+    background-color: #f1f1f1;
+    height: 60px;
+    line-height: 55px;
+    margin-left: -20px;
+    margin-right: -20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.post-footer > .buttons {
+    float: right;
+    vertical-align: middle;
+}
+
+.post-footer > .buttons > #cancel-create {
+    margin-right: 8px;
+}
+
+.post-footer > .buttons > #proceed-create,
+.post-footer > .buttons > #cancel-create,
+#cancel-modal .modal-dialog .modal-footer .btn {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#cancel-modal {
+    font-size: 15px;
+}
+
+.post-footer > .buttons > #proceed-create,
+#cancel-modal .modal-dialog .modal-footer #proceed-cancel {
+    background-color: #ff9600;
+}
+
+.post-footer > .buttons > #proceed-create:hover, 
+#cancel-modal .modal-dialog .modal-footer #proceed-cancel:hover {
+    background-color: #ff7b10;
+}
+
+.post-footer > .buttons > #cancel-create,
+#cancel-modal .modal-dialog .modal-footer #cancel-cancel {
+    background-color: #999999;
+}
+
+.post-footer > .buttons > #cancel-create:hover,
+#cancel-modal .modal-dialog .modal-footer #cancel-cancel:hover {
+    background-color: #595959;
+}
+
+#createpost > .column > form > .form-part > .row > .col > .ing-delete,
+#createpost > .column > form > .form-part > .row > .col > .dir-delete {
+    background-color: #c0392b;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    font-size: 15px;
+    font-weight: 600;
+    float: right;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+}
