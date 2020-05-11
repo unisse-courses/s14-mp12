@@ -31,7 +31,6 @@ For this phase of the project, the current working features involve:
 * Users can click on a post's title to view full post.
 * Logged in user can post a comment.
 * Logged in user can rate a post.
-* 
 
 ## HOW TO RUN —
 In order to run the application, you will have to initialize modules that will make the application 
