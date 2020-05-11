@@ -29,6 +29,8 @@ For this phase of the project, the current working features involve:
 * If logged in, user can view his/her own profile page through his/her icon or username.
 * Logged in user can create a post.
 * Users can click on a post's title to view full post.
+* Logged in user can post a comment.
+* Logged in user can rate a post.
 * 
 
 ## HOW TO RUN —
