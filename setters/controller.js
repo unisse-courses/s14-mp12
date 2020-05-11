@@ -322,7 +322,7 @@ module.exports.homepage = (req, res) => {
 module.exports.getPostFull = (req, res) => {
     const postId = req.params.postId;
     
-    postFullModel.findById(postId)
+    postFullModel.findById(postId).populate('pfUser')
     .exec((err, post) =>{
     
         if(post.pfImages == null)
@@ -391,35 +391,30 @@ module.exports.getPostFull = (req, res) => {
                         comment.cDatePosted = getDate(comment.cDatePosted, 2) + ' ' + getTime(comment.cDatePosted)
                         commentsObj.push(comment);
                     });
-                    
-                    // User Who Post the Post
-                    var userId = postObj.pfUserId;
-                    UserAccount.findById(userId, (err, poster) => {
+                
+                    // User Who Post
+                    poster = postObj.pfUser;
+                
+                    // Parameters
+                    var params = {
+                        pfImages: finalFile,
+                        post: postObj,
+                        datePosted: getDate(postObj.pfDate, 1),
+                        poster: poster,
+                        layout: '',
+                        navProfPic: req.session.profPic,
+                        comments: commentsObj,
+                        rating: ratingLayout
+                    }
+                
+                    if(!req.isAuthenticated()){
+                        params.layout = 'main';
+                    } else {
+                        params.layout = 'loggedIn'
+                        params.loggedInUsername = req.session.user.username
+                    }
 
-                        // User Who Post
-                        poster = poster.toObject();
-                    
-                        // Parameters
-                        var params = {
-                            pfImages: finalFile,
-                            post: postObj,
-                            datePosted: getDate(postObj.pfDate, 1),
-                            poster: poster,
-                            layout: '',
-                            navProfPic: req.session.profPic,
-                            comments: commentsObj,
-                            rating: ratingLayout
-                        }
-                    
-                        if(!req.isAuthenticated()){
-                            params.layout = 'main';
-                        } else {
-                            params.layout = 'loggedIn'
-                            params.loggedInUsername = req.session.user.username
-                        }
-
-                        res.render('postFull', params);
-                    });
+                    res.render('postFull', params);
                 })
             });
         })

@@ -63,6 +63,8 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
     return file.filename;
   })
 
+  console.log(req.session.user)
+
   const post = new postFullModel({
       pfTitle: req.body.pfTitle,
       pfUser: req.session.user,    // User id
@@ -83,7 +85,7 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
   .then(resultPost => {
 
     var URL = '/viewPost/' + resultPost._id;
-    var userId = resultPost.pfUserId;
+    var userId = resultPost.pfUser._id;
 
     resultPost.updateOne({pfURL: URL})
     .then(reason => {
