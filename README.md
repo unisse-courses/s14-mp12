@@ -65,4 +65,5 @@ If you want, you can login using accounts made beforehand to check logged in fea
 * nodemon                   2.0.2
 * passport                  0.4.1
 * passport-local            1.0.0
-* passport-local-mongoose   6.0.1
+* passport-local-mongoose   .0.1
+* dotenv                    8.2.0
