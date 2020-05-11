@@ -92,10 +92,10 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
 
       userModel.findById(userId, (err, userObj) =>{
           userObj.recipePost.push(resultPost)
-
+          userObj.save();
+          
           console.log(resultPost);
 
-          userObj.save();
           req.session.userPostsId = userObj.recipePost;
                         
           res.redirect(URL)
