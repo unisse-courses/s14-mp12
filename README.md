@@ -34,13 +34,7 @@ the application.
 Please follow the next procedure to accomplish the run smoothly.
 1. After downloading the repository, open the command prompt of that specific location.
 2. Type `npm install` to download the included dependencies.
-3. Create a .env file, copy and paste this code:
-```shell
-PORT=3000
-MONGODB_URL="mongodb+srv://user:pAssword@recipeep-nxraf.mongodb.net/recipeepdb"
-SESSION_SECRET="session"
-```
-4. Run the server by typing `npm run dev`.
+3. Run the server by typing `npm run dev`.
 
 Once successfully done, you will have to run the app on any browser.
 1. Go to `http://localhost:3000`.
