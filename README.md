@@ -40,9 +40,9 @@ Congratulations. You can now navigate the site.
 If you want, you can login using accounts made beforehand to check logged in features.
 
 —
-
-`Email: `
-`Password: `
+`Username: irenekim`
+`Email: irenekim@email.com`
+`Password: irenekim`
 
 ## DEPENDENCIES —
 * bcryptjs                  2.4.3
