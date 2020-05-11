@@ -16,11 +16,11 @@ const ratingModel = require('../models/ratingModel')
 const commentModel = require('../models/commentsModel')
 const userModel = require('../models/userAccountModel')
 
-const controller = require('../config/controller');
+const controller = require('../setters/controller');
 
 
-const initDb = require("../config/db").initDb;
-const getDb = require("../config/db").getDb;
+const initDb = require("../setters/db").initDb;
+const getDb = require("../setters/db").getDb;
 
 let gfs;
 var db = getDb();

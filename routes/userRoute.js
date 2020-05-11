@@ -9,10 +9,10 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require('gridfs-stream');
 const bcrypt = require('bcryptjs');
 const path = require('path');
-const controller = require('../config/controller');
+const controller = require('../setters/controller');
 const passport = require('passport');
-const initDb = require("../config/db").initDb;
-const getDb = require("../config/db").getDb;
+const initDb = require("../setters/db").initDb;
+const getDb = require("../setters/db").getDb;
 
 let gfs;
 var db = getDb();
