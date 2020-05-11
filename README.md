@@ -14,7 +14,7 @@ and progressive environment for individuals who have a passion for cooking.
 * Lorraine Renee B. Cortel
 * Dennis H. Lu
 
-* CCAPDEV - S14
+CCAPDEV - S14
 
 ## INTENDED MACHINE SPECIFICATIONS —
 Link: https://docs.google.com/document/d/17t066OShfbmbDkyEOFIN6LzqJt0zx66XL0CRnJMbAzY/edit?usp=sharing
@@ -37,6 +37,7 @@ Once successfully done, you will have to run the app on any browser.
 1. Go to `http://localhost:3000`.
 
 Congratulations. You can now navigate the site.
+
 If you want, you can login using accounts made beforehand to check logged in features.
 
 Account # 1:
@@ -46,7 +47,7 @@ Email: irenekim@email.com
 Password: irenekim
 ```
 
-Account # 2L
+Account # 2:
 ```
 Username: officialgordon
 Email: gordonramsay@official.com
