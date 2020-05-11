@@ -19,16 +19,14 @@ mongoose.set('debug', true);
 // Path
 const path = require('path');
 
-// DB connection
-require('dotenv/config');
-
 // Session
 const passport = require('passport');
 
 // config
-require('./config/passport')(passport);
-const initDb = require("./config/db").initDb;
-const getDb = require("./config/db").getDb;
+require('./setters/passport')(passport);
+const initDb = require("./setters/db").initDb;
+const getDb = require("./setters/db").getDb;
+const { envPort, sessionKey } = require("./config");
 
 /*Middlewares*/
 // use css files
@@ -47,7 +45,7 @@ app.use(bodyParser.json());
 // use session
 app.use(cookieParser("session"));
 app.use(require("express-session")({    
-    secret:"session",    
+    secret: sessionKey,    
     resave: true,    
     saveUninitialized: true,
     cookie: {
@@ -108,7 +106,7 @@ app.engine('hbs', exphbs({
 }));
 
 // port
-const port = 3000;
+const port = envPort || 9090;
 initDb(function (err) {
     app.listen(port, function (err) {
         if (err) {
@@ -123,13 +121,13 @@ initDb(function (err) {
 
         // Home Page (New)
         app.get('/new', (req, res) => {
-            const controller = require('./config/controller');
+            const controller = require('./setters/controller');
             controller.homepage(req,res);
         })
 
         // Home Page (Popular)
         app.get('/popular', (req, res) => {
-            const controller = require('./config/controller');
+            const controller = require('./setters/controller');
             controller.homepage(req,res);
         })
 
