@@ -25,7 +25,7 @@ For this phase of the project, the current working features involve:
 * User can register for an account.
 * User can login if he/she has an account.
 * User can logout from a logged in account.
-* User can view a profile page of a register user.
+* User can view a profile page of a registed user.
 * If logged in, user can view his/her own profile page through his/her icon or username.
 * Logged in user can create a post.
 * Users can click on a post's title to view full post.
