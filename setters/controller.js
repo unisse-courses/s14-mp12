@@ -143,21 +143,24 @@ module.exports.getOtherUser = (req, res) => {
     if(!req.isAuthenticated())
         params.layout = 'main';
     else {
+        if(username == req.session.user.username)
+            params.viewProfile = true;
+        else params.viewProfile = false
+
+        console.log(params.viewProfile)
+
         params.navProfPic = req.session.profPic;
         params.layout = 'loggedIn';
     }
 
-
-    UserAccount.findOne({username: username}, (err, user) => {
+    UserAccount.findOne({username: username}).populate('recipePost').exec((err, user) => {
         if(user) {
 
-            console.log(user);
             // Save to params for Layout
             params.dateJoined = getDate(user.dateJoined, 1)
             params.user = user.toObject();
 
             // Variables for ProfPic
-            var userId = user._id;
             var filename = user.profPic
 
             collection.find({ filename: filename }).toArray(function (err, docs) {
@@ -178,25 +181,26 @@ module.exports.getOtherUser = (req, res) => {
                     let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
                     params.profPic = finalFile;
 
-                    postFullModel.find({pfUserId: userId}).sort({_id: -1}).limit(15).populate('pfUserId')
-                    .then(userPosts => {
-                        var userPostsObj = [];
+                    var posts = params.user.recipePost;
+                    let postsObj = []
 
-                        if(userPosts.length) {
-                            // Object all the posts
-                            userPosts.forEach(function(doc) {
-                                var post = doc.toObject()
-                                var date = post.pfDate
-                                console.log(doc);
-                                post.pfDate = getDate(date, 1);
-                                userPostsObj.push(post);
-                            })
+                    if(posts.length) {
+                        // Object all the posts
+                        posts.forEach(function(doc) {
+                            var post = doc;
+                            var date = post.pfDate
+                            var rating = getRating(post.pfRatings)
 
-                            params.userPosts = userPostsObj
-                        }
-        
-                        res.render('userAccount', params);
-                    });
+                            post.pfDate = getDate(date, 1);
+                            post.ratingLayout = getRatingLayout(rating);
+
+                            postsObj.push(post);
+                        })
+
+                        params.userPosts = postsObj;
+                    }
+    
+                    res.render('userAccount', params);
                 });
             });
 
@@ -229,6 +233,7 @@ module.exports.getUser = (req, res) => {
             params.user = req.session.user;
             params.dateJoined = req.session.dateJoined;
             params.profPic = req.session.profPic;
+            params.viewProfile = true;
             var userPostIds = req.session.userPostsId;
 
             // Find the Post from array of posts in user account
