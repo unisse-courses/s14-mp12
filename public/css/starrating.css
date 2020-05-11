@@ -1,0 +1,44 @@
+#rating-modal > .modal-dialog > .modal-content > .modal-body {
+  padding-left: 0px!important;
+  padding-right: 0px!important;
+}
+
+#rating-form > .form-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+#m-body > form > .modal-buttons {
+  float: right;
+  padding-right: 15px!important;
+}
+
+#m-body > form > .modal-buttons > button {
+  color: #ffffff;
+  font-weight: 500;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#m-body > form > .modal-buttons > #cancel-star {
+  background-color: #999999;
+  margin-right: 10px;
+}
+
+#m-body > form > .modal-buttons > #proceed-star {
+  background-color: #ff9600;
+}
+
+#m-body > form > .modal-buttons > #cancel-star:hover {
+  background-color: #595959;
+  margin-right: 10px;
+}
+
+#m-body > form > .modal-buttons > #proceed-star:hover {
+  background-color: #ff7b10;
+}

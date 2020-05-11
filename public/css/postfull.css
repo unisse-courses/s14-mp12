@@ -1,0 +1,292 @@
+#content {
+    margin-top: 100px!important;
+}
+
+#post-full {
+    margin: auto;
+}
+
+#post-title {
+    word-wrap: break-word;
+}
+
+#username > .un {
+    font-weight: 500;
+    color: #ff9600;
+}
+
+#username > .un:hover {
+    font-weight: 500;
+    color: #db8f23;
+}
+
+#date-rate > .ratings {
+    float: right;
+    color: #ff9600;
+}
+
+#date-rate > .ratings > .ratings-nope {
+    float: right;
+    color: #dddddd;
+}
+
+#post-full > .content-entry {
+    margin-top: 20px;
+}
+
+
+#post-full > .content-entry > .tags {
+    margin-top: 25px;
+}
+
+#post-full > .content-entry > .tags > .tag-name {
+    color: #9d9b98;
+    text-transform: uppercase;
+}
+
+#post-full > .content-entry > .tags > .post-tags {
+    color: #ff9600;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid #ff9600;
+    border-color: #ff9600;
+    border-radius: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+#comment-action-details > .comment-number {
+    color: #000000;
+}
+
+#comment-action {
+    font-weight: 500;
+}
+
+#comment-action #comment-action-details .action-r {
+    float: right;
+}
+
+#comment-action #comment-action-details .action-l .rate a,
+#comment-action #comment-action-details .action-r .edit a,
+#comment-action #comment-action-details .action-r .delete a,
+#comment-action #comment-action-details .action-r .share a {
+    color: #000000;
+}
+
+#comment-action #comment-action-details .action-r .edit #edit-post,
+#comment-action #comment-action-details .action-r .delete #delete-post,
+#comment-action #comment-action-details .action-r .share #share-post {
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-left: 20px;
+}
+
+#comment-action #comment-action-details .action-l .rate #rate-post {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#comment-action #comment-action-details .action-l .rate:hover #rate-post,
+#comment-action #comment-action-details .action-r .edit:hover #edit-post,
+#comment-action #comment-action-details .action-r .delete:hover #delete-post,
+#comment-action #comment-action-details .action-r .share:hover #share-post {
+    background-color: #ececec;
+    color: #c7782c;
+    border-radius: 5%;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-shadow: 0 0 0 2pt #ececec;
+}
+
+.details-bottom .comments {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#comments-section {
+    width: 95%;
+    margin: auto;
+}
+
+#comment-form .card-body .submit-comment button {
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #ff9600;
+    border: none;
+}
+
+#comment-form .card-body .submit-comment button:hover {
+    text-transform: uppercase;
+    font-weight: 500;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #c7782c;
+    border: none;
+}
+
+#comments-section .media-body {
+    padding-top: 5px;
+}
+
+#comments-section .media .pfp {
+    width: 40px;
+    vertical-align: middle;
+}
+
+#comments-section .media-body .comment-un a {
+    font-weight: 500;
+    color: #ff9600;
+}
+
+#comments-section .media-body .comment-un a:hover {
+    font-weight: 500;
+    color: #c7782c;
+}
+
+#comments-section .media-body .date-posted {
+    color: #a5a6a8;
+}
+
+#comments-section .media-body .comment-details {
+    border-top: 2px solid #ff9600;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+#comments-section .media-body .comment-actions {
+    float: right;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+#comments-section .media-body .comment-actions .edit #edit-comment,
+#comments-section .media-body .comment-actions .delete #delete-comment {
+    color: #a5a6a8;
+    margin-left: 20px;
+}
+
+#comments-section .media-body .comment-actions .edit #edit-comment:hover,
+#comments-section .media-body .comment-actions .delete #delete-comment:hover {
+    color: #ff9600;
+}
+
+#page-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-nav .pagination #prev {
+    border-color: #ffffff;
+}
+
+#post-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#post-rating > .rates { 
+    border: none;
+}
+
+fieldset, label { 
+    margin: 0; 
+    padding: 0; 
+}
+
+#post-rating > .rates > input { 
+    display: none; 
+} 
+
+#post-rating > .rates > label:before { 
+    margin: 5px;
+    font-weight: 900;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+#post-rating > .rates > label { 
+    color: #dddddd; 
+    float: right; 
+}
+
+#post-rating > .rates > input:checked ~ label,
+#post-rating > .rates:not(:checked) > label:hover,
+#post-rating > .rates:not(:checked) > label:hover ~ label { 
+    color: #FFD700;  
+} 
+
+#post-rating > .rates > input:checked + label:hover, 
+#post-rating > .rates > label:hover ~ input:checked ~ label, 
+#post-rating > .rates > input:checked ~ label:hover ~ label { 
+    color: #FFED85;  
+}
+
+#page-nav-comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-nav-comments .pagination li a {
+    border: none;
+    color: #000000;
+}
+
+#page-nav-comments .pagination li a:hover {
+    border: none;
+    color: #db8f23;
+    background-color: #ececec;
+}
+
+#page-nav-comments .pagination li a.disabled {
+    border: none;
+    color: #808080;
+}
+
+#images {
+    width: 100%;
+    max-width: 100%;
+}
+
+#i-body > img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 100%;
+
+}
+
+#image-modal > .modal-dialog > .modal-content {
+    border-radius: 0px!important;
+    -webkit-border-radius: 0px!important;
+    -moz-border-radius: 0px!important;
+    border: none!important;
+    padding: 0px!important;
+    margin: 0px!important;
+}
+
+#image-modal > .modal-dialog > .modal-content > .modal-header {
+    padding: 0px!important;
+    margin: 0px!important;
+}
+
+#image-modal > .modal-dialog > .modal-content > .modal-body {
+    padding: 0px!important;
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+    padding-bottom: 10px!important;
+    margin: 0px!important;
+}
