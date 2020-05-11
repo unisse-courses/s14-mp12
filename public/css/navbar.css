@@ -98,6 +98,7 @@
 #header-pfp > button {
     float: right;
     padding-right: 30px;
+    /* pointer-events: none; */
 }
 
 #header-pfp > button > .pfp > img {

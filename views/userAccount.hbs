@@ -135,7 +135,12 @@
                             <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
                             <i class="far fa-user"></i>&nbsp;
                             {{!-- Username --}}
-                            <a href="/viewProfile" id="username">{{../user.username}}</a>
+                            {{#if ../viewProfile}}
+                            <a href="/viewProfile" id="username">
+                            {{else}}
+                            <a href="/viewUser/{{../user.username}}" id="username">
+                            {{/if}}
+                            {{../user.username}}</a>
 
                             <span class="comments">
                                 {{!-- Number of Comments --}}

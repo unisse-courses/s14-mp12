@@ -7,7 +7,7 @@ const postModel = require('../models/postFullModel')
 
 //Create
 router.post('/viewPost/:postId/makeRating', (req,res) => {
-    if(!req.user)
+    if(!req.session)
         res.redirect('/login');
 
     postModel.findById(req.params.postId, (err, postResult) => {
