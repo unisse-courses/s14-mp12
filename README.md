@@ -21,9 +21,6 @@ Link: https://docs.google.com/document/d/17t066OShfbmbDkyEOFIN6LzqJt0zx66XL0CRnJ
 
 ## FEATURES —
 For this phase of the project, the current working features involve:
-* Register Account
-* Log in Account
-* Create a recipee post
 * 
 
 ## HOW TO RUN —
@@ -34,7 +31,7 @@ the application.
 Please follow the next procedure to accomplish the run smoothly.
 1. After downloading the repository, open the command prompt of that specific location.
 2. Type `npm install` to download the included dependencies.
-3. Run the server by typing `npm run dev`.
+3. Run the server by typing `npm start`.
 
 Once successfully done, you will have to run the app on any browser.
 1. Go to `http://localhost:3000`.
@@ -42,10 +39,19 @@ Once successfully done, you will have to run the app on any browser.
 Congratulations. You can now navigate the site.
 If you want, you can login using accounts made beforehand to check logged in features.
 
-—
-`Username: irenekim`
-`Email: irenekim@email.com`
-`Password: irenekim`
+Account # 1:
+```
+Username: irenekim
+Email: irenekim@email.com
+Password: irenekim
+```
+
+Account # 2L
+```
+Username: officialgordon
+Email: gordonramsay@official.com
+Password: officialgordon
+```
 
 ## DEPENDENCIES —
 * bcryptjs                  2.4.3
@@ -68,5 +74,4 @@ If you want, you can login using accounts made beforehand to check logged in fea
 * nodemon                   2.0.2
 * passport                  0.4.1
 * passport-local            1.0.0
-* passport-local-mongoose   .0.1
-* dotenv                    8.2.0
+* passport-local-mongoose   6.0.1
