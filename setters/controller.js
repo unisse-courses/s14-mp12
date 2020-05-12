@@ -62,7 +62,7 @@ function getRating(ratings) {
         ratings.map((doc) => {
             rating += doc.rating
         })
-        rating = rating / ratings.length;
+        rating = Math.floor(rating / ratings.length);
     }
 
     return rating;
@@ -263,29 +263,21 @@ module.exports.getUser = (req, res) => {
 
 
 module.exports.homepage = (req, res) => {
-    // New 
-    // req.locals.numPost = 0;
 
-    if(req.path == '/new') {
+    var pageNum = req.params.pageNum || 1;
+    var path = req.path
+    var skip = (pageNum - 1) * 15;
+    var totalPosts = postFullModel.countDocuments({});
+    var totalPages = Math.ceil(totalPosts / amount)
+
+    if(path.includes('new')) {
+
+        // Calculation for pagination
 
         var params = {};
 
-        postFullModel.find({}).sort({_id: -1}).limit(15).populate('pfUser').
+        postFullModel.find({}).sort({_id: -1}).skip(skip).limit(15).populate('pfUser').
         then(posts => {
-
-            // Returning the users Id
-            // var userIds = [];
-            // posts.forEach(function(doc){
-            //     userIds.push(doc.pfUserId)
-            // })
-
-            // UserAccount.find({_id: {$in: userIds}}).then(users => {
-            //     // Working with Post Object
-            //     var usernames = [];
-            //     users.forEach(function(user){
-            //         usernames.push(user.username)
-            //     })
-
                 
             let postObj = [];
 
@@ -302,6 +294,7 @@ module.exports.homepage = (req, res) => {
             });
 
             params.posts = postObj;
+            params.currentPage = pageNum;
 
             // Check if Logged in or not
             if(!req.user){

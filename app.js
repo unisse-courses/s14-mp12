@@ -134,17 +134,17 @@ initDb(function (err) {
         //ROUTES
 
         app.get('/', (req, res) => {
-            res.redirect('/new');
+            res.redirect('/new/1');
         })
 
         // Home Page (New)
-        app.get('/new', (req, res) => {
+        app.get('/new/:pageNum', (req, res) => {
             const controller = require('./setters/controller');
             controller.homepage(req,res);
         })
 
         // Home Page (Popular)
-        app.get('/popular', (req, res) => {
+        app.get('/popular/:pageNum', (req, res) => {
             const controller = require('./setters/controller');
             controller.homepage(req,res);
         })

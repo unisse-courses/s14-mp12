@@ -115,5 +115,4 @@ router.get('/viewPost/:postId/edit', controller.getEditPost)
 
 router.post('/viewPost/:postId/edit', upload.array('pfImages',5), controller.updatePost);
 
-
 module.exports = router;
