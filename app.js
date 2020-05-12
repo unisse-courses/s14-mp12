@@ -137,6 +137,14 @@ initDb(function (err) {
             res.redirect('/new/1');
         })
 
+        app.get('/page/:pageNum', (req, res) => {
+            var pageNum = req.params.pageNum;
+            if(req.path.includes('new'))
+                res.redirect('/new/' + pageNum)
+            else if(req.path.includes('popular'))
+                res.redirect('/popular/' + pageNum)
+        })
+
         // Home Page (New)
         app.get('/new/:pageNum', (req, res) => {
             const controller = require('./setters/controller');

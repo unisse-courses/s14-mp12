@@ -268,7 +268,7 @@ module.exports.homepage = (req, res) => {
     var path = req.path
     var skip = (pageNum - 1) * 15;
     var totalPosts = postFullModel.countDocuments({});
-    var totalPages = Math.ceil(totalPosts / amount)
+    var totalPages = Math.ceil(totalPosts / 10)
 
     if(path.includes('new')) {
 
