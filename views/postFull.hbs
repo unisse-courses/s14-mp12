@@ -130,9 +130,10 @@
                         <!-- Available Actions Right -->
                         <span class="action-r">
 
+                            {{#isEqual loggedInUsername poster.username }}
                             <!-- Edit Post -->
                             <span class="edit">
-                                <a href="/" id="edit-post">
+                                <a href="/viewPost/{{post._id}}/edit" id="edit-post">
                                     <i class="far fa-edit"></i>&nbsp;Edit
                                 </a>
                             </span>
@@ -143,10 +144,11 @@
                                     <i class="far fa-trash-alt"></i>&nbsp;Delete
                                 </a>
                             </span>
+                            {{/isEqual}}
 
                             <!-- Share Post -->
                             <span class="share">
-                                <a href="/" id="share-post">
+                                <a onclick="alert('Link for this page: ' + '{{post.pfURL}}')" id="share-post">
                                     <i class="far fa-share-square"></i>&nbsp;Share
                                 </a>
                             </span>
@@ -193,7 +195,7 @@
                                 <!-- Comment Actions -->
                                 <div class="comment-actions">
 
-                                        <!-- Edit Post -->
+                                    <!-- Edit Post -->
                                     <span class="edit">
                                         <a href="edit_comment-loggedin.html" id="edit-comment">
                                             <i class="far fa-edit"></i>&nbsp;Edit

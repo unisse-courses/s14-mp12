@@ -101,7 +101,25 @@ app.engine('hbs', exphbs({
         isEqual: function (var1, var2, options) {
             if (var1 == var2) { return options.fn(this); }
             return options.inverse(this);
-        }
+        },
+
+        image_item: function (image, index, options) {
+            if (image[index] == null || image[index] == undefined)
+                return options.fn('/img/image-preview.png')
+            else{
+                return options.fn(image[index])
+            }
+        },
+
+        // isImage: function (image, index, options) {
+
+        //     if(image[index] != null || image[index] != undefined)
+        //     {
+        //         return options.fn(image[index]); 
+        //     } else {
+        //         return options.inverse(this);
+        //     }
+        // }
     }
 }));
 

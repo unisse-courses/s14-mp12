@@ -427,3 +427,101 @@ module.exports.getPostFull = (req, res) => {
     });
 }
     
+
+module.exports.getEditPost = (req, res) => {
+
+    postFullModel.findById(req.params.postId).exec((err, post) => {
+
+        post = post.toObject()
+
+        const filenames = post.pfImages;
+    
+        collection.find({ filename: {$in: filenames} }).toArray(function (err, docs) {
+            if (err) throw err;
+        
+            let imageList = docs.map(function(data){return data._id});
+        
+            collectionChunks.find({ files_id: {$in : imageList} }).toArray(function (err, chunks) {
+                if(err) throw err;
+        
+                // got all the chunks for ALL images... So you need to "group by"
+                // Reference: https://medium.com/@edisondevadoss/javascript-group-an-array-of-objects-by-key-afc85c35d07e
+                let group = chunks.reduce((total, currentVal) => {
+                    total[currentVal.files_id] = [...total[currentVal.files_id] || [], currentVal];
+                    return total;
+                }, {});
+        
+                let finalFile = [];
+                let entries = Object.entries(group);
+                
+                // Needed to get ID and values in object with the files_id as the key
+                // https://zellwk.com/blog/looping-through-js-objects/
+                entries.forEach(([file, content]) => {
+        
+                    // Reduce helps loop through the array and "join" the content
+                    let mergedBase64 = content.reduce((total, current) => {
+                        let base64 = current.data.toString('base64');
+                        return total + base64;
+                    }, '');
+        
+                    // get contentType of the image from docs
+                    let image = docs.find((element) => {
+                        return element._id == file;
+                    });
+        
+                    // build the image file
+                    finalFile.push('data:' + image.contentType + ';base64,' + mergedBase64);
+                });
+
+                var params = {
+                    pfImages: finalFile,
+                    post: post,
+                    navProfPic: req.session.Profpic,
+                }
+            
+                res.render('editPost', params)
+            });
+        });
+    });
+}
+
+module.exports.updatePost = (req, res) => {
+    const postId = req.params.postId
+
+    var imagesToDelete = [req.body.imagesToDelete];
+
+    var filenames = req.files.map(function(file) {
+        return file.filename;
+      })
+
+    const newTempPost = {
+      pfTitle: req.body.pfTitle,
+      pfDescription: req.body.pfDescription,
+      pfImages: filenames,
+      pfIngredients: req.body.pfIngredients,
+      pfDirections: req.body.pfDirections,
+      pfTags: req.body.pfTags,
+    }
+
+    postFullModel.findByIdAndUpdate(postId, {$set: newTempPost}).exec((err, newPost) => {
+
+        if(err) throw err;
+
+        console.log(newPost);
+
+        // Deleting the Image in files and chunks
+        collection.find({ filename: {$in: imagesToDelete} }).toArray(function (err, docs) {
+
+            if(err) throw err;
+
+            console.log(docs);
+            let imageList = docs.map(function(data){return data._id});
+
+            // Remove The Old Photos
+            collection.remove({ filename: {$in: imagesToDelete} });
+            collectionChunks.remove({ files_id: {$in : imageList} });
+
+            res.redirect(newPost.pfURL);
+        });
+    })
+}

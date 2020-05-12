@@ -67,7 +67,7 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
 
   const post = new postFullModel({
       pfTitle: req.body.pfTitle,
-      pfUser: req.session.user,    // User id
+      pfUser: req.session.user,   
       pfDescription: req.body.pfDescription,
       pfImages: filenames,
       pfIngredients: req.body.pfIngredients,
@@ -110,6 +110,10 @@ router.post('/createPost', upload.array('pfImages',5), (req,res) => {
 
 router.get('/viewPost/:postId',controller.getPostFull);
 
+
+router.get('/viewPost/:postId/edit', controller.getEditPost)
+
+router.post('/viewPost/:postId/edit', upload.array('pfImages',5), controller.updatePost);
 
 
 module.exports = router;

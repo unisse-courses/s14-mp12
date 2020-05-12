@@ -15,17 +15,17 @@
         </div>
 
         {{!-- Form Start --}}
-        <form method="POST" enctype="multipart/form-data">
+        <form id="editForm" method="POST" enctype="multipart/form-data">
             <div class="form-part">
                 {{!-- Title --}}
                 <label class="edit-content" for="pfTitle">Recipe Title</label>
-                <input type="text" class="form-control" name="pfTitle" placeholder="Enter title." rows="1" maxlength="300" required autofocus>
+                <input type="text" class="form-control" name="pfTitle" value="{{post.pfTitle}}" rows="1" maxlength="300" required autofocus>
             </div>
 
             <div class="form-part">
                 {{!-- Introductory Text --}}
                 <label class="edit-content" for="pfDescription">Introductory Text</label>
-                <textarea type="text" class="form-control" name="pfDescription" placeholder="Enter content." rows="5" required></textarea>
+                <textarea type="text" class="form-control" name="pfDescription" rows="5" required>{{post.pfDescription}}</textarea>
             </div>
 
             <hr>
@@ -33,20 +33,33 @@
             <div class="form-part" id="ingredients">
                 {{!-- Ingredients --}}
                 <label class="edit-content" for="pfIngredients">Ingredients of the Recipe</label>
-                <div class="row" id="new-row0">
+                {{#each post.pfIngredients}}
+                <div class="row" id="new-row{{@index}}">
                     <div class="col">
-                        <input type="text" name="pfIngredients[0][quanity]" class="form-control" id="quantity" placeholder="Quantity" rows="1" required>
+                        <input type="text" name="pfIngredients[{{@index}}][quantity]" class="form-control" id="quantity" value="{{this.quantity}}" rows="1" required>
                     </div>
                     <div class="col">
-                        <input type="text" name="pfIngredients[0][unit]" class="form-control" id="unit" placeholder="Unit" rows="1" required>
+                        <input type="text" name="pfIngredients[{{@index}}][unit]" class="form-control" id="unit" value="{{this.unit}}" rows="1" required>
                     </div>
                     <div class="col">
-                        <input type="text" name="pfIngredients[0][name]" class="form-control" id="name" placeholder="Name" rows="1" required>
+                        <input type="text" name="pfIngredients[{{@index}}][name]" class="form-control" id="name" value="{{this.name}}" rows="1" required>
                     </div>
+
+                    {{#if @first}}
                     <div class="col">
                         <button class="btn ing-add" id="i-add" type="button">Add</button>
                     </div>
+                    {{else if @last}}
+                    <div class="col">
+                        <button type="button" id="ingButton{{@index}}" class="btn ing-delete">Delete</button>
+                    </div>
+                    {{else}}
+                    <div class="col">
+                    </div>
+                    {{/if}}
+
                 </div>
+                {{/each}}
             </div>
 
             <hr>
@@ -54,14 +67,26 @@
             <div class="form-part" id="directions">
                 {{!-- Directions --}}
                 <label class="edit-content" for="pfDirections">How to Prepare the Recipe</label>
+
+                {{#each post.pfDirections}}
                 <div class="row" id="newrow0">
                     <div class="col-9">
-                        <textarea type="text" name="pfDirections[0]" class="form-control" id="instruction" placeholder="Enter recipe steps here." rows="2" required></textarea>
+                        <textarea type="text" name="pfDirections[{{@index}}]" class="form-control" id="instruction" rows="2" required>{{this}}</textarea>
                     </div>
+                    {{#if @first}}
                     <div class="col">
                         <button class="btn ing-dir" id="i-dir" type="button">Add</button>
                     </div>
+                    {{else if @last}}
+                    <div class="col">
+                        <button type="button" id="dirButton{{@index}}" class="btn dir-delete">Delete</button>
+                    </div>
+                    {{else}}
+                    <div class="col">
+                    </div>
+                    {{/if}}
                 </div>
+                {{/each}}
             </div>
 
             <hr>
@@ -70,21 +95,11 @@
                 {{!-- Tags  --}}
                 <label class="edit-content" for="pfTags">Add tag/s to the recipe</label>
                 <div class="row" id="tag-row">
-                    <div class="col">
-                        <input type="text" name="pfTags[0]" class="form-control tag" id="tag-1" placeholder="Add tag." rows="1" required>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="pfTags[1]" class="form-control tag" id="tag-2" placeholder="Add tag." rows="1" required>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="pfTags[2]" class="form-control tag" id="tag-3" placeholder="Add tag." rows="1" required>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="pfTags[3]" class="form-control tag" id="tag-4" placeholder="Add tag." rows="1" required>
-                    </div>
-                    <div class="col">
-                        <input type="text" name="pfTags[4]" class="form-control tag" id="tag-5" placeholder="Add tag." rows="1" required>
-                    </div>
+                    {{#each post.pfTags}}
+                        <div class="col">
+                            <input type="text" name="pfTags[{{@index}}]" class="form-control tag" id="tag-{{@index}}" value="{{this}}" rows="1" required>
+                        </div>
+                    {{/each}}
                 </div>
             </div>
 
@@ -92,24 +107,24 @@
 
             <div class="form-part" id="imagelist">
                 {{!-- Tags --}}
-                <label class="edit-content" for="pfImages">Add images/s to the recipe</label>
+                <label class="edit-content" for="pfImages">Add images/s to the recipe (Choose Again All Image/s)</label>
                 <div class="row">
                     <div class="col">
                         <input type="file" class="form-control img" id="image1" name="pfImages" accept=".png, .jpeg, .jpg" />
                         <div class="preview-area" id="p1">
-                            <img id="preview1" src="/img/image-preview.png" alt="your image" title=''/>
+                            <img id="preview1" src="{{#image_item pfImages 0}}{{this}}{{/image_item}}" alt="your image" title=''/>
                         </div>
                     </div>
                     <div class="col">
                         <input type="file" class="form-control img" id="image2" name="pfImages" accept=".png, .jpeg, .jpg" />
                         <div class="preview-area" id="p2">
-                            <img id="preview2" src="/img/image-preview.png" alt="your image" title=''/>
+                            <img id="preview2" src="{{#image_item pfImages 1}}{{this}}{{/image_item}}" alt="your image" title=''/>
                         </div>
                     </div>
                     <div class="col">
                         <input type="file" class="form-control img" id="image3" name="pfImages" accept=".png, .jpeg, .jpg" />
                         <div class="preview-area" id="p3">
-                            <img id="preview3" src="/img/image-preview.png" alt="your image" title=''/>
+                            <img id="preview3" src="{{#image_item pfImages 2}}{{this}}{{/image_item}}" alt="your image" title=''/>
                         </div>
                     </div>
                 </div>
@@ -117,13 +132,13 @@
                     <div class="col">
                         <input type="file" class="form-control img" id="image4" name="pfImages" accept=".png, .jpeg, .jpg" />
                         <div class="preview-area" id="p4">
-                            <img id="preview4" src="/img/image-preview.png" alt="your image" title=''/>
+                            <img id="preview4" src="{{#image_item pfImages 3}}{{this}}{{/image_item}}" alt="your image" title=''/>
                         </div>
                     </div>
                     <div class="col">
                         <input type="file" class="form-control img" id="image5" name="pfImages" accept=".png, .jpeg, .jpg" />
                         <div class="preview-area" id="p5">
-                            <img id="preview5" src="/img/image-preview.png" alt="your image" title=''/>
+                            <img id="preview5" src="{{#image_item pfImages 4}}{{this}}{{/image_item}}" alt="your image" title=''/>
                         </div>
                     </div>
                     <div class="col"></div>
@@ -169,4 +184,11 @@
             </div>
         </div>
     </div>
+</div>
+
+{{!-- Deleting the Images from storage --}}
+<div>
+    {{#each post.pfImages}}
+    <input type="text" style="display:none" class="form-control" name="imagesToDelete" value="{{this}}" rows="1" form="editForm"/>
+    {{/each}}
 </div>
