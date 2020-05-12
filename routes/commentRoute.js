@@ -18,7 +18,7 @@ router.get('/comments', (req,res) => {
 router.post('/viewPost/:postId/addComment', (req,res) => {
 
     if(!req.user)
-        res.redirect('/login');
+        res.redirect('/login?message=You need to logged in first');
 
     const comment = new commentsModel({
         cUsername: req.session.user.username,
@@ -45,7 +45,7 @@ router.post('/viewPost/:postId/addComment', (req,res) => {
 });
 
 //Update
-router.put('/editComment/:commentId', (req,res) => {
+router.post('/viewPost/:postId/:commentId/edit', (req,res) => {
     const query = {
         _id: req.params.commentId
     }
@@ -54,10 +54,11 @@ router.put('/editComment/:commentId', (req,res) => {
         content: req.body.content
     };
 
-    commentsModel.updateOne(query, update, {new: true}, function(err, comments) {
+    commentsModel.updateOne(query, update, function(err, comment) {
         if (err) throw err;
-        console.log(comments);
-        res.send(comments);
+        console.log(comment);
+
+        res.redirect('/viewPost/' + req.params.postId);
     });
 });
 

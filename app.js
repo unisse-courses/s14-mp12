@@ -134,25 +134,17 @@ initDb(function (err) {
         //ROUTES
 
         app.get('/', (req, res) => {
-            res.redirect('/new/1');
-        })
-
-        app.get('/page/:pageNum', (req, res) => {
-            var pageNum = req.params.pageNum;
-            if(req.path.includes('new'))
-                res.redirect('/new/' + pageNum)
-            else if(req.path.includes('popular'))
-                res.redirect('/popular/' + pageNum)
+            res.redirect('/new?page=1');
         })
 
         // Home Page (New)
-        app.get('/new/:pageNum', (req, res) => {
+        app.get('/new', (req, res) => {
             const controller = require('./setters/controller');
             controller.homepage(req,res);
         })
 
         // Home Page (Popular)
-        app.get('/popular/:pageNum', (req, res) => {
+        app.get('/popular', (req, res) => {
             const controller = require('./setters/controller');
             controller.homepage(req,res);
         })

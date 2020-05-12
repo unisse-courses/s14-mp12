@@ -7,11 +7,14 @@ const postModel = require('../models/postFullModel')
 
 //Create
 router.post('/viewPost/:postId/makeRating', (req,res) => {
-    if(!req.session)
-        res.redirect('/login');
+    if(!req.session.user) {
+        console.log("User not logged in")
+
+        res.redirect('/login' + '?message=You need to logged in first');
+    }
 
     else {
-        postModel.findById(req.params.postId, (err, postResult) => {
+        postModel.findById(req.params.postId).populate('pfRatings').exec((err, postResult) => {
 
             var post = postResult.toObject();
 
@@ -21,13 +24,17 @@ router.post('/viewPost/:postId/makeRating', (req,res) => {
 
             // If username where found in the ratings
             ratedUsers.forEach((doc) => {
+                console.log(doc)
                 if(doc.ratingUser == req.session.user.username)
                     rated = true;
             })
             
             // If Found
-            if(rated == true)
+            if(rated == true){
+                console.log("User had rated this post")
                 alert("You have rated this post!")
+                res.redirect(post.pfURL)
+            }
             
             // Push the Data
             else {
