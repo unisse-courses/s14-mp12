@@ -62,7 +62,7 @@ router.put('/editComment/:commentId', (req,res) => {
 });
 
 //Delete
-router.delete('/deleteComment/:commentId', (req,res) => {
+router.delete('/:commentId', (req,res) => {
     const query = {
         _id: req.params.commentId
     }
