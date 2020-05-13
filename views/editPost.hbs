@@ -18,13 +18,13 @@
         <form id="editForm" method="POST" enctype="multipart/form-data">
             <div class="form-part">
                 {{!-- Title --}}
-                <label class="edit-content" for="pfTitle">Recipe Title</label>
+                <label class="edit-content" for="pfTitle">Edit Recipe Title</label>
                 <input type="text" class="form-control" name="pfTitle" value="{{post.pfTitle}}" rows="1" maxlength="300" required autofocus>
             </div>
 
             <div class="form-part">
                 {{!-- Introductory Text --}}
-                <label class="edit-content" for="pfDescription">Introductory Text</label>
+                <label class="edit-content" for="pfDescription">Edit Introductory Text</label>
                 <textarea type="text" class="form-control" name="pfDescription" rows="5" required>{{post.pfDescription}}</textarea>
             </div>
 
@@ -32,7 +32,7 @@
 
             <div class="form-part" id="ingredients">
                 {{!-- Ingredients --}}
-                <label class="edit-content" for="pfIngredients">Ingredients of the Recipe</label>
+                <label class="edit-content" for="pfIngredients">Edit Ingredients of the Recipe</label>
                 {{#each post.pfIngredients}}
                 <div class="row" id="new-row{{@index}}">
                     <div class="col">
@@ -66,7 +66,7 @@
 
             <div class="form-part" id="directions">
                 {{!-- Directions --}}
-                <label class="edit-content" for="pfDirections">How to Prepare the Recipe</label>
+                <label class="edit-content" for="pfDirections">Edit How to Prepare the Recipe</label>
 
                 {{#each post.pfDirections}}
                 <div class="row" id="newrow0">
@@ -93,7 +93,7 @@
 
             <div class="form-part" id="taglist">
                 {{!-- Tags  --}}
-                <label class="edit-content" for="pfTags">Add tag/s to the recipe</label>
+                <label class="edit-content" for="pfTags">Edit tags of the recipe</label>
                 <div class="row" id="tag-row">
                     {{#each post.pfTags}}
                         <div class="col">
@@ -107,7 +107,7 @@
 
             <div class="form-part" id="imagelist">
                 {{!-- Tags --}}
-                <label class="edit-content" for="pfImages">Add images/s to the recipe (Choose Again All Image/s)</label>
+                <label class="edit-content" for="pfImages">Reupload Images for the Recipe</label>
                 <div class="row">
                     <div class="col">
                         <input type="file" class="form-control img" id="image1" name="pfImages" accept=".png, .jpeg, .jpg" />
