@@ -182,6 +182,10 @@
     cursor: pointer;
 }
 
+#comments-section > .media > .media-body > .edit-comment-details {
+    display: none;
+}
+
 #edit-c > .submit {
     text-transform: uppercase;
     font-size: 13px;

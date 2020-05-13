@@ -188,9 +188,21 @@
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted {{cDatePosted}}
                                     </span>
                                 </p>
+
                                 {{!-- Comment Details --}}
                                 <div class="comment-details">
                                     {{content}}
+                                </div>
+
+                                {{!-- Edit Comment Area --}}
+                                <div class="edit-comment-details" id="ecd{{@index}}">
+                                    <form class="edit-comment" id="edit-c" method="" action="">
+                                        <div class="form-group"> 
+                                            <textarea class="form-control" name="comment" rows="2"></textarea>
+                                        </div>
+                                        <button type="button" class="btn btn-primary cancel" id="cancel-comment">Cancel</button>
+                                        <button type="submit" class="btn btn-primary submit">Submit</button>
+                                    </form>
                                 </div>
 
                                 {{!-- Comment Actions --}}
