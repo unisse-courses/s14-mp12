@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     $('#proceed-star').on('click', function(e) {
         console.log("Clicked Rate");
         console.log($('input[name="pfStarRating"]:checked').val());
