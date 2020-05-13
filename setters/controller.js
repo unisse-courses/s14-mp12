@@ -580,34 +580,82 @@ module.exports.getSearchResult = (req, res) =>{
     }
 
     else if(req.path.includes('popular')){
-        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(15).exec((err, posts) => {
 
-            let postArray = [];
+        // Checking if will Sort
+        var compare = ['1star','2star','3star','4star','5star'];
+        var sort = false;
+        var star = -1;
 
-            posts.forEach((doc) => {
-                var post = doc.toObject();
-                var rating = getRating(doc.pfRatings)
-
-                post.pfDate = getDate(doc.pfDate,1);
-                post.username = post.pfUser.username;
-                post.ratingLayout = getRatingLayout(rating);
-
-                postArray.push(post)
-            })
-
-            params.posts = postArray;
-            params.popular = true
-
-            // Check if Logged in or not
-            if(!req.user){
-                params.layout = 'main';
-            }
-            else {
-                params.layout = 'loggedIn';
-                params.navProfPic = req.session.profPic;
+        for(let i=0;i<5;i++)
+            if(req.path.includes(compare[i])){
+                sort = true;
+                star = i+1;
             }
 
-            res.render('search', params);
-        });
+        console.log(sort);
+        console.log(star);
+
+        if(sort = true){
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: {$eq: star}}).limit(15).exec((err, posts) =>{
+                let postArray = [];
+
+                posts.forEach((doc) => {
+                    var post = doc.toObject();
+                    var rating = getRating(doc.pfRatings)
+
+                    post.pfDate = getDate(doc.pfDate,1);
+                    post.username = post.pfUser.username;
+                    post.ratingLayout = getRatingLayout(rating);
+
+                    postArray.push(post)
+                })
+
+                params.posts = postArray;
+                params.popular = true
+
+                // Check if Logged in or not
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.navProfPic = req.session.profPic;
+                }
+
+                res.render('search', params);
+            });
+
+        } else {
+
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(15).exec((err, posts) => {
+
+                let postArray = [];
+
+                posts.forEach((doc) => {
+                    var post = doc.toObject();
+                    var rating = getRating(doc.pfRatings)
+
+                    post.pfDate = getDate(doc.pfDate,1);
+                    post.username = post.pfUser.username;
+                    post.ratingLayout = getRatingLayout(rating);
+
+                    postArray.push(post)
+                })
+
+                params.posts = postArray;
+                params.popular = true
+
+                // Check if Logged in or not
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.navProfPic = req.session.profPic;
+                }
+
+                res.render('search', params);
+            });
+        }
     }
 }

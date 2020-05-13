@@ -136,14 +136,7 @@ initDb(function (err) {
         app.use('/', require('./routes/commentRoute'));
         app.use('/', require('./routes/ratingRoute'));
         app.use('/', require('./routes/postRoute'));
-
-        app.get('/search/new', function (req, res) {
-            const controller = require('./setters/controller');
-            controller.getSearchResult(req,res);
-        })
-
-        // app.get('/viewPost', (req, res) => {
-        //     res.render('postFull', {layout: 'main'})
-        // })
+        app.use('/search', require('./routes/searchRoute'));
+        
     });
 }); 
