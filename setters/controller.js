@@ -240,7 +240,7 @@ module.exports.getUser = (req, res) => {
 
             if(req.path.includes('new')) {
                 // Find the Post from array of posts in user account
-                postFullModel.find({_id: {$in: userPostIds}}).sort({_id: -1}).limit(15).then(userPosts => {
+                postFullModel.find({_id: {$in: userPostIds}}).sort({_id: -1}).limit(20).then(userPosts => {
                     var userPostsObj = [];
 
                     if(userPosts.length) {
@@ -263,7 +263,7 @@ module.exports.getUser = (req, res) => {
                 });
 
             } else if(req.path.includes('popular')) {
-                postFullModel.find({_id: {$in: userPostIds}}).sort({pfNumberRating: -1}).limit(15).then(userPosts => {
+                postFullModel.find({_id: {$in: userPostIds}}).sort({pfNumberRating: -1}).limit(20).then(userPosts => {
                     var userPostsObj = [];
 
                     if(userPosts.length) {
@@ -304,7 +304,7 @@ module.exports.homepage = (req, res) => {
 
         var params = {};
 
-        postFullModel.find({}).sort({_id: -1}).skip(skip).limit(15).populate('pfUser').
+        postFullModel.find({}).sort({_id: -1}).skip(skip).limit(20).populate('pfUser').
         then(posts => {
                 
             let postObj = [];
@@ -339,43 +339,87 @@ module.exports.homepage = (req, res) => {
     }
 
     // Popular 
-    else if(path.includes('popular')){
-        var params = {};
+     else if(req.path.includes('popular')){
 
-        postFullModel.find({}).sort({pfNumberRating: -1}).skip(skip).limit(15).populate('pfUser').
-        then(posts => {
-                
-            let postObj = [];
+        var params = {}
 
-            posts.forEach(function(doc){
-                var post = doc.toObject()
-                var date = post.pfDate
-                var rating = getRating(doc.pfRatings)
+        // Checking if will Sort
+        var compare = ['1star','2star','3star','4star','5star'];
+        var sort = false;
+        var star = -1;
 
-                post.pfDate = getDate(date, 1);
-                post.username = post.pfUser.username;
-                post.ratingLayout = getRatingLayout(rating);
+        for(let i=0;i<5;i++)
+            if(req.path.includes(compare[i])){
+                sort = true;
+                star = i+1;
+                star = parseInt(star);
+            }
 
-                postObj.push(post);
+        if(sort == true){
+
+            postFullModel.find({pfNumberRating: star}).skip(skip).limit(20).exec((err, posts) =>{
+                let postArray = [];
+
+                posts.forEach((doc) => {
+                    var post = doc.toObject();
+                    var rating = getRating(doc.pfRatings)
+
+                    post.pfDate = getDate(doc.pfDate,1);
+                    post.username = post.pfUser.username;
+                    post.ratingLayout = getRatingLayout(rating);
+
+                    postArray.push(post)
+                })
+
+                params.star = star
+                params.posts = postArray;
+                params.popular = true
+
+                // Check if Logged in or not
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.navProfPic = req.session.profPic;
+                }
+
+                res.render('search', params);
             });
 
-            params.posts = postObj;
-            params.currentPage = pageNum;
-            params.popular = true
+        } else {
 
-            // Check if Logged in or not
-            if(!req.user){
-                params.layout = 'main';
-            }
-            else {
-                params.layout = 'loggedIn';
-                params.navProfPic = req.session.profPic;
-            }
+            postFullModel.find({}).sort({pfNumberRating: -1}).skip(skip).limit(20).populate('pfUser').exec((err, posts) => {
 
-            res.render('homepage', params);
-        });
+                let postArray = [];
+
+                posts.forEach((doc) => {
+                    var post = doc.toObject();
+                    var rating = getRating(doc.pfRatings)
+
+                    post.pfDate = getDate(doc.pfDate,1);
+                    post.username = post.pfUser.username;
+                    post.ratingLayout = getRatingLayout(rating);
+
+                    postArray.push(post)
+                })
+
+                params.posts = postArray;
+                params.popular = true
+
+                // Check if Logged in or not
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.navProfPic = req.session.profPic;
+                }
+
+                res.render('search', params);
+            });
+        }
     }
-    
 }
 
 
@@ -548,7 +592,8 @@ module.exports.getSearchResult = (req, res) =>{
     }
 
     if(req.path.includes('new')) {
-        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(15).exec((err, posts) => {
+        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(20).populate('pfUser').
+        exec((err, posts) => {
 
             let postArray = [];
 
@@ -590,13 +635,13 @@ module.exports.getSearchResult = (req, res) =>{
             if(req.path.includes(compare[i])){
                 sort = true;
                 star = i+1;
+                star = parseInt(star);
             }
 
-        console.log(sort);
-        console.log(star);
+        if(sort == true){
 
-        if(sort = true){
-            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: {$eq: star}}).limit(15).exec((err, posts) =>{
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}, pfNumberRating: star}).limit(20).populate('pfUser').
+            exec((err, posts) =>{
                 let postArray = [];
 
                 posts.forEach((doc) => {
@@ -610,6 +655,7 @@ module.exports.getSearchResult = (req, res) =>{
                     postArray.push(post)
                 })
 
+                params.star = star
                 params.posts = postArray;
                 params.popular = true
 
@@ -627,7 +673,7 @@ module.exports.getSearchResult = (req, res) =>{
 
         } else {
 
-            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(15).exec((err, posts) => {
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(20).exec((err, posts) => {
 
                 let postArray = [];
 
