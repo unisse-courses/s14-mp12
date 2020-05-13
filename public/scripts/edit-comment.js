@@ -15,10 +15,14 @@ $(document).ready(function() {
 
         var actionDiv = $(mainDivId).find('.comment-actions');
 
+        var currentURL = window.location.href;
+        console.log(currentURL)
+
+
         commentDiv.empty();
         actionDiv.hide();
 
-        var editForm = '<form class="edit-comment" id="edit-c" method="" action="">'
+        var editForm = '<form class="edit-comment" id="edit-c" method="POST" action="' + currentURL + '/' + /*commentId +*/ '/edit"/>'
             + '<div class="form-group">' 
             + '<textarea class="form-control" name="comment" rows="2">' + fixedComment + '</textarea>'
             + '</div>'
