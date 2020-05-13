@@ -19,6 +19,42 @@
   color: #000000;
 }
 
+#rating-form > .form-group > .form-check-inline > label {
+  display: none;
+}
+
+#rating-form > .form-group > .form-check-inline > input { 
+  font-size: 25px!important;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  left: 17px;
+  top: 3px;
+  opacity: 0;
+} 
+
+#rating-form > .form-group > .form-check-inline > .star {
+  color: #777777;
+  font-size: 25px!important;
+  position: relative;
+  z-index: 1;
+  margin-left: -10px;
+}
+
+#rating-form > .form-group > .form-check-inline > input:hover {
+  color: #ffd100;
+  font-size: 25px!important;
+  position: relative;
+  z-index: 1;
+  margin-left: -10px;
+}
+
+/* #rating-form > .form-group > .form-check-inline > label {
+  font-family: FontAwesome;
+  color: #777777!important;
+  content:"\f005";
+} */
+
 #selected-rating {
   margin-left: 5px;
   margin-right: 5px;
