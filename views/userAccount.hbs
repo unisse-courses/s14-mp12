@@ -55,6 +55,9 @@
 
         {{!-- RIGHT --}}
         <div class="col" id="user-acc-right">
+
+            {{#if userPosts}}
+
             {{!-- SORT AREA --}}
             <div class="row no-gutters" id="new-popular">
                 <div class="col sort-area">
@@ -108,7 +111,6 @@
             {{!-- POSTS --}}
             <div class="row no-gutters" id="post-here">
                 
-                {{#if userPosts}}
                 <div class="col blog-posts">
 
                     {{#each userPosts}}
@@ -175,9 +177,6 @@
                     </div>
                     {{/each}}
                 </div>
-                {{else}}
-                <p class="col">Don't Have Any Posts Yet!</p>
-                {{/if}}
             </div>
 
             {{!-- PAGINATION --}}
@@ -202,6 +201,10 @@
                     </ul>
                 </div>
             </div>
+            
+            {{else}}
+                <h5 id="search-text">There are no posts made by the user yet.</h5>
+            {{/if}}
         </div>
     </div>
 </div>
