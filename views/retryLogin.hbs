@@ -1,0 +1,102 @@
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/login.css">
+{{/section}}
+
+<div class="container-login" id="login">
+    
+    {{!-- LOGIN AREA --}}
+    <div class="loginArea">
+
+        {{!-- Header Area --}}
+        <div class="headerArea">
+            {{!-- Logo --}}
+            <img src="img/recipeep-logo-blackorange.png" class="loginLogo">
+        </div>
+        <div class="headerArea">
+            <div class="loginText">
+                <p>Sign In</p>
+            </div>
+        </div>
+        {{#if message}}
+            <p class="headerArea">{{message}}</p>
+        {{/if}}
+
+        {{!-- Login Form --}}
+        <div class="loginForm">
+            <p>Incorrect Email or Password. <br> Try Again or Register.</p>
+            {{!-- Form Start --}}
+            <form class="form-signin" method="POST" action="/login">
+                {{!-- Email Address --}}
+                <div class="loginRow">
+                    <label for="inputEmail"></label>
+                    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email Address" required autofocus>
+                </div>
+
+                {{!-- Password --}}
+                <div class="loginRow">
+                    <label for="inputPassword"></label>
+                    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                
+                {{!-- Form Button --}}
+                <div class="formButton">
+                    <button class="loginButton" type="submit" href="homepage">Sign In</button></a>
+                </div> 
+            </form>
+        </div>
+
+        <hr>
+
+        {{!-- Redirect to Register --}}
+        <div class="footLink">
+            <a href="register">Not yet registered?</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <div class="container-fluid bg" id="signin">
+    <div class="row">
+        <div class="col-3" id="si">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <img src="/img/recipeep-logo-blackorange.png" class="si-logo"/>
+                    <h5 class="card-title text-center">Sign In</h5>
+                    <form class="form-signin" method="POST" action="/login">
+                        <div class="form-label-group">
+                            <label for="inputEmail"></label>
+                            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+                        </div>
+                        <div class="form-label-group">
+                            <label for="inputPassword"></label>
+                            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" href="homepage">Sign in</button>
+                        <hr class="my-4">
+                        <a class="toRegister" href="register">Not yet registered?</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
