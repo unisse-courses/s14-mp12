@@ -339,43 +339,85 @@ module.exports.homepage = (req, res) => {
     }
 
     // Popular 
-    else if(path.includes('popular')){
-        var params = {};
+     else if(req.path.includes('popular')){
 
-        postFullModel.find({}).sort({pfNumberRating: -1}).skip(skip).limit(15).populate('pfUser').
-        then(posts => {
-                
-            let postObj = [];
+        // Checking if will Sort
+        var compare = ['1star','2star','3star','4star','5star'];
+        var sort = false;
+        var star = -1;
 
-            posts.forEach(function(doc){
-                var post = doc.toObject()
-                var date = post.pfDate
-                var rating = getRating(doc.pfRatings)
+        for(let i=0;i<5;i++)
+            if(req.path.includes(compare[i])){
+                sort = true;
+                star = i+1;
+                star = parseInt(star);
+            }
 
-                post.pfDate = getDate(date, 1);
-                post.username = post.pfUser.username;
-                post.ratingLayout = getRatingLayout(rating);
+        if(sort == true){
 
-                postObj.push(post);
+            postFullModel.find({pfNumberRating: star}).limit(15).exec((err, posts) =>{
+                let postArray = [];
+
+                posts.forEach((doc) => {
+                    var post = doc.toObject();
+                    var rating = getRating(doc.pfRatings)
+
+                    post.pfDate = getDate(doc.pfDate,1);
+                    post.username = post.pfUser.username;
+                    post.ratingLayout = getRatingLayout(rating);
+
+                    postArray.push(post)
+                })
+
+                params.star = star
+                params.posts = postArray;
+                params.popular = true
+
+                // Check if Logged in or not
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.navProfPic = req.session.profPic;
+                }
+
+                res.render('search', params);
             });
 
-            params.posts = postObj;
-            params.currentPage = pageNum;
-            params.popular = true
+        } else {
 
-            // Check if Logged in or not
-            if(!req.user){
-                params.layout = 'main';
-            }
-            else {
-                params.layout = 'loggedIn';
-                params.navProfPic = req.session.profPic;
-            }
+            postFullModel.find({}).sort({pfNumberRating: -1}).limit(15).populate('pfUser').exec((err, posts) => {
 
-            res.render('homepage', params);
-        });
+                let postArray = [];
+
+                posts.forEach((doc) => {
+                    var post = doc.toObject();
+                    var rating = getRating(doc.pfRatings)
+
+                    post.pfDate = getDate(doc.pfDate,1);
+                    post.username = post.pfUser.username;
+                    post.ratingLayout = getRatingLayout(rating);
+
+                    postArray.push(post)
+                })
+
+                params.posts = postArray;
+                params.popular = true
+
+                // Check if Logged in or not
+                if(!req.user){
+                    params.layout = 'main';
+                }
+                else {
+                    params.layout = 'loggedIn';
+                    params.navProfPic = req.session.profPic;
+                }
+
+                res.render('search', params);
+            });
+        }
     }
-    
 }
 
 
@@ -548,7 +590,8 @@ module.exports.getSearchResult = (req, res) =>{
     }
 
     if(req.path.includes('new')) {
-        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(15).exec((err, posts) => {
+        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(15).populate('pfUser').
+        exec((err, posts) => {
 
             let postArray = [];
 
@@ -595,7 +638,8 @@ module.exports.getSearchResult = (req, res) =>{
 
         if(sort == true){
 
-            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}, pfNumberRating: star}).limit(15).exec((err, posts) =>{
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}, pfNumberRating: star}).limit(15).populate('pfUser').
+            exec((err, posts) =>{
                 let postArray = [];
 
                 posts.forEach((doc) => {
@@ -627,7 +671,7 @@ module.exports.getSearchResult = (req, res) =>{
 
         } else {
 
-            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: 1}).limit(15).exec((err, posts) => {
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(15).exec((err, posts) => {
 
                 let postArray = [];
 
