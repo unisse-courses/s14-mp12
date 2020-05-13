@@ -14,6 +14,11 @@
 
         <!-- Blog Entry Column -->
         <div class="col-8" id="post-full">
+            {{#if message}}
+            <div class="alert alert-danger" role="alert">
+                <strong>{{message}}</strong>
+            </div>
+            {{/if}}
 
             <!-- Details Top -->
             <div class="details-top">
