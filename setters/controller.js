@@ -590,13 +590,12 @@ module.exports.getSearchResult = (req, res) =>{
             if(req.path.includes(compare[i])){
                 sort = true;
                 star = i+1;
+                star = parseInt(star);
             }
 
-        console.log(sort);
-        console.log(star);
+        if(sort == true){
 
-        if(sort = true){
-            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: {$eq: star}}).limit(15).exec((err, posts) =>{
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}, pfNumberRating: star}).limit(15).exec((err, posts) =>{
                 let postArray = [];
 
                 posts.forEach((doc) => {
@@ -610,6 +609,7 @@ module.exports.getSearchResult = (req, res) =>{
                     postArray.push(post)
                 })
 
+                params.star = star
                 params.posts = postArray;
                 params.popular = true
 
@@ -627,7 +627,7 @@ module.exports.getSearchResult = (req, res) =>{
 
         } else {
 
-            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(15).exec((err, posts) => {
+            postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: 1}).limit(15).exec((err, posts) => {
 
                 let postArray = [];
 
