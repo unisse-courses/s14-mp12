@@ -82,7 +82,7 @@ module.exports.renderUser = (req, res) => {
         res.redirect('/login?message=You need to login first.');
     } else {
         const fileName = res.locals.photo;
-        var userId = req.session.passport.user;
+        var userId = req.session.passport.user;     
         console.log(req.session);
         UserAccount.findById(userId)
             .exec(function (err, result) {

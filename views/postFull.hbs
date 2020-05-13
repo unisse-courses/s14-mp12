@@ -1,6 +1,7 @@
 {{#section 'scriptJQ'}}
     <script src="../../scripts/rate-post.js"></script>
     <script src="../../scripts/post-full.js"></script>
+    <script src="../../scripts/edit-comment.js"></script>
 {{/section}}
 
 {{#section 'headCSS'}}
@@ -178,33 +179,34 @@
 
                         <!-- Single Comment -->
                         {{#each comments}}
-                        <div class="media">
-                            <img class="d-flex mr-3 rounded-circle pfp" src="http://placehold.it/50x50">
+                        <div class="media" id="comment-media{{@index}}">
                             <div class="media-body">
+                                {{!-- Username and Date Posted --}}
                                 <p class="mt-0 comment-un">
                                     <a href="/viewUser/{{cUsername}}">{{cUsername}}</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted {{cDatePosted}}
                                     </span>
                                 </p>
+                                {{!-- Comment Details --}}
                                 <div class="comment-details">
                                     {{content}}
                                 </div>
 
+                                {{!-- Comment Actions --}}
                                 {{#isEqual ../loggedInUsername cUsername }}
-                                <!-- Comment Actions -->
                                 <div class="comment-actions">
 
-                                    <!-- Edit Post -->
+                                    {{!-- Edit Comment --}}
                                     <span class="edit">
-                                        <a href="#" id="edit-comment">
+                                        <a id="edit-comment">
                                             <i class="far fa-edit"></i>&nbsp;Edit
                                         </a>
                                     </span>
 
-                                    <!-- Delete Post -->
+                                    {{!-- Delete Comment --}}
                                     <span class="delete">
-                                        <a href="#" id="delete-comment">
+                                        <a id="delete-comment">
                                             <i class="far fa-trash-alt"></i>&nbsp;Delete
                                         </a>
                                     </span>

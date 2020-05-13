@@ -132,50 +132,77 @@
     border: none;
 }
 
-#comments-section .media-body {
-    padding-top: 5px;
+#comments-section > .media {
+    margin-bottom: 25px;
 }
 
-#comments-section .media .pfp {
-    width: 40px;
-    vertical-align: middle;
-}
-
-#comments-section .media-body .comment-un a {
+#comments-section > .media > .media-body > .comment-un > a {
     font-weight: 500;
     color: #ff9600;
 }
 
-#comments-section .media-body .comment-un a:hover {
+#comments-section > .media > .media-body > .comment-un > a:hover {
     font-weight: 500;
     color: #c7782c;
 }
 
-#comments-section .media-body .date-posted {
-    color: #a5a6a8;
+#comments-section > .media > .media-body > .comment-un > .date-posted {
+    color: #9d9b98;
 }
 
-#comments-section .media-body .comment-details {
-    border-top: 2px solid #ff9600;
-    padding-top: 5px;
-    padding-right: 10px;
+#comments-section > .media > .media-body > p {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dddddd;
 }
 
-#comments-section .media-body .comment-actions {
+#comments-section > .media > .media-body > .comment-details {
+    padding-left: 20px;
+    font-weight: 400;
+}
+
+#comments-section > .media > .media-body > .comment-actions {
     float: right;
-    margin-top: 10px;
-    font-weight: 500;
+    padding-top: 10px;
+    font-size: 12px;
 }
 
-#comments-section .media-body .comment-actions .edit #edit-comment,
-#comments-section .media-body .comment-actions .delete #delete-comment {
-    color: #a5a6a8;
-    margin-left: 20px;
+#edit-comment {
+    margin-right: 20px;
+    color: #9d9b98;
 }
 
-#comments-section .media-body .comment-actions .edit #edit-comment:hover,
-#comments-section .media-body .comment-actions .delete #delete-comment:hover {
+#delete-comment {
+    color: #9d9b98;
+}
+
+#edit-comment:hover,
+#delete-comment:hover {
     color: #ff9600;
+    cursor: pointer;
+}
+
+#edit-c > button {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #ff9600;
+    border: none;
+}
+#edit-c > button:hover {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #c7782c;
+    border: none;
 }
 
 #page-nav {
