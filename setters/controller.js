@@ -477,3 +477,45 @@ module.exports.updatePost = (req, res) => {
         });
     })
 }
+
+module.exports.getSearchResult = (req, res) =>{
+    var searchTag = req.query.search
+    console.log(searchTag)
+
+    if(req.path.includes('new')) {
+        postFullModel.find({pfTags: searchTag}).sort({_id: -1}).limit(15).exec((err, posts) => {
+
+            let postArray = [];
+
+            posts.forEach((doc) => {
+                var post = doc.toObject();
+                var rating = getRating(doc.pfRatings)
+
+                post.pfDate = getDate(doc.pfDate,1);
+                post.username = post.pfUser.username;
+                post.ratingLayout = getRatingLayout(rating);
+
+                postArray.push(post)
+            })
+
+            var params = {
+                posts: postArray,
+            }
+
+            // Check if Logged in or not
+            if(!req.user){
+                params.layout = 'main';
+            }
+            else {
+                params.layout = 'loggedIn';
+                params.navProfPic = req.session.profPic;
+            }
+
+            res.render('search', params);
+        });
+    }
+
+    else if(req.path.includes('popular')){
+
+    }
+}
