@@ -480,10 +480,9 @@ module.exports.updatePost = (req, res) => {
 
 module.exports.getSearchResult = (req, res) =>{
     var searchTag = req.query.search
-    console.log(searchTag)
 
     if(req.path.includes('new')) {
-        postFullModel.find({pfTags: searchTag}).sort({_id: -1}).limit(15).exec((err, posts) => {
+        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(15).exec((err, posts) => {
 
             let postArray = [];
 
@@ -500,6 +499,7 @@ module.exports.getSearchResult = (req, res) =>{
 
             var params = {
                 posts: postArray,
+                searchTag: searchTag
             }
 
             // Check if Logged in or not

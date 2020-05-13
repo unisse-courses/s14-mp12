@@ -61,66 +61,73 @@
         </div>
         
         <div class="row no-gutters" id="post-here">
-            {{#each posts}}
-            <div class="col-8 blog-posts">
 
-                {{!-- Card --}}
-                <div class="card" id="blog">
+            {{#if posts}}
+                {{#each posts}}
+                <div class="col-8 blog-posts">
 
-                    {{!-- Card Body --}}
-                    <div class="card-body">
-                        {{!-- Title --}}
-                        <a href="/viewPost/{{this._id}}">
-                            <h2 class="card-title">
-                               {{this.pfTitle}}
-                            </h2>
-                        </a>
+                    {{!-- Card --}}
+                    <div class="card" id="blog">
 
-                        {{!-- Description --}}
-                        <p class="card-text">
-                            {{this.pfDescription}}
-                        </p>
+                        {{!-- Card Body --}}
+                        <div class="card-body">
+                            {{!-- Title --}}
+                            <a href="/viewPost/{{this._id}}">
+                                <h2 class="card-title">
+                                {{this.pfTitle}}
+                                </h2>
+                            </a>
 
-                        <hr>
+                            {{!-- Description --}}
+                            <p class="card-text">
+                                {{this.pfDescription}}
+                            </p>
 
-                        {{!-- Tags --}}
-                        <div class="tags">
-                            <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            {{#each this.pfTags}}
-                            <span class="post-tags">{{this}}</span>&nbsp;&nbsp;
-                            {{/each}}
+                            <hr>
+
+                            {{!-- Tags --}}
+                            <div class="tags">
+                                <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{#each this.pfTags}}
+                                <span class="post-tags">{{this}}</span>&nbsp;&nbsp;
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        {{!-- Footer --}}
+                        <div class="card-footer text-muted">
+                            {{!-- Date --}}
+                            <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <i class="far fa-user"></i>&nbsp;
+                            {{!-- Username --}}
+                            <a href="/viewUser/{{this.username}}" id="username">{{this.username}}</a>
+
+                            <span class="comments">
+                                {{!-- Number of Comments --}}
+                                <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;{{this.pfCommentList.length}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                {{!-- Star Rating --}}
+                                <span class="ratings">
+                                    {{#each this.ratingLayout}}
+                                        {{#if this}}
+                                            <i class="fas fa-star"></i>&nbsp;
+                                        {{else}}
+                                            <span class="ratings-nope">
+                                                <i class="fas fa-star"></i>
+                                            </span>
+                                        {{/if}}
+                                    {{/each}}
+                                </span>
+                            </span>
                         </div>
                     </div>
-
-                    {{!-- Footer --}}
-                    <div class="card-footer text-muted">
-                        {{!-- Date --}}
-                        <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
-                        <i class="far fa-user"></i>&nbsp;
-                        {{!-- Username --}}
-                        <a href="/viewUser/{{this.username}}" id="username">{{this.username}}</a>
-
-                        <span class="comments">
-                            {{!-- Number of Comments --}}
-                            <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;{{this.pfCommentList.length}}&nbsp;&nbsp;&nbsp;&nbsp;
-
-                            {{!-- Star Rating --}}
-                            <span class="ratings">
-                                {{#each this.ratingLayout}}
-                                    {{#if this}}
-                                        <i class="fas fa-star"></i>&nbsp;
-                                    {{else}}
-                                        <span class="ratings-nope">
-                                            <i class="fas fa-star"></i>
-                                        </span>
-                                    {{/if}}
-                                {{/each}}
-                            </span>
-                        </span>
-                    </div>
                 </div>
+                {{/each}}
+            {{else}}
+            <div class="col-8 blog-posts">
+                <p>No post/s found with tag "{{searchTag}}"</p>
             </div>
-            {{/each}}
+            {{/if}}
         </div>
 
         <div class="row no-gutters" id="page-here">
