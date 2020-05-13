@@ -35,5 +35,4 @@ $(document).ready(function() {
         currCommentDiv.show();
         currActionDiv.show();
     });
-}); });
 });
