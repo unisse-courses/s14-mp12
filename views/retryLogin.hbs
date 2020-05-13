@@ -2,6 +2,10 @@
     <link rel="stylesheet" href="../../css/login.css">
 {{/section}}
 
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/login.js"></script>
+{{/section}}
+
 <div class="container-login" id="login">
     
     {{!-- LOGIN AREA --}}
@@ -23,8 +27,6 @@
 
         {{!-- Login Form --}}
         <div class="loginForm">
-            {{!-- Error Message --}}
-            <a class="btn" data-toggle="modal" href="#login-not-success" >Launch Modal</a>
 
             {{!-- Form Start --}}
             <form class="form-signin" method="POST" action="/login">
