@@ -49,6 +49,7 @@
         </div>
     </div>
 
+    {{#if posts}}
     {{!-- Posts Content --}}
     <div class="container-fluid" id="posts">
         <div class="row no-gutters" id="new-popular">
@@ -186,4 +187,13 @@
             </div>
         </div>
     </div>
+    {{else}}
+    <div class="container-fluid" id="posts">
+        <div class="row no-gutters" id="no-posts">
+            <div class="col-8 no-blog">
+                There are no posts yet!
+            </div>
+        </div>
+    </div>
+    {{/if}}
 </div>
