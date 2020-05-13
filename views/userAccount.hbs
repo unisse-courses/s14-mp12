@@ -1,5 +1,4 @@
 {{#section 'scriptJQ'}}
-    <script src="../../scripts/sort-posts.js"></script>
     <script src="../../scripts/pagination.js"></script> 
 {{/section}}
 
@@ -62,35 +61,47 @@
                     {{!-- Buttons for Sorting --}}
                     <div class="button-area">
                         {{!-- New --}}
-                        <div class="sort-link active" id="new-link">
-                            <a class="new" id="new">
-                                <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
-                            </a>
-                        </div>
-                        {{!-- Popular --}}
-                        <div class="sort-link" id="popular-link">
-                            <a class="popular" id="popular">
-                                <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
-                            </a>
-                        </div>
+                    <div class="sort-link 
+                        {{#if new}}
+                            active
+                        {{/if}}
+                        " id="new-link">
+                        <a class="new" id="new" href="/viewProfile/new/?page=1">
+                            <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                        </a>
                     </div>
-                    {{!-- Stars for Popular --}}
-                    <div class="star-area">
-                        <div class="btn-group dropleft" id="star-dd">
-                            <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
-                                <i class="fas fa-caret-left"></i>
-                                &nbsp;Sort
-                            </button>
+                    {{!-- Popular --}}
+                    <div class="sort-link
+                        {{#if popular}}
+                            active
+                        {{/if}}
+                        " id="popular-link">
+                        <a class="popular" id="popular" href="/viewProfile/popular?page=1">
+                            <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                        </a>
+                    </div>
+                </div>
 
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/">5-star</a>
-                                <a class="dropdown-item" href="/">4-star</a>
-                                <a class="dropdown-item" href="/">3-star</a>
-                                <a class="dropdown-item" href="/">2-star</a>
-                                <a class="dropdown-item" href="/">1-star</a>
-                            </div>
+                {{#if popular}}
+                {{!-- Stars for Popular --}}
+                <div class="star-area">
+                    <div class="btn-group dropright" id="star-dd">
+                        <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                            Sort&nbsp;
+                            <i class="fas fa-caret-right"></i>
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/">5-star</a>
+                            <a class="dropdown-item" href="/">4-star</a>
+                            <a class="dropdown-item" href="/">3-star</a>
+                            <a class="dropdown-item" href="/">2-star</a>
+                            <a class="dropdown-item" href="/">1-star</a>
                         </div>
                     </div>
+                </div>
+                {{/if}}
+
                 </div>
             </div>
 

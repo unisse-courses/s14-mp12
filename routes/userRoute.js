@@ -119,7 +119,8 @@ router.post('/login', (req, res, next) => {
 //View User
 router.get('/setProfile', controller.renderUser);
 
-router.get('/viewProfile', controller.getUser);
+router.get('/viewProfile/new', controller.getUser);
+router.get('/viewProfile/popular', controller.getUser)
 
 //View Other Users
 router.get('/viewUser/:username', controller.getOtherUser);
