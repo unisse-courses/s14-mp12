@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var x = document.getElementById("ingredients").getElementsByClassName.length;
+    var x = $("[id^=new-row]").length;
     var addButton = $('#i-add');
     var ingredientWrapper = $('#ingredients');    
     
@@ -11,8 +11,6 @@ $(document).ready(function() {
         if (fieldName === '' || fieldUnit === '' || fieldQuantity === '') {
             alert("Cannot add a new field if first field is empty.");
         } else {
-            x++;
-
             var ingFields = '<div class="row" id="new-row' + x + '">' + 
                 '<div class="col"><input type="text" name="pfIngredients[' + x + '][quantity]" class="form-control" id="quantity" placeholder="Quantity" rows="1" required></div>' + 
                 '<div class="col"><input type="text" name="pfIngredients[' + x + '][unit]" class="form-control" id="unit" placeholder="Unit" rows="1" required></div>' + 
@@ -31,7 +29,7 @@ $(document).ready(function() {
             console.log('AFTER ADDING = ' + x);
 
             // Deleting the Previous Delete Button
-            if(x > 1)
+            if(x-1 > 1)
             {
                 var num = x - 1;
                 var id = "ingButton" + num;
@@ -39,6 +37,7 @@ $(document).ready(function() {
 
                 deleteButton.style.display = "none";
             }
+            x++;
         }
     });
 
@@ -47,7 +46,7 @@ $(document).ready(function() {
         var selectedRow = $(this).parent().parent().attr('id') + '';
         var selectedRowNum = parseInt(selectedRow.substring(7));
 
-        if (selectedRowNum < x) {
+        if (selectedRowNum < x-1) {
             alert("Please delete rows in order of bottom to up.");
         } else {
             $('#' + selectedRow).remove();
@@ -55,16 +54,16 @@ $(document).ready(function() {
 
             console.log('AFTER DELETING = ' + x);
 
-            if (x > 0) {
+            if (x-1 > 0) {
                 var id = "ingButton" + x;
                 var prevButton = document.querySelector("#" + id);
 
                 prevButton.style.display = "block";
-            }
+           }
         }
     });
 
-    var y = document.getElementById("directions").getElementsByClassName.length;
+    var y = $("[id^=newrow]").length;
     var addDirections = $('#i-dir');
     var directionWrapper = $('#directions');
 
@@ -74,8 +73,6 @@ $(document).ready(function() {
         if (fieldDir === '') {
             alert("Cannot add a new field if first field is empty.");
         } else {
-            y++;
-
             var dirFields = '<div class="row" id="newrow' + y + '">' +
                 '<div class="col-9">' + '<textarea type="text" name="pfDirections[' + y + 
                 ']" class="form-control" id="instruction" placeholder="Enter recipe steps here." rows="2" required></textarea>' +
@@ -93,7 +90,7 @@ $(document).ready(function() {
             console.log('AFTER ADDING = ' + y);
 
             // Deleting the Previous Delete Button
-            if(y > 1)
+            if(y-1 > 1)
             {
                 var num = y - 1;
                 var id = "dirButton" + num;
@@ -101,6 +98,7 @@ $(document).ready(function() {
 
                 deleteButton.style.display = "none";
             }
+            y++;
         }
     });
 
@@ -109,7 +107,7 @@ $(document).ready(function() {
         var selectedRowD = $(this).parent().parent().attr('id') + '';
         var selectedRowNumD = parseInt(selectedRowD.substring(6));
 
-        if (selectedRowNumD < y) {
+        if (selectedRowNumD < y-1) {
             alert("Please delete rows in order of bottom to up.");
         } else {
             $('#' + selectedRowD).remove();
@@ -117,7 +115,7 @@ $(document).ready(function() {
 
             console.log('AFTER DELETING = ' + y);
 
-            if (y > 0) {
+            if (y-1 > 0) {
                 var id = "dirButton" + y;
                 var prevButton = document.querySelector("#" + id);
 
