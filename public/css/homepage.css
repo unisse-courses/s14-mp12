@@ -41,10 +41,15 @@
     margin-top: 50px;
 }
 
+#no-posts > .no-blog,
 #new-popular > .sort-area,
 #post-here > .blog-posts,
 #page-here > .page-area {
     margin: auto;
+}
+
+#no-posts > .no-blog {
+    margin-top: 30px;
 }
 
 #post-here > .blog-posts {
