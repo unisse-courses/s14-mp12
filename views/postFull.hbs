@@ -201,9 +201,9 @@
 
                                 {{!-- Edit Comment Area --}}
                                 <div class="edit-comment-details" id="ecd{{@index}}">
-                                    <form class="edit-comment" id="edit-c" method="" action="">
+                                    <form class="edit-comment" id="edit-c" method="POST" action="{{../post.pfURL}}/{{_id}}/edit">
                                         <div class="form-group"> 
-                                            <textarea class="form-control" name="comment" id="ta{{@index}}" rows="2">{{content}}</textarea>
+                                            <textarea class="form-control" name="content" id="ta{{@index}}" rows="2">{{content}}</textarea>
                                         </div>
                                         <div class="btn-group"> 
                                             <button type="button" class="btn btn-primary cancel" id="cancel-comment">Cancel</button>

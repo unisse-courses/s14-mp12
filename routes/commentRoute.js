@@ -56,7 +56,6 @@ router.post('/viewPost/:postId/:commentId/edit', (req,res) => {
 
     commentsModel.updateOne(query, update, function(err, comment) {
         if (err) throw err;
-        console.log(comment);
 
         res.redirect('/viewPost/' + req.params.postId);
     });
