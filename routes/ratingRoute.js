@@ -14,12 +14,11 @@ router.post('/viewPost/:postId/makeRating', (req,res) => {
     }
 
     else {
-        postModel.findById(req.params.postId).populate('pfRatings').exec((err, postResult) => {
+        postModel.findById(req.params.postId).exec((err, postResult) => {
 
             var post = postResult.toObject();
 
             var ratedUsers = post.pfRatings
-            console.log(ratedUsers);
             var rated = false;
 
             // If username where found in the ratings
@@ -29,11 +28,13 @@ router.post('/viewPost/:postId/makeRating', (req,res) => {
                     rated = true;
             })
             
+            console.log(rated);
+
             // If Found
             if(rated == true){
                 console.log("User had rated this post")
-                alert("You have rated this post!")
-                res.redirect(post.pfURL)
+                
+                res.redirect(post.pfURL + "?message=You have rated this post already!");
             }
             
             // Push the Data

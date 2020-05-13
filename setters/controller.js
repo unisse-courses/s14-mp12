@@ -402,7 +402,8 @@ module.exports.getPostFull = (req, res) => {
                         layout: '',
                         navProfPic: req.session.profPic,
                         comments: commentsObj,
-                        rating: ratingLayout
+                        rating: ratingLayout,
+                        message: req.query.message
                     }
                 
                     if(!req.isAuthenticated()){
@@ -429,9 +430,9 @@ module.exports.getEditPost = (req, res) => {
     
         var params = {
             post: post,
-            navProfPic: req.session.Profpic,
+            navProfPic: req.session.profPic,
+            layout: 'loggedIn'
         }
-    
         res.render('editPost', params)
     });
 }
