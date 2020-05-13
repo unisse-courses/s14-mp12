@@ -140,76 +140,185 @@ module.exports.getOtherUser = (req, res) => {
 
     var params = {}
     var username = req.params.username;
+    var skip = (req.query.page - 1) * 15
 
-    if(!req.isAuthenticated())
+    /* Getting the layout and navBarProfPic */
+    if(!req.isAuthenticated()) {
+        params.viewProfile = false;
         params.layout = 'main';
-    else {
+    } else {
         if(username == req.session.user.username)
             params.viewProfile = true;
-        else params.viewProfile = false
-
-        console.log(params.viewProfile)
 
         params.navProfPic = req.session.profPic;
         params.layout = 'loggedIn';
     }
 
-    UserAccount.findOne({username: username}).populate('recipePost').exec((err, user) => {
-        if(user) {
+    console.log(params.viewProfile);
+    /* Checking Path */
+    if(req.path.includes('new')) {
+        params.new = true;
 
-            // Save to params for Layout
-            params.dateJoined = getDate(user.dateJoined, 1)
-            params.user = user.toObject();
+        UserAccount.findOne({username: username}).populate('recipePost').exec((err, user) => {
+            if(user) {
 
-            // Variables for ProfPic
-            var filename = user.profPic
+                // Save to params for Layout
+                params.dateJoined = getDate(user.dateJoined, 1)
+                params.user = user.toObject();
 
-            collection.find({ filename: filename }).toArray(function (err, docs) {
+                // Variables for ProfPic
+                var filename = user.profPic
 
-                //Retrieving the chunks from the db
-                collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
-                    
-                    //Append Chunks
-                    let fileData = [];
-                    for (let i = 0; i < chunks.length; i++) {
+                collection.find({ filename: filename }).toArray(function (err, docs) {
 
-                        //This is in Binary JSON or BSON format, which is stored
-                        //in fileData array in base64 endocoded string format
-                        fileData.push(chunks[i].data.toString('base64'));
-                    }
+                    //Retrieving the chunks from the db
+                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
+                        
+                        //Append Chunks
+                        let fileData = [];
+                        for (let i = 0; i < chunks.length; i++) {
 
-                    //Saving To Final File (Converted)
-                    let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
-                    params.profPic = finalFile;
+                            //This is in Binary JSON or BSON format, which is stored
+                            //in fileData array in base64 endocoded string format
+                            fileData.push(chunks[i].data.toString('base64'));
+                        }
 
-                    var posts = params.user.recipePost;
-                    let postsObj = []
+                        //Saving To Final File (Converted)
+                        let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+                        params.profPic = finalFile;
 
-                    if(posts.length) {
-                        // Object all the posts
-                        posts.forEach(function(doc) {
-                            var post = doc;
-                            var date = post.pfDate
-                            var rating = getRating(post.pfRatings)
+                        var posts = params.user.recipePost;
+                        let postsObj = []
 
-                            post.pfDate = getDate(date, 1);
-                            post.ratingLayout = getRatingLayout(rating);
+                        if(posts.length) {
+                            // Object all the posts
+                            posts.forEach(function(doc) {
+                                var post = doc;
+                                var date = post.pfDate
+                                var rating = getRating(post.pfRatings)
 
-                            postsObj.push(post);
-                        })
+                                post.pfDate = getDate(date, 1);
+                                post.ratingLayout = getRatingLayout(rating);
 
-                        params.userPosts = postsObj;
-                    }
-    
-                    res.render('userAccount', params);
+                                postsObj.push(post);
+                            })
+
+                            params.userPosts = postsObj;
+                        }
+        
+                        res.render('userAccount', params);
+                    });
                 });
-            });
 
-        } else {
-            alert("No user found");
-            res.render('homepage',params);
-        }
-    });
+            } else {
+                res.render('homepage',params);
+            }
+        });
+
+    /* Popular */
+    } else if (req.path.includes('popular')){
+
+        params.popular = true;
+
+        UserAccount.findOne({username: username}).populate('recipePost').
+        exec((err, user) => {
+            if(user) {
+
+                // Save to params for Layout
+                var userObj = user.toObject()
+
+                params.dateJoined = getDate(user.dateJoined, 1)
+                params.user = userObj;
+
+                // Variables for ProfPic
+                var filename = user.profPic
+
+                collection.find({ filename: filename }).toArray(function (err, docs) {
+
+                    //Retrieving the chunks from the db
+                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
+                        
+                        //Append Chunks
+                        let fileData = [];
+                        for (let i = 0; i < chunks.length; i++) {
+
+                            //This is in Binary JSON or BSON format, which is stored
+                            //in fileData array in base64 endocoded string format
+                            fileData.push(chunks[i].data.toString('base64'));
+                        }
+
+                        //Saving To Final File (Converted)
+                        let finalFile = 'data:' + docs[0].contentType + ';base64,' + fileData.join('');
+                        params.profPic = finalFile;
+
+                        // Checking if will Sort
+                        var userPostIds = user.recipePost.map((doc) => {return doc._id});
+                        var compare = ['1star','2star','3star','4star','5star'];
+                        var sort = false;
+                        var star = -1;
+
+                        for(let i=0;i<5;i++)
+                            if(req.path.includes(compare[i])){
+                                sort = true;
+                                star = parseInt(i+1);
+                            }
+                        // Checking if will sort ^
+
+                        // If Will Sort
+                        if(sort == true){
+
+                            postFullModel.find({_id: {$in: userPostIds} ,pfNumberRating: star}).skip(skip)/* .limit(20) */.exec((err, posts) =>{
+                                let postArray = [];
+
+                                posts.forEach((doc) => {
+                                    var post = doc.toObject();
+                                    var rating = getRating(doc.pfRatings)
+
+                                    post.pfDate = getDate(doc.pfDate,1);
+                                    post.username = post.pfUser.username;
+                                    post.ratingLayout = getRatingLayout(rating);
+
+                                    postArray.push(post)
+                                })
+
+                                params.star = star
+                                params.userPosts = postArray;
+                                
+
+                                res.render('userAccount', params);
+                            });
+
+                        // If Just Popular
+                        } else {
+
+                            postFullModel.find({_id: {$in: userPostIds} }).sort({pfNumberRating: -1}).skip(skip)/* .limit(20) */.exec((err, posts) => {
+
+                                let postArray = [];
+
+                                posts.forEach((doc) => {
+                                    var post = doc.toObject();
+                                    var rating = getRating(doc.pfRatings)
+
+                                    post.pfDate = getDate(doc.pfDate,1);
+                                    post.username = user.username;
+                                    post.ratingLayout = getRatingLayout(rating);
+
+                                    postArray.push(post)
+                                })
+
+                                params.userPosts = postArray;
+                                
+                                res.render('userAccount', params);
+                            });
+                        }
+                    });
+                });
+
+            } else {
+                res.render('homepage',params);
+            }
+        });
+    }
 }
 
 
@@ -268,6 +377,9 @@ module.exports.getUser = (req, res) => {
             // Popular 
             } else if(req.path.includes('popular')) {
 
+                params.layout = 'loggedIn';
+                params.popular = true;
+
                 // Checking if will Sort
                 var compare = ['1star','2star','3star','4star','5star'];
                 var sort = false;
@@ -299,8 +411,6 @@ module.exports.getUser = (req, res) => {
 
                         params.star = star
                         params.userPosts = postArray;
-                        params.popular = true
-                        params.layout = 'loggedIn';
                         
 
                         res.render('userAccount', params);
@@ -325,8 +435,6 @@ module.exports.getUser = (req, res) => {
                         })
 
                         params.userPosts = postArray;
-                        params.popular = true
-                        params.layout = 'loggedIn';
                         
                         res.render('userAccount', params);
                     });
