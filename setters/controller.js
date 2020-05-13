@@ -543,6 +543,10 @@ module.exports.updatePost = (req, res) => {
 module.exports.getSearchResult = (req, res) =>{
     var searchTag = req.query.search
 
+    var params = {
+        searchTag: searchTag
+    }
+
     if(req.path.includes('new')) {
         postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(15).exec((err, posts) => {
 
@@ -559,10 +563,8 @@ module.exports.getSearchResult = (req, res) =>{
                 postArray.push(post)
             })
 
-            var params = {
-                posts: postArray,
-                searchTag: searchTag
-            }
+            params.posts = postArray
+            params.new = true;
 
             // Check if Logged in or not
             if(!req.user){
@@ -578,6 +580,34 @@ module.exports.getSearchResult = (req, res) =>{
     }
 
     else if(req.path.includes('popular')){
+        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({pfNumberRating: -1}).limit(15).exec((err, posts) => {
 
+            let postArray = [];
+
+            posts.forEach((doc) => {
+                var post = doc.toObject();
+                var rating = getRating(doc.pfRatings)
+
+                post.pfDate = getDate(doc.pfDate,1);
+                post.username = post.pfUser.username;
+                post.ratingLayout = getRatingLayout(rating);
+
+                postArray.push(post)
+            })
+
+            params.posts = postArray;
+            params.popular = true
+
+            // Check if Logged in or not
+            if(!req.user){
+                params.layout = 'main';
+            }
+            else {
+                params.layout = 'loggedIn';
+                params.navProfPic = req.session.profPic;
+            }
+
+            res.render('search', params);
+        });
     }
 }

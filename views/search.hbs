@@ -28,18 +28,28 @@
                 {{!-- Buttons for Sorting --}}
                 <div class="button-area">
                     {{!-- New --}}
-                    <div class="sort-link active" id="new-link">
-                        <a class="new" id="new">
+                    <div class="sort-link 
+                        {{#if new}}
+                            active
+                        {{/if}}
+                        " id="new-link">
+                        <a class="new" id="new" href="/search/new/?page=1&search={{searchTag}}">
                             <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
                         </a>
                     </div>
                     {{!-- Popular --}}
-                    <div class="sort-link" id="popular-link">
-                        <a class="popular" id="popular">
+                    <div class="sort-link
+                        {{#if popular}}
+                            active
+                        {{/if}}
+                        " id="popular-link">
+                        <a class="popular" id="popular" href="/search/popular?page=1&search={{searchTag}}">
                             <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
                         </a>
                     </div>
                 </div>
+
+                {{#if popular}}
                 {{!-- Stars for Popular --}}
                 <div class="star-area">
                     <div class="btn-group dropright" id="star-dd">
@@ -57,6 +67,8 @@
                         </div>
                     </div>
                 </div>
+                {{/if}}
+
             </div>
         </div>
         
