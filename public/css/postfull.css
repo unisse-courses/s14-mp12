@@ -93,7 +93,7 @@
 #comment-action #comment-action-details .action-r .delete:hover #delete-post,
 #comment-action #comment-action-details .action-r .share:hover #share-post {
     background-color: #ececec;
-    color: #c7782c;
+    color: #ff9600;
     border-radius: 5%;
     padding-right: 10px;
     padding-left: 10px;
@@ -128,7 +128,7 @@
     padding-bottom: 2px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: #c7782c;
+    background-color: #ff7b10;
     border: none;
 }
 
@@ -143,7 +143,7 @@
 
 #comments-section > .media > .media-body > .comment-un > a:hover {
     font-weight: 500;
-    color: #c7782c;
+    color: #ff7b10;
 }
 
 #comments-section > .media > .media-body > .comment-un > .date-posted {
@@ -182,7 +182,7 @@
     cursor: pointer;
 }
 
-#edit-c > button {
+#edit-c > .submit {
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 500;
@@ -193,7 +193,7 @@
     background-color: #ff9600;
     border: none;
 }
-#edit-c > button:hover {
+#edit-c > .submit:hover {
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 500;
@@ -201,7 +201,32 @@
     padding-bottom: 4px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #c7782c;
+    background-color: #ff7b10;
+    border: none;
+}
+
+#edit-c > .cancel {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #999999;
+    margin-right: 10px;
+    border: none;
+}
+#edit-c > .cancel:hover {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #595959;
+    margin-right: 10px;
     border: none;
 }
 

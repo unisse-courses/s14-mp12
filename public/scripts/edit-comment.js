@@ -22,9 +22,14 @@ $(document).ready(function() {
             + '<div class="form-group">' 
             + '<textarea class="form-control" name="comment" rows="2">' + fixedComment + '</textarea>'
             + '</div>'
-            + '<button type="submit" class="btn btn-primary">Submit</button>'
+            + '<button type="button" class="btn btn-primary cancel" id="cancel-edit-c">Cancel</button>'
+            + '<button type="submit" class="btn btn-primary submit">Submit</button>'
             + '</form>';
         
         $(editForm).appendTo(commentDiv);
+    });
+
+    $('#cancel-edit-c').on('click', function(e) {
+        console.log($(this).attr('id'));
     });
 });
