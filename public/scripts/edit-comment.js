@@ -19,9 +19,9 @@ $(document).ready(function() {
         currActionDiv = actionDiv;
         currEditDiv = editDiv;
 
-        var commentContent = $(mainDivId).find('.comment-details').text();
+        /*var commentContent = $(mainDivId).find('.comment-details').text();
         commentContent = commentContent.replace(/\s{2,}/g, ' ');
-        var fixedComment = $.trim(commentContent);
+        var fixedComment = $.trim(commentContent);*/
 
         commentDiv.hide();
         actionDiv.hide();

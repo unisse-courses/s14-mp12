@@ -186,7 +186,11 @@
     display: none;
 }
 
-#edit-c > .submit {
+#edit-c > .btn-group {
+    float: right;
+}
+
+#edit-c > .btn-group > .submit {
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 500;
@@ -196,20 +200,14 @@
     padding-right: 10px;
     background-color: #ff9600;
     border: none;
-}
-#edit-c > .submit:hover {
-    text-transform: uppercase;
-    font-size: 13px;
-    font-weight: 500;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: #ff7b10;
-    border: none;
+    border-radius: 5px;
 }
 
-#edit-c > .cancel {
+#edit-c > .btn-group > .submit:hover {
+    background-color: #ff7b10;
+}
+
+#edit-c > .btn-group > .cancel {
     text-transform: uppercase;
     font-size: 13px;
     font-weight: 500;
@@ -220,18 +218,11 @@
     background-color: #999999;
     margin-right: 10px;
     border: none;
+    border-radius: 5px;
 }
-#edit-c > .cancel:hover {
-    text-transform: uppercase;
-    font-size: 13px;
-    font-weight: 500;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 10px;
-    padding-right: 10px;
+
+#edit-c > .btn-group > .cancel:hover {
     background-color: #595959;
-    margin-right: 10px;
-    border: none;
 }
 
 #page-nav {
