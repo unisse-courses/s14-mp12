@@ -8,11 +8,11 @@
         </div>
         {{!-- Search Bar --}}
         <div class="col-5" id="header-search">
-            <form class="search-container" id="search-form" action="/search/new">
+            <form class="search-container" id="search-form" onsubmit="search()">
                 {{!-- Input Area --}}
-                <input type="text" placeholder="Search for recipes." name="search">
+                <input id="searchTag" type="text" placeholder="Search for recipes." name="search">
                 {{!-- Search Button --}}
-                <button type="submit" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>
+                <button id="searchIcon" type="submit" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>
             </form>
         </div>
         {{!-- Space --}}
