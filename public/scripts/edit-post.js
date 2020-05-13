@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    var x = 0;
+    var x = document.getElementById("ingredients").getElementsByClassName.length;
     var addButton = $('#i-add');
     var ingredientWrapper = $('#ingredients');    
-
+    
     $(addButton).click(function() {
         var fieldName = $('#name').val();
         var fieldUnit = $('#unit').val();
@@ -64,7 +64,7 @@ $(document).ready(function() {
         }
     });
 
-    var y = 0;
+    var y = document.getElementById("directions").getElementsByClassName.length;
     var addDirections = $('#i-dir');
     var directionWrapper = $('#directions');
 

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     $('.page-item').on('click', function(e) {
 
         if (this.classList.contains("active") == false) {
