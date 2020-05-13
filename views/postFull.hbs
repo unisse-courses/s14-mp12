@@ -198,10 +198,13 @@
                                 <div class="edit-comment-details" id="ecd{{@index}}">
                                     <form class="edit-comment" id="edit-c" method="" action="">
                                         <div class="form-group"> 
-                                            <textarea class="form-control" name="comment" rows="2"></textarea>
+                                            <textarea class="form-control" name="comment" id="ta{{@index}}" rows="2">{{content}}</textarea>
                                         </div>
-                                        <button type="button" class="btn btn-primary cancel" id="cancel-comment">Cancel</button>
-                                        <button type="submit" class="btn btn-primary submit">Submit</button>
+                                        <div class="btn-group"> 
+                                            <button type="button" class="btn btn-primary cancel" id="cancel-comment">Cancel</button>
+                                            <button type="submit" class="btn btn-primary submit">Submit</button>
+                                        </div>
+                                        </form>
                                     </form>
                                 </div>
 
