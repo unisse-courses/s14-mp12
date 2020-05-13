@@ -60,11 +60,11 @@
                         </button>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/">5-star</a>
-                            <a class="dropdown-item" href="/">4-star</a>
-                            <a class="dropdown-item" href="/">3-star</a>
-                            <a class="dropdown-item" href="/">2-star</a>
-                            <a class="dropdown-item" href="/">1-star</a>
+                            <a class="dropdown-item" href="/search/popular/5star?page=1&search={{searchTag}}">5-star</a>
+                            <a class="dropdown-item" href="/search/popular/4star?page=1&search={{searchTag}}">4-star</a>
+                            <a class="dropdown-item" href="/search/popular/3star?page=1&search={{searchTag}}">3-star</a>
+                            <a class="dropdown-item" href="/search/popular/2star?page=1&search={{searchTag}}">2-star</a>
+                            <a class="dropdown-item" href="/search/popular/1star?page=1&search={{searchTag}}">1-star</a>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                         <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="far fa-user"></i>&nbsp;
                         {{!-- Username --}}
-                        <a href="/viewUser/{{this.username}}" id="username">{{this.username}}</a>
+                        <a href="/viewUser/{{this.username}}/new?page=1" id="username">{{this.username}}</a>
 
                         <span class="comments">
                             {{!-- Number of Comments --}}
@@ -163,7 +163,11 @@
     <div class="container-fluid" id="posts">
         <div class="row no-gutters" id="no-posts">
             <div class="col-8 no-blog">
-                No post/s found with tag "<span class="emp">{{searchTag}}</span>".
+            No post/s found with tag "<span class="emp">{{searchTag}}</span>" 
+            {{#if star}}
+            which have <span class="emp">{{star}}</span> stars
+            {{/if}}
+        .
             </div>
         </div>
     </div>

@@ -130,9 +130,22 @@ router.get('/setProfile', controller.renderUser);
 
 router.get('/viewProfile/new', controller.getUser);
 router.get('/viewProfile/popular', controller.getUser);
+router.get('/viewProfile/popular/5star', controller.getUser);
+router.get('/viewProfile/popular/4star', controller.getUser);
+router.get('/viewProfile/popular/3star', controller.getUser);
+router.get('/viewProfile/popular/2star', controller.getUser);
+router.get('/viewProfile/popular/1star', controller.getUser);
 
 //View Other Users
-router.get('/viewUser/:username', controller.getOtherUser);
+router.get('/viewUser/:username/new', controller.getOtherUser);
+
+router.get('/viewUser/:username/popular', controller.getOtherUser);
+router.get('/viewUser/:username/popular/5star', controller.getOtherUser);
+router.get('/viewUser/:username/popular/4star', controller.getOtherUser);
+router.get('/viewUser/:username/popular/3star', controller.getOtherUser);
+router.get('/viewUser/:username/popular/2star', controller.getOtherUser);
+router.get('/viewUser/:username/popular/1star', controller.getOtherUser);
+
 
 
 // LogOut

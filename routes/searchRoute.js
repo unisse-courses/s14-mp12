@@ -3,10 +3,6 @@ const router = express.Router();
 
 const controller = require('../setters/controller');
 
-const initDb = require("../setters/db").initDb;
-const getDb = require("../setters/db").getDb;
-
-
 router.get('/new', controller.getSearchResult);
 
 router.get('/popular', controller.getSearchResult)

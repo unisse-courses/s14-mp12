@@ -31,7 +31,7 @@
                 
                     <!-- Author -->
                     <p class="lead" id="user-name">Posted by
-                        <a href="/viewUser/{{poster.username}}" id="username">
+                        <a href="/viewUser/{{poster.username}}/new?page=1" id="username">
                             <span class="un">{{poster.username}}</span>
                         </a>
                     </p>
@@ -190,7 +190,7 @@
                             <div class="media-body">
                                 {{!-- Username and Date Posted --}}
                                 <p class="mt-0 comment-un">
-                                    <a href="/viewUser/{{cUsername}}">{{cUsername}}</a>
+                                    <a href="/viewUser/{{cUsername}}/new?page=1">{{cUsername}}</a>
                                     <span class="date-posted">
                                         &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted {{cDatePosted}}
                                     </span>

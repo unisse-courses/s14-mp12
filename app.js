@@ -119,23 +119,12 @@ initDb(function (err) {
             res.redirect('/new?page=1');
         })
 
-        // Home Page (New)
-        app.get('/new', (req, res) => {
-            const controller = require('./setters/controller');
-            controller.homepage(req,res);
-        })
-
-        // Home Page (Popular)
-        app.get('/popular', (req, res) => {
-            const controller = require('./setters/controller');
-            controller.homepage(req,res);
-        })
-
         // Import Routes
         app.use('/', require('./routes/userRoute'));
         app.use('/', require('./routes/commentRoute'));
         app.use('/', require('./routes/ratingRoute'));
         app.use('/', require('./routes/postRoute'));
+        app.use('/', require('./routes/homeRoute'));
         app.use('/search', require('./routes/searchRoute'));
         
     });

@@ -10,7 +10,7 @@ router.post('/viewPost/:postId/makeRating', (req,res) => {
     if(!req.session.user) {
         console.log("User is not logged in.")
 
-        res.redirect('/login' + '?message=You need to logged in first');
+        res.redirect('/login' + '?message=You need to login first.');
     }
 
     else {
