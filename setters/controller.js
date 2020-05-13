@@ -88,6 +88,7 @@ module.exports.renderUser = (req, res) => {
             .exec(function (err, result) {
                 if (!result) {
                     console.log("User not yet registered!");
+                    res.json(err);
                 } else {
 
                     collection.find({ filename: fileName }).toArray(function (err, docs) {
@@ -126,7 +127,7 @@ module.exports.renderUser = (req, res) => {
                                 req.session.userPostsId = result.recipePost
                                 req.session.dateJoined = date;
 
-                                res.redirect('/viewProfile')
+                                res.redirect('/viewProfile/new')
                             });
                         }
                     });
@@ -229,34 +230,61 @@ module.exports.getUser = (req, res) => {
         else if(req.path == '/')
             res.render('homepage', params);
 
-        else if(req.path == '/viewProfile') {
+        //Getting the User Profile
+        else if(req.path.includes('viewProfile')) {
             params.user = req.session.user;
             params.dateJoined = req.session.dateJoined;
             params.profPic = req.session.profPic;
             params.viewProfile = true;
             var userPostIds = req.session.userPostsId;
 
-            // Find the Post from array of posts in user account
-            postFullModel.find({_id: {$in: userPostIds}}).sort({_id: -1}).limit(15).then(userPosts => {
-                var userPostsObj = [];
+            if(req.path.includes('new')) {
+                // Find the Post from array of posts in user account
+                postFullModel.find({_id: {$in: userPostIds}}).sort({_id: -1}).limit(15).then(userPosts => {
+                    var userPostsObj = [];
 
-                if(userPosts.length) {
-                    // Object all the posts
-                    userPosts.forEach(function(doc) {
-                        var post = doc.toObject()
-                        var date = post.pfDate
-                        var rating = getRating(doc.pfRatings);
+                    if(userPosts.length) {
+                        // Object all the posts
+                        userPosts.forEach(function(doc) {
+                            var post = doc.toObject()
+                            var date = post.pfDate
+                            var rating = getRating(doc.pfRatings);
 
-                        post.pfDate = getDate(date, 1);
-                        post.ratingLayout = getRatingLayout(rating);
-                        userPostsObj.push(post);
-                    })
+                            post.pfDate = getDate(date, 1);
+                            post.ratingLayout = getRatingLayout(rating);
+                            userPostsObj.push(post);
+                        })
 
-                    params.userPosts = userPostsObj
-                }
-            
-                res.render('userAccount', params);
-            });
+                        params.userPosts = userPostsObj
+                        params.new = true
+                    }
+                
+                    res.render('userAccount', params);
+                });
+
+            } else if(req.path.includes('popular')) {
+                postFullModel.find({_id: {$in: userPostIds}}).sort({pfNumberRating: -1}).limit(15).then(userPosts => {
+                    var userPostsObj = [];
+
+                    if(userPosts.length) {
+                        // Object all the posts
+                        userPosts.forEach(function(doc) {
+                            var post = doc.toObject()
+                            var date = post.pfDate
+                            var rating = getRating(doc.pfRatings);
+
+                            post.pfDate = getDate(date, 1);
+                            post.ratingLayout = getRatingLayout(rating);
+                            userPostsObj.push(post);
+                        })
+
+                        params.userPosts = userPostsObj
+                        params.popular = true
+                    }
+                
+                    res.render('userAccount', params);
+                });
+            }
         }
     }   
 }
@@ -295,6 +323,7 @@ module.exports.homepage = (req, res) => {
 
             params.posts = postObj;
             params.currentPage = pageNum;
+            params.new = true
 
             // Check if Logged in or not
             if(!req.user){
@@ -310,8 +339,41 @@ module.exports.homepage = (req, res) => {
     }
 
     // Popular 
-    else if(req.path == '/popular'){
+    else if(path.includes('popular')){
+        var params = {};
 
+        postFullModel.find({}).sort({pfNumberRating: -1}).skip(skip).limit(15).populate('pfUser').
+        then(posts => {
+                
+            let postObj = [];
+
+            posts.forEach(function(doc){
+                var post = doc.toObject()
+                var date = post.pfDate
+                var rating = getRating(doc.pfRatings)
+
+                post.pfDate = getDate(date, 1);
+                post.username = post.pfUser.username;
+                post.ratingLayout = getRatingLayout(rating);
+
+                postObj.push(post);
+            });
+
+            params.posts = postObj;
+            params.currentPage = pageNum;
+            params.popular = true
+
+            // Check if Logged in or not
+            if(!req.user){
+                params.layout = 'main';
+            }
+            else {
+                params.layout = 'loggedIn';
+                params.navProfPic = req.session.profPic;
+            }
+
+            res.render('homepage', params);
+        });
     }
     
 }
@@ -476,4 +538,46 @@ module.exports.updatePost = (req, res) => {
             res.redirect(newPost.pfURL);
         });
     })
+}
+
+module.exports.getSearchResult = (req, res) =>{
+    var searchTag = req.query.search
+
+    if(req.path.includes('new')) {
+        postFullModel.find({pfTags: {'$regex' : searchTag, '$options' : 'i'}}).sort({_id: -1}).limit(15).exec((err, posts) => {
+
+            let postArray = [];
+
+            posts.forEach((doc) => {
+                var post = doc.toObject();
+                var rating = getRating(doc.pfRatings)
+
+                post.pfDate = getDate(doc.pfDate,1);
+                post.username = post.pfUser.username;
+                post.ratingLayout = getRatingLayout(rating);
+
+                postArray.push(post)
+            })
+
+            var params = {
+                posts: postArray,
+                searchTag: searchTag
+            }
+
+            // Check if Logged in or not
+            if(!req.user){
+                params.layout = 'main';
+            }
+            else {
+                params.layout = 'loggedIn';
+                params.navProfPic = req.session.profPic;
+            }
+
+            res.render('search', params);
+        });
+    }
+
+    else if(req.path.includes('popular')){
+
+    }
 }

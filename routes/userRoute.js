@@ -112,14 +112,24 @@ router.get('/login', function (req, res) {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
   successRedirect: '/setProfile',
-  failureRedirect: '/register',
+  failureRedirect: '/retryLogin',
   })(req, res, next);
+});
+
+// Invalid Login
+router.get('/retrylogin', function (req, res) {
+  var params = {
+    layout: 'loggedOut',
+    message: req.query.message
+  }
+  res.render('retryLogin', params)
 });
 
 //View User
 router.get('/setProfile', controller.renderUser);
 
-router.get('/viewProfile', controller.getUser);
+router.get('/viewProfile/new', controller.getUser);
+router.get('/viewProfile/popular', controller.getUser);
 
 //View Other Users
 router.get('/viewUser/:username', controller.getOtherUser);
