@@ -31,10 +31,6 @@
     margin-bottom: 25px;
 }
 
-.emp {
-    font-weight: 500;
-}
-
 .loginArea > .loginForm > form > .loginRow {
     display: flex;
     flex-direction: row;

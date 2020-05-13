@@ -17,8 +17,11 @@ router.get('/comments', (req,res) => {
 //Create
 router.post('/viewPost/:postId/addComment', (req,res) => {
 
-    if(!req.user)
-        res.redirect('/login?message=You need to logged in first');
+    if(!req.session.user) {
+        console.log("User is not logged in.")
+
+        res.redirect('/login' + '?message=You need to logged in first');
+    }
 
     const comment = new commentsModel({
         cUsername: req.session.user.username,

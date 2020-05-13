@@ -18,11 +18,16 @@
     margin-top: 20px;
 }
 
+#no-posts > .no-blog,
 #new-popular > .sort-area,
 #post-here > .blog-posts,
 #page-here > .page-area,
 #search-here > .search {
     margin: auto;
+}
+
+#no-posts > .no-blog {
+    margin-top: 30px;
 }
 
 #post-here > .blog-posts {
@@ -47,6 +52,10 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     background-color: #ffffff;
+}
+
+#new, #popular {
+    color: #000000;
 }
 
 #new-link.active,
