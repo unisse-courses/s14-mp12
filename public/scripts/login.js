@@ -1,3 +1,3 @@
-$(window).on('load',function(){
+$(document).ready(function() {
     $('#login-not-success').modal('show');
 });
