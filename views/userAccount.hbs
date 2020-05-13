@@ -92,11 +92,11 @@
                         </button>
 
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/">5-star</a>
-                            <a class="dropdown-item" href="/">4-star</a>
-                            <a class="dropdown-item" href="/">3-star</a>
-                            <a class="dropdown-item" href="/">2-star</a>
-                            <a class="dropdown-item" href="/">1-star</a>
+                            <a class="dropdown-item" href="/viewProfile/popular/5star?page=1">5-star</a>
+                            <a class="dropdown-item" href="/viewProfile/popular/4star?page=1">4-star</a>
+                            <a class="dropdown-item" href="/viewProfile/popular/3star?page=1">3-star</a>
+                            <a class="dropdown-item" href="/viewProfile/popular/2star?page=1">2-star</a>
+                            <a class="dropdown-item" href="/viewProfile/popular/1star?page=1">1-star</a>
                         </div>
                     </div>
                 </div>
@@ -148,9 +148,9 @@
 
                             {{!-- Username --}}
                             {{#if ../viewProfile}}
-                            <a href="/viewProfile" id="username">
+                            <a href="/viewProfile/new?page=1" id="username">
                             {{else}}
-                            <a href="/viewUser/{{../user.username}}" id="username">
+                            <a href="/viewUser/{{../user.username}}/new?page=1" id="username">
                             {{/if}}
                             {{../user.username}}</a>
 
@@ -176,7 +176,12 @@
                     {{/each}}
                 </div>
                 {{else}}
-                <p class="col">Don't Have Any Posts Yet!</p>
+                    {{#if popular}}
+                        <p>Don't have post/s with <span>{{star}}</span> star yet!</p>
+                    {{/if}}
+                    {{#if new}}
+                        <p class="col">Don't Have Any Posts Yet!</p>
+                    {{/if}}
                 {{/if}}
             </div>
 
