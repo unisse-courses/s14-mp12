@@ -89,10 +89,10 @@
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/popular/5star?page=1">5-star</a>
-                            <a class="dropdown-item" href="/popular/5star?page=1">4-star</a>
-                            <a class="dropdown-item" href="/popular/5star?page=1">3-star</a>
-                            <a class="dropdown-item" href="/popular/5star?page=1">2-star</a>
-                            <a class="dropdown-item" href="/popular/5star?page=1">1-star</a>
+                            <a class="dropdown-item" href="/popular/4star?page=1">4-star</a>
+                            <a class="dropdown-item" href="/popular/3star?page=1">3-star</a>
+                            <a class="dropdown-item" href="/popular/2star?page=1">2-star</a>
+                            <a class="dropdown-item" href="/popular/1star?page=1">1-star</a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
         </div>
 
         <div class="row no-gutters" id="post-here">
-
+    
             {{#each posts}}
             <div class="col-8 blog-posts">
 
@@ -175,10 +175,10 @@
                         <a class="page-link disabled" href="/" tabindex="-1">Previous</a>
                     </li>
                     <li class="page-item active">
-                        <a class="page-link active" href="/page/1">1</a>
+                        <a class="page-link active" href="/new?page=1">1</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" value="2" href="/page/2">2</a>
+                        <a class="page-link" value="2" href="/new?page=2">2</a>
                     </li>
                     <li class="page-item disabled">
                         <a class="page-link disabled" href="/">Next</a>
@@ -187,6 +187,7 @@
             </div>
         </div>
     </div>
+
     {{else}}
     <div class="container-fluid" id="posts">
         <div class="row no-gutters" id="no-posts">
