@@ -4,7 +4,7 @@ $(document).ready(function() {
     var currActionDiv;
     var currEditDiv;
 
-    $('#edit-comment').on('click', function(e) {
+    $('.e-comment').on('click', function(e) {
         console.log("Clicked Edit Comment");
         var mainDiv = $(this).parent().parent().parent().parent();
         var mainDivId = '#' + $(this).parent().parent().parent().parent().attr('id');
@@ -28,7 +28,7 @@ $(document).ready(function() {
         editDiv.show();
     });
 
-    var cancelEdit = $('#cancel-comment');
+    var cancelEdit = $('.cancel');
 
     $(document).on( 'click', '.cancel', function () {
         currEditDiv.hide();
