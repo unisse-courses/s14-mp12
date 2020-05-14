@@ -37,7 +37,10 @@ Since the application is already deployed to Heroku, you can access it by simply
 1. Go to `https://recipeep-app.herokuapp.com`.
 
 If you don't want to copy paste, just click the link below.
+
 **https://recipeep-app.herokuapp.com**
+
+* * *
 
 Congratulations. You can now navigate the site.
 
