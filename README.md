@@ -65,9 +65,9 @@ Password: officialgordon
 
 Account # 3:
 ```
-Username: shaunko
-Email: shaunko@official.com
-Password: shaunko
+Username: seanko
+Email: seanko@official.com
+Password: seanko
 ```
 
 Account # 4:
