@@ -54,6 +54,8 @@ Account # 1:
 Username: irenekim
 Email: irenekim@email.com
 Password: irenekim
+
+Details: c
 ```
 
 Account # 2:
