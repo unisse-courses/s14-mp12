@@ -191,7 +191,11 @@
     <div class="container-fluid" id="posts">
         <div class="row no-gutters" id="no-posts">
             <div class="col-8 no-blog">
-                <h5 id="search-text">There are no posts made yet.</h5>
+                {{#if star}}
+                <h5 id="account-text">There are no posts with {{star}}-star rating.</h5>
+                {{else}}
+                <h5 id="account-text">There are no posts made by the user yet.</h5>
+                {{/if}}
             </div>
         </div>
     </div>
