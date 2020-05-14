@@ -95,7 +95,7 @@ Username: dennisluther
 Email: dluther@email.com
 Password: dennisluther
 
-Details: Has 1 posts in the account.
+Details: Has 1 post in the account.
 Profile URL: http://localhost:3000/viewUser/dennisluther/new?page=1
 ```
 
