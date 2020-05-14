@@ -49,12 +49,9 @@
                     <div class="col">
                         <button class="btn ing-add" id="i-add" type="button">Add</button>
                     </div>
-                    {{else if @last}}
-                    <div class="col">
-                        <button type="button" id="ingButton{{@index}}" class="btn ing-delete">Delete</button>
-                    </div>
                     {{else}}
                     <div class="col">
+                        <button type="button" id="ingButton{{@index}}" class="btn ing-delete">Delete</button>
                     </div>
                     {{/if}}
 
@@ -69,20 +66,17 @@
                 <label class="edit-content" for="pfDirections">Edit How to Prepare the Recipe</label>
 
                 {{#each post.pfDirections}}
-                <div class="row" id="newrow0">
+                <div class="row" id="newrow{{@index}}">
                     <div class="col-9">
                         <textarea type="text" name="pfDirections[{{@index}}]" class="form-control" id="instruction" rows="2" required>{{this}}</textarea>
                     </div>
                     {{#if @first}}
                     <div class="col">
-                        <button class="btn ing-dir" id="i-dir" type="button">Add</button>
-                    </div>
-                    {{else if @last}}
-                    <div class="col">
-                        <button type="button" id="dirButton{{@index}}" class="btn dir-delete">Delete</button>
+                        <button class="btn ing-dir" id="d-add" type="button">Add</button>
                     </div>
                     {{else}}
                     <div class="col">
+                        <button type="button" id="dirButton{{@index}}" class="btn dir-delete">Delete</button>
                     </div>
                     {{/if}}
                 </div>

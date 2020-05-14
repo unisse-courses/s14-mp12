@@ -1,5 +1,28 @@
 $(document).ready(function() {
+    // BUTTON HANDLING
     var x = $("[id^=new-row]").length;
+    var y = $("[id^=newrow]").length;
+
+    console.log('x=' + x + ' ' + 'y=' + y);
+
+    var xx = x - 1;
+    var yy = y - 1;
+
+    console.log('xx=' + xx + ' ' + 'yy=' + yy);
+
+    // Hide pre existing delete buttons.
+    var ingId = "#ingButton";
+    var dirId = "#dirButton";
+
+    for (var z = 1; z < xx; z++) {
+        document.querySelector(ingId + z).style.display = "none";
+    }
+
+    for (var z = 1; z < yy; z++) {
+        document.querySelector(dirId + z).style.display = "none";
+    }
+
+    // Add new row to ingredients.
     var addButton = $('#i-add');
     var ingredientWrapper = $('#ingredients');    
     
@@ -16,55 +39,54 @@ $(document).ready(function() {
                 '<div class="col"><input type="text" name="pfIngredients[' + x + '][unit]" class="form-control" id="unit" placeholder="Unit" rows="1" required></div>' + 
                 '<div class="col"><input type="text" name="pfIngredients[' + x + '][name]" class="form-control" id="name" placeholder="Name" rows="1" required></div>' + 
                 '<div class="col">' + 
-                // Button
                 '<button type="button" id="ingButton' + x + '">Delete</button>' + '</div>' + '</div>';
             
             $(ingredientWrapper).append(ingFields);
 
-            // Adding Class to Button
-            var curID = "ingButton" + x;
-            var curButton = document.querySelector('#' + curID);
+            var curID = ingId + x;
+            var curButton = document.querySelector(curID);
             curButton.classList.add('btn','ing-delete');
-            
-            console.log('AFTER ADDING = ' + x);
 
-            // Deleting the Previous Delete Button
-            if(x-1 > 1)
+            if(xx >= 1)
             {
-                var num = x - 1;
-                var id = "ingButton" + num;
-                var deleteButton = document.querySelector("#" + id);
+                var num = xx;
+                var id = ingId + num;
+                var deleteButton = document.querySelector(id);
 
                 deleteButton.style.display = "none";
             }
+
             x++;
+            xx++;
+
+            console.log('I - AFTER ADDING x=' + x + ' ' + 'xx=' + xx);
         }
     });
 
+    // Delete existing row in ingredients.
     $(ingredientWrapper).on('click', '.ing-delete', function(e){
-        e.preventDefault();
+        console.log('Clicked Delete Ingredient');
+
         var selectedRow = $(this).parent().parent().attr('id') + '';
         var selectedRowNum = parseInt(selectedRow.substring(7));
 
-        if (selectedRowNum < x-1) {
-            alert("Please delete rows in order of bottom to up.");
-        } else {
+        if (selectedRowNum == xx) {
             $('#' + selectedRow).remove();
             x--;
+            xx--;
 
-            console.log('AFTER DELETING = ' + x);
+            console.log('I - AFTER DELETING x=' + x + ' ' + 'xx=' + xx);
 
-            if (x-1 > 0) {
-                var id = "ingButton" + x;
-                var prevButton = document.querySelector("#" + id);
-
+            if (xx > 0) {
+                var id = ingId + xx;
+                var prevButton = document.querySelector(id);
                 prevButton.style.display = "block";
-           }
+            }
         }
     });
 
-    var y = $("[id^=newrow]").length;
-    var addDirections = $('#i-dir');
+    // Add new row to directions.
+    var addDirections = $('#d-add');
     var directionWrapper = $('#directions');
 
     $(addDirections).click(function() {
@@ -77,53 +99,53 @@ $(document).ready(function() {
                 '<div class="col-9">' + '<textarea type="text" name="pfDirections[' + y + 
                 ']" class="form-control" id="instruction" placeholder="Enter recipe steps here." rows="2" required></textarea>' +
                 '</div><div class="col">' + 
-                // Button
                 '<button type="button" id="dirButton' + y + '">Delete</button>' + '</div>' + '</div>';
             
             $(directionWrapper).append(dirFields);
 
-            // Adding Class to Button
-            var curID = "dirButton" + y;
-            var curButton = document.querySelector('#' + curID);
+            var curID = dirId + y;
+            var curButton = document.querySelector(curID);
             curButton.classList.add('btn','dir-delete');
 
-            console.log('AFTER ADDING = ' + y);
-
-            // Deleting the Previous Delete Button
-            if(y-1 > 1)
+            if(yy >= 1)
             {
-                var num = y - 1;
-                var id = "dirButton" + num;
-                var deleteButton = document.querySelector("#" + id);
+                var num = yy;
+                var id = dirId+ num;
+                var deleteButton = document.querySelector(id);
 
                 deleteButton.style.display = "none";
             }
+
             y++;
+            yy++;
+
+            console.log('D - AFTER ADDING y=' + y + ' ' + 'yy=' + yy);
         }
     });
 
+    // Delete existing row in ingredients.
     $(directionWrapper).on('click', '.dir-delete', function(e) {
-        e.preventDefault();
-        var selectedRowD = $(this).parent().parent().attr('id') + '';
-        var selectedRowNumD = parseInt(selectedRowD.substring(6));
+        console.log('Clicked Delete Direction');
 
-        if (selectedRowNumD < y-1) {
-            alert("Please delete rows in order of bottom to up.");
-        } else {
-            $('#' + selectedRowD).remove();
+        var selectedRow = $(this).parent().parent().attr('id') + '';
+        var selectedRowNum = parseInt(selectedRow.substring(6));
+
+        if (selectedRowNum == yy) {
+            $('#' + selectedRow).remove();
             y--;
+            yy--;
 
-            console.log('AFTER DELETING = ' + y);
+            console.log('D - AFTER DELETING y=' + y + ' ' + 'yy=' + yy);
 
-            if (y-1 > 0) {
-                var id = "dirButton" + y;
-                var prevButton = document.querySelector("#" + id);
-
+            if (yy > 0) {
+                var id = dirId + yy;
+                var prevButton = document.querySelector(id);
                 prevButton.style.display = "block";
             }
         }
     });
 
+    // IMAGE HANDLING
     $('.img').change(function (e) {
         if (this.files && this.files[0]) {
             console.log('File Uploaded');
@@ -146,6 +168,7 @@ $(document).ready(function() {
         }
     });
 
+    // Check for file type.
     function readExt (input, id) {
         var ext = input.value.match(/\.(.+)$/)[1];
         var isValid = 1;
@@ -168,6 +191,7 @@ $(document).ready(function() {
         return isValid;
     }
 
+    // Upload image preview.
     function readURL (input, id) {
         var reader = new FileReader();
         var currID = '#' + id;
@@ -189,6 +213,7 @@ $(document).ready(function() {
         reader.readAsDataURL(input.files[0]);
     }
 
+    // Clear image preview.
     function clearPreview (id) {
         var idNum = id.substring(5);
         var previewID = '#preview' + idNum;

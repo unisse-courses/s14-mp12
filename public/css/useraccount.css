@@ -48,6 +48,10 @@
     background-color: #ffffff;
 }
 
+#new, #popular {
+    color: #000000;
+}
+
 #new-link.active,
 #popular-link.active {
     background-color: #ff9600;
