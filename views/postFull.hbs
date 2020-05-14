@@ -1,0 +1,333 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/rate-post.js"></script>
+    <script src="../../scripts/post-full.js"></script>
+    <script src="../../scripts/edit-comment.js"></script>
+{{/section}}
+
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/postfull.css">
+    <link rel="stylesheet" href="../../css/starrating.css">
+{{/section}}
+
+<div class="container-fluid" id="content">
+    <div class="row no-gutters">
+
+        <!-- Blog Entry Column -->
+        <div class="col-8" id="post-full">
+
+            {{!-- Error Message --}}
+            {{#if message}}
+            <div class="alert alert-danger" role="alert">
+                <strong>{{message}}</strong>
+            </div>
+            {{/if}}
+
+            <!-- Details Top -->
+            <div class="details-top">
+                    <!-- Title -->
+                    <h1 class="mt-4" id="post-title">
+                        {{post.pfTitle}}
+                    </h1>
+                
+                    <!-- Author -->
+                    <p class="lead" id="user-name">Posted by
+                        <a href="/viewUser/{{poster.username}}/new?page=1" id="username">
+                            <span class="un">{{poster.username}}</span>
+                        </a>
+                    </p>
+
+                    <hr>
+
+                    <!-- Date and Ratings -->
+                    <div id="details">
+                        <p id="date-rate">
+                            <span class="date">
+                                <i class="far fa-clock"></i>&nbsp;&nbsp;{{datePosted}}
+                            </span>
+                            <span class="ratings">
+                                {{#each rating}}
+                                    {{#if this}}
+                                        <i class="fas fa-star"></i>&nbsp;
+                                    {{else}}
+                                        <span class="ratings-nope">
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    {{/if}}
+                                {{/each}}
+                            </span>
+                        </p>
+                    </div>
+
+                    <hr>
+            </div>
+
+            <div class="container-fluid" id="images">
+                {{!-- <div class="row no-gutters">
+                    {{#each pfImages}}
+                    <div class="col">
+                        <img src="{{this}}" width="250">
+                    </div>
+                    {{/each}}
+                </div> --}}
+
+                <div class="row text-center text-lg-left">
+                    {{#each pfImages}}
+                    <div class="col-lg-3 col-md-4 col-6">
+                        <a href="#" class="d-block mb-4 h-100 pop">
+                            <img class="img-fluid img-thumbnail" src="{{this}}">
+                        </a>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+    
+            <div class="content-entry">
+
+                <!-- Post Content -->
+                <p class="lead">
+                    <p>{{post.pfDescription}}</p>
+                </p>
+                <h4>Ingredients</h4>
+                <p>
+                    <ul>
+                    {{#each post.pfIngredients}}
+                    <li>{{this.quantity}} {{this.unit}} {{this.name}}</li>
+                    {{/each}}
+                    </ul>
+                </p>
+                <h4>Directions</h4>
+                <p>
+                    <ol>
+                    {{#each post.pfDirections}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                    </ol>
+                </p>
+                
+                <div class="tags">
+                    <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{#each post.pfTags}}
+                    <span class="post-tags">#{{this}}</span>&nbsp;&nbsp;
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="details-bottom">
+                <hr>
+
+                <!-- Comments and Action -->
+                <div id="comment-action">
+                    <p id="comment-action-details">
+
+                        <!-- Comment Number -->
+                        <span class="comment-number">
+                            <i class="far fa-comment-alt"></i>&nbsp;&nbsp;{{post.pfCommentList.length}} comments&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+
+                        <!-- Available Actions Left -->
+                        <span class="action-l">
+
+                            <!-- Rate Post -->
+                            <span class="rate">
+                                <a href="" id="rate-post" data-toggle="modal" data-target="#rating-modal">
+                                    <i class="far fa-star"></i>&nbsp;Rate
+                                </a>
+                            </span>
+                        </span>
+                        
+                        <!-- Available Actions Right -->
+                        <span class="action-r">
+
+                            {{#isEqual loggedInUsername poster.username }}
+                            <!-- Edit Post -->
+                            <span class="edit">
+                                <a href="/viewPost/{{post._id}}/edit" id="edit-post">
+                                    <i class="far fa-edit"></i>&nbsp;Edit
+                                </a>
+                            </span>
+
+                            <!-- Delete Post -->
+                            {{!-- <span class="delete">
+                                <a href="/" id="delete-post">
+                                    <i class="far fa-trash-alt"></i>&nbsp;Delete
+                                </a>
+                            </span> --}}
+                            {{/isEqual}}
+
+                            <!-- Share Post -->
+                            <span class="share" id="share-post">
+                                <a onclick="alert('Link for this page: ' + '{{post.pfURL}}')" id="share-post">
+                                    <i class="far fa-share-square"></i>&nbsp;Share
+                                </a>
+                            </span>
+                        </span>
+                    </p>
+                </div>
+
+                <hr>
+
+                <!-- Comment Area -->
+                <div class="comments">
+
+                    <!-- Comments Form -->
+                    <div class="card my-4" id="comment-form">
+                        <div class="card-body">
+                            <form class="submit-comment" method="post" action="{{post._id}}/addComment">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="comment" rows="3" placeholder="Leave a comment and join the cooking!" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Start of Comment -->
+                    <div id="comments-section">
+
+                        <!-- Single Comment -->
+                        {{#each comments}}
+                        <div class="media" id="comment-media{{@index}}">
+                            <div class="media-body">
+                                {{!-- Username and Date Posted --}}
+                                <p class="mt-0 comment-un">
+                                    <a href="/viewUser/{{cUsername}}/new?page=1">{{cUsername}}</a>
+                                    <span class="date-posted">
+                                        &nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Posted {{cDatePosted}}
+                                    </span>
+                                </p>
+
+                                {{!-- Comment Details --}}
+                                <div class="comment-details">
+                                    {{content}}
+                                </div>
+
+                                {{!-- Edit Comment Area --}}
+                                <div class="edit-comment-details" id="ecd{{@index}}">
+                                    <form class="edit-comment" id="edit-c" method="POST" action="{{../post.pfURL}}/{{_id}}/edit">
+                                        <div class="form-group"> 
+                                            <textarea class="form-control" name="content" id="ta{{@index}}" rows="2">{{content}}</textarea>
+                                        </div>
+                                        <div class="btn-group"> 
+                                            <button type="button" class="btn btn-primary cancel" id="cancel-comment">Cancel</button>
+                                            <button type="submit" class="btn btn-primary submit">Submit</button>
+                                        </div>
+                                        </form>
+                                    </form>
+                                </div>
+
+                                {{!-- Comment Actions --}}
+                                {{#isEqual ../loggedInUsername cUsername }}
+                                <div class="comment-actions">
+
+                                    {{!-- Edit Comment --}}
+                                    <span class="edit">
+                                        <a id="edit-comment">
+                                            <i class="far fa-edit"></i>&nbsp;Edit
+                                        </a>
+                                    </span>
+
+                                    {{!-- Delete Comment --}}
+                                    {{!-- <span class="delete">
+                                        <a id="delete-comment">
+                                            <i class="far fa-trash-alt"></i>&nbsp;Delete
+                                        </a>
+                                    </span> --}}
+                                </div>
+                                {{/isEqual}}
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                {{!-- <div id="page-nav-comments">
+                    <!-- Pagination List -->
+                    <ul class="pagination">
+                        <li class="page-item disabled">
+                            <a class="page-link disabled" id="prev" href="#">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" id="next" href="#">Next</a>
+                        </li>
+                    </ul>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rating Modal-->
+<div class="modal fade" id="rating-modal" tabindex="-1" role="dialog">
+
+    <!-- Modal Dialogue Box -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Give this recipe a rating!</h4>
+                <button class="close" type="button" data-dismiss="modal">
+                    <span class="close-button">×</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body" id="m-body">
+
+                <!-- Give Star Rating for Post -->
+                <form id="rating-form" action="/viewPost/{{post._id}}/makeRating" method="POST">
+                    <div class="form-group row">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfRating" id="inlineRadio1" value="1" required>
+                            <span class="star"  id="star1"><i class="fas fa-star"></i></span>
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfRating" id="inlineRadio2" value="2">
+                            <span class="star" id="star2"><i class="fas fa-star"></i></span>
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfRating" id="inlineRadio3" value="3">
+                            <span class="star" id="star3"><i class="fas fa-star"></i></span>
+                            <label class="form-check-label" for="inlineRadio3">3</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfRating" id="inlineRadio4" value="4">
+                            <span class="star" id="star4"><i class="fas fa-star"></i></span>
+                            <label class="form-check-label" for="inlineRadio4">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pfRating" id="inlineRadio5" value="5">
+                            <span class="star" id="star5"><i class="fas fa-star"></i></span>
+                            <label class="form-check-label" for="inlineRadio5">5</label>
+                        </div>
+                    </div>
+
+                    <div class="rating-text">
+                        You gave <span id="selected-rating" class="selected-rating">0</span> stars for this recipe.
+                    </div>
+
+                    <hr> 
+
+                    <div class="modal-buttons">
+                        <button class="btn" id="cancel-star" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn" id="proceed-star" type="submit">Rate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">              
+      <div class="modal-body" id="i-body">
+      	{{!-- <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button> --}}
+        <img src="" class="image-preview">
+      </div>
+    </div>
+  </div>
+</div>

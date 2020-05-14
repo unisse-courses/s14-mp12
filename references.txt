@@ -1,0 +1,18 @@
+// Multer
+https://github.com/expressjs/multer#fieldsfields
+
+
+// Express , Request Responce
+https://expressjs.com/en/api.html#req.originalUrl
+https://expressjs.com/en/guide/using-middleware.html
+
+
+// Mongodb Mongoose
+https://tech-blog.maddyzone.com/node.js/add-update-delete-object-array-schema-mongoosemongodb
+https://mongoosejs.com/docs/populate.html
+
+// HandleBars
+https://gist.github.com/amitkumar/b1969e86e1379db83511#file-handlebars-helpers-templates-html
+
+// BootStrap
+https://getbootstrap.com/docs/3.4/components/?fbclid=IwAR1V0Vit3W3L_dOkUUF0QTbhkaJy7EtAgb9CvHVfpMTlDqG0b8sTTEWGTQc#alerts

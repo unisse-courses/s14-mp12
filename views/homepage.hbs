@@ -1,0 +1,259 @@
+{{!-- {{#section 'scriptJQ'}}
+    <script src="../../scripts/pagination.js"></script>
+{{/section}} --}}
+
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/homepage.css">
+{{/section}}
+
+{{!-- HOMEPAGE --}}
+
+<div class="container-fluid" id="homepage">
+
+    {{!-- Banner --}}
+    <div id="banner">
+        {{!-- Banner Carousel --}}
+        <div id="banner-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+            
+            {{!-- Indicators --}}
+            <ol class="carousel-indicators">
+                <li data-target="#banner-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#banner-carousel" data-slide-to="1"></li>
+                <li data-target="#banner-carousel" data-slide-to="2"></li>
+                <li data-target="#banner-carousel" data-slide-to="3"></li>
+                <li data-target="#banner-carousel" data-slide-to="4"></li>
+            </ol>
+
+            {{!-- Images --}}
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="5000">
+                    <img src="/img/banner-1.png" alt="Main Banner">
+                </div>
+
+                <div class="carousel-item" data-interval="4000">
+                    <img src="/img/banner-2.png" alt="Banner 1">
+                </div>
+
+                <div class="carousel-item" data-interval="4000">
+                    <img src="/img/banner-3.png" alt="Banner 2">
+                </div>
+
+                <div class="carousel-item" data-interval="4000">
+                    <img src="/img/banner-4.png" alt="Banner 3">
+                </div>
+
+                <div class="carousel-item" data-interval="4000">
+                    <img src="/img/banner-5.png" alt="Banner 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#if posts}}
+    <div class="container-fluid" id="posts">
+        <div class="row no-gutters" id="new-popular">
+            <div class="col-8 sort-area">
+                {{!-- Buttons for Sorting --}}
+                <div class="button-area">
+                    {{!-- New --}}
+                    <div class="sort-link 
+                        {{#if new}}
+                            active
+                        {{/if}}
+                        " id="new-link">
+                        <a class="new" id="new" href="/new/?page=1">
+                            <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                        </a>
+                    </div>
+                    {{!-- Popular --}}
+                    <div class="sort-link
+                        {{#if popular}}
+                            active
+                        {{/if}}
+                        " id="popular-link">
+                        <a class="popular" id="popular" href="/popular?page=1">
+                            <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                        </a>
+                    </div>
+                </div>
+
+                {{#if popular}}
+                {{!-- Stars for Popular --}}
+                <div class="star-area">
+                    <div class="btn-group dropright" id="star-dd">
+                        <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                            Sort&nbsp;
+                            <i class="fas fa-caret-right"></i>
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/popular/5star?page=1">5-star</a>
+                            <a class="dropdown-item" href="/popular/4star?page=1">4-star</a>
+                            <a class="dropdown-item" href="/popular/3star?page=1">3-star</a>
+                            <a class="dropdown-item" href="/popular/2star?page=1">2-star</a>
+                            <a class="dropdown-item" href="/popular/1star?page=1">1-star</a>
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
+            </div>
+        </div>
+
+        <div class="row no-gutters" id="post-here">
+    
+            {{#each posts}}
+            <div class="col-8 blog-posts">
+
+                {{!-- Card --}}
+                <div class="card" id="blog">
+
+                    {{!-- Card Body --}}
+                    <div class="card-body">
+                        {{!-- Title --}}
+                        <a href="/viewPost/{{this._id}}">
+                            <h2 class="card-title">
+                               {{this.pfTitle}}
+                            </h2>
+                        </a>
+
+                        {{!-- Description --}}
+                        <p class="card-text">
+                            {{this.pfDescription}}
+                        </p>
+
+                        <hr>
+
+                        {{!-- Tags --}}
+                        <div class="tags">
+                            <span class="tag-name">Tags</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{#each this.pfTags}}
+                            <span class="post-tags">{{this}}</span>&nbsp;&nbsp;
+                            {{/each}}
+                        </div>
+                    </div>
+
+                    {{!-- Footer --}}
+                    <div class="card-footer text-muted">
+                        {{!-- Date --}}
+                        <i class="far fa-clock"></i>&nbsp;&nbsp;{{this.pfDate}}&nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="far fa-user"></i>&nbsp;
+                        {{!-- Username --}}
+                        <a href="/viewUser/{{this.username}}/new?page=1" id="username">{{this.username}}</a>
+
+                        <span class="comments">
+                            {{!-- Number of Comments --}}
+                            <i class="fas fa-comment-alt"></i>&nbsp;&nbsp;{{this.pfCommentList.length}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            {{!-- Star Rating --}}
+                            <span class="ratings">
+                                {{#each this.ratingLayout}}
+                                    {{#if this}}
+                                        <i class="fas fa-star"></i>&nbsp;
+                                    {{else}}
+                                        <span class="ratings-nope">
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    {{/if}}
+                                {{/each}}
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        <div class="row no-gutters" id="page-here">
+             {{!-- Page Navigation --}}
+            <div class="col-8 page-area">
+                
+                {{!-- Paginator --}}
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link disabled" href="/" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link active" href="/new?page=1">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" value="2" href="/new?page=2">2</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link disabled" href="/">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{else}}
+        {{#if star}}
+        <div class="container-fluid" id="posts">
+            {{!-- Sort Row --}}
+            <div class="row no-gutters" id="new-popular">
+                <div class="col-8 sort-area">
+                    {{!-- Buttons for Sorting --}}
+                    <div class="button-area">
+                        {{!-- New --}}
+                        <div class="sort-link 
+                            {{#if new}}
+                                active
+                            {{/if}}
+                            " id="new-link">
+                            <a class="new" id="new" href="/new/?page=1">
+                                <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                            </a>
+                        </div>
+                        {{!-- Popular --}}
+                        <div class="sort-link
+                            {{#if popular}}
+                                active
+                            {{/if}}
+                            " id="popular-link">
+                            <a class="popular" id="popular" href="/popular?page=1">
+                                <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                            </a>
+                        </div>
+                    </div>
+
+                    {{#if popular}}
+                    {{!-- Stars for Popular --}}
+                    <div class="star-area">
+                        <div class="btn-group dropright" id="star-dd">
+                            <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                                Sort&nbsp;
+                                <i class="fas fa-caret-right"></i>
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/popular/5star?page=1">5-star</a>
+                                <a class="dropdown-item" href="/popular/4star?page=1">4-star</a>
+                                <a class="dropdown-item" href="/popular/3star?page=1">3-star</a>
+                                <a class="dropdown-item" href="/popular/2star?page=1">2-star</a>
+                                <a class="dropdown-item" href="/popular/1star?page=1">1-star</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                </div>
+            </div>
+
+            {{!-- No STAR rating text. --}}
+            <div class="row no-gutters" id="no-posts">
+                <div class="col-8 no-blog">
+                    <h5 id="account-text-1">There are no posts with {{star}}-star rating.</h5>
+                </div>
+            </div>
+        </div>
+        {{else}}
+        <div class="container-fluid" id="posts">
+            <div class="row no-gutters" id="no-posts">
+                <div class="col-8 no-blog">
+                    <h5 id="account-text-2">There are no posts made yet.</h5>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    {{/if}}
+</div>

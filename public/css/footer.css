@@ -1,0 +1,36 @@
+.page-footer {
+    margin-top: 200px;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: #ff9600;
+}
+
+#footer-content {
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    flex-direction: row-reverse;
+    color: #fcfcfc;
+}
+
+#footer-content > .text {
+    padding-top: 16px;
+    font-size: 12px;
+}
+
+#footer-content > .text > .emp,
+#footer-content > .text > a {
+    color: #f7f7f7;
+    font-weight: 650!important;
+}
+
+#footer-content > .text > .v-line {
+    padding-top: 14px!important;
+}
+
+#footer-content > .text > a:hover {
+    color: #000000;
+    cursor: pointer;
+}

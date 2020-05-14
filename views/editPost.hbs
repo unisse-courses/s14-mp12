@@ -1,0 +1,188 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/edit-post.js"></script> 
+{{/section}}
+
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/editpost.css">
+{{/section}}
+
+<div class="container-fluid" id="editpost">
+    {{!-- EDIT POST START --}}
+    <div class="column" id="cp-content">
+        
+        <div class="intro-heading">
+            <h3>Edit your recipe!</h3>
+        </div>
+
+        {{!-- Form Start --}}
+        <form id="editForm" method="POST" enctype="multipart/form-data">
+            <div class="form-part">
+                {{!-- Title --}}
+                <label class="edit-content" for="pfTitle">Edit Recipe Title</label>
+                <input type="text" class="form-control" name="pfTitle" value="{{post.pfTitle}}" rows="1" maxlength="300" required autofocus>
+            </div>
+
+            <div class="form-part">
+                {{!-- Introductory Text --}}
+                <label class="edit-content" for="pfDescription">Edit Introductory Text</label>
+                <textarea type="text" class="form-control" name="pfDescription" rows="5" required>{{post.pfDescription}}</textarea>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="ingredients">
+                {{!-- Ingredients --}}
+                <label class="edit-content" for="pfIngredients">Edit Ingredients of the Recipe</label>
+                {{#each post.pfIngredients}}
+                <div class="row" id="new-row{{@index}}">
+                    <div class="col">
+                        <input type="text" name="pfIngredients[{{@index}}][quantity]" class="form-control" id="quantity" value="{{this.quantity}}" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfIngredients[{{@index}}][unit]" class="form-control" id="unit" value="{{this.unit}}" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfIngredients[{{@index}}][name]" class="form-control" id="name" value="{{this.name}}" rows="1" required>
+                    </div>
+
+                    {{#if @first}}
+                    <div class="col">
+                        <button class="btn ing-add" id="i-add" type="button">Add</button>
+                    </div>
+                    {{else}}
+                    <div class="col">
+                        <button type="button" id="ingButton{{@index}}" class="btn ing-delete">Delete</button>
+                    </div>
+                    {{/if}}
+
+                </div>
+                {{/each}}
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="directions">
+                {{!-- Directions --}}
+                <label class="edit-content" for="pfDirections">Edit How to Prepare the Recipe</label>
+
+                {{#each post.pfDirections}}
+                <div class="row" id="newrow{{@index}}">
+                    <div class="col-9">
+                        <textarea type="text" name="pfDirections[{{@index}}]" class="form-control" id="instruction" rows="2" required>{{this}}</textarea>
+                    </div>
+                    {{#if @first}}
+                    <div class="col">
+                        <button class="btn ing-dir" id="d-add" type="button">Add</button>
+                    </div>
+                    {{else}}
+                    <div class="col">
+                        <button type="button" id="dirButton{{@index}}" class="btn dir-delete">Delete</button>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="taglist">
+                {{!-- Tags  --}}
+                <label class="edit-content" for="pfTags">Edit tags of the recipe</label>
+                <div class="row" id="tag-row">
+                    {{#each post.pfTags}}
+                        <div class="col">
+                            <input type="text" name="pfTags[{{@index}}]" class="form-control tag" id="tag-{{@index}}" value="{{this}}" rows="1" required>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="imagelist">
+                {{!-- Tags --}}
+                <label class="edit-content" for="pfImages">Reupload Images for the Recipe</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image1" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p1">
+                            <img id="preview1" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image2" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p2">
+                            <img id="preview2" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image3" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p3">
+                            <img id="preview3" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image4" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p4">
+                            <img id="preview4" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image5" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p5">
+                            <img id="preview5" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+
+            <div class="post-footer">
+                <span class="buttons">
+                    <button class="btn" id="cancel-edit" type="button" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
+                    <button class="btn" id="proceed-edit" type="submit">Edit</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{!-- Cancel Modal Popup --}}
+<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    {{!-- Modal Dialogue Box --}}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+
+            {{!-- Modal Header --}}
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure you want to cancel your edit?</h5>
+                <button class="close" type="button" data-dismiss="modal">
+                    <span class="close-button">&times;</span>
+                </button>
+            </div>
+
+            {{!-- Modal Body --}}
+            <div class="modal-body">
+                <p class="body-text">Your edit will not be saved.</p>                    
+            </div>
+
+            {{!-- Modal Footer --}}
+            <div class="modal-footer">
+                <button class="btn" id="cancel-cancel" type="button" data-dismiss="modal">Cancel</button>
+                <a href="/viewProfile/new?page=1">
+                    <button class="btn" id="proceed-cancel" type="button">Proceed</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Deleting the Images from storage --}}
+<div>
+    {{#each post.pfImages}}
+    <input type="text" style="display:none" class="form-control" name="imagesToDelete" value="{{this}}" rows="1" form="editForm"/>
+    {{/each}}
+</div>

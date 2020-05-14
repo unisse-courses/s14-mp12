@@ -1,0 +1,172 @@
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/create-post.js"></script> 
+{{/section}}
+
+{{#section 'headCSS'}}
+    <link rel="stylesheet" href="../../css/createpost.css">
+{{/section}}
+
+<div class="container-fluid" id="createpost">
+    {{!-- CREATE POST START --}}
+    <div class="column" id="cp-content">
+        
+        <div class="intro-heading">
+            <h3>Share your recipe!</h3>
+        </div>
+
+        {{!-- Form Start --}}
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-part">
+                {{!-- Title --}}
+                <label class="create-content" for="pfTitle">Recipe Title</label>
+                <input type="text" class="form-control" name="pfTitle" placeholder="Enter title." rows="1" maxlength="300" required autofocus>
+            </div>
+
+            <div class="form-part">
+                {{!-- Introductory Text --}}
+                <label class="create-content" for="pfDescription">Introductory Text</label>
+                <textarea type="text" class="form-control" name="pfDescription" placeholder="Enter content." rows="5" required></textarea>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="ingredients">
+                {{!-- Ingredients --}}
+                <label class="create-content" for="pfIngredients">Ingredients of the Recipe</label>
+                <div class="row" id="new-row0">
+                    <div class="col">
+                        <input type="text" name="pfIngredients[0][quantity]" class="form-control" id="quantity" placeholder="Quantity" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfIngredients[0][unit]" class="form-control" id="unit" placeholder="Unit" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfIngredients[0][name]" class="form-control" id="name" placeholder="Name" rows="1" required>
+                    </div>
+                    <div class="col">
+                        <button class="btn ing-add" id="i-add" type="button">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="directions">
+                {{!-- Directions --}}
+                <label class="create-content" for="pfDirections">How to Prepare the Recipe</label>
+                <div class="row" id="newrow0">
+                    <div class="col-9">
+                        <textarea type="text" name="pfDirections[0]" class="form-control" id="instruction" placeholder="Enter recipe steps here." rows="2" required></textarea>
+                    </div>
+                    <div class="col">
+                        <button class="btn ing-dir" id="i-dir" type="button">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="taglist">
+                {{!-- Tags  --}}
+                <label class="create-content" for="pfTags">Add tags to the recipe</label>
+                <div class="row" id="tag-row">
+                    <div class="col">
+                        <input type="text" name="pfTags[0]" class="form-control tag" id="tag-1" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[1]" class="form-control tag" id="tag-2" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[2]" class="form-control tag" id="tag-3" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[3]" class="form-control tag" id="tag-4" placeholder="Add tag." rows="1" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="pfTags[4]" class="form-control tag" id="tag-5" placeholder="Add tag." rows="1" required>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="form-part" id="imagelist">
+                {{!-- Tags --}}
+                <label class="create-content" for="pfImages">Add images/s to the recipe</label>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image1" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p1">
+                            <img id="preview1" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image2" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p2">
+                            <img id="preview2" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image3" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p3">
+                            <img id="preview3" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image4" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p4">
+                            <img id="preview4" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="file" class="form-control img" id="image5" name="pfImages" accept=".png, .jpeg, .jpg" />
+                        <div class="preview-area" id="p5">
+                            <img id="preview5" src="/img/image-preview.png" alt="your image" title=''/>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+
+            <div class="post-footer">
+                <span class="buttons">
+                    <button class="btn" id="cancel-create" type="button" data-toggle="modal" data-target="#cancel-modal">Cancel</button>
+                    <button class="btn" id="proceed-create" type="submit">Post</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{!-- Cancel Modal Popup --}}
+<div class="modal fade" id="cancel-modal" tabindex="-1" role="dialog" aria-hidden="true">
+
+    {{!-- Modal Dialogue Box --}}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+
+            {{!-- Modal Header --}}
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure you want to cancel your post?</h5>
+                <button class="close" type="button" data-dismiss="modal">
+                    <span class="close-button">&times;</span>
+                </button>
+            </div>
+
+            {{!-- Modal Body --}}
+            <div class="modal-body">
+                <p class="body-text">Your post will not be saved.</p>                    
+            </div>
+
+            {{!-- Modal Footer --}}
+            <div class="modal-footer">
+                <button class="btn" id="cancel-cancel" type="button" data-dismiss="modal">Cancel</button>
+                <a href="/viewProfile/new?page=1">
+                    <button class="btn" id="proceed-cancel" type="button">Proceed</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

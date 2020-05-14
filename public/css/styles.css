@@ -1,0 +1,44 @@
+body {
+    background-color: #f9f9f9;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    font-size: 15px!important;
+    padding: 0px;
+    min-height: 100vh;
+    min-width: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 150px;
+}
+
+::placeholder {
+    opacity: 50%;
+}
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.emp {
+    font-weight: 500;
+}
+
+#page-here {
+    display: none;
+}
+
+#page-nav-comments {
+    display: none;
+}

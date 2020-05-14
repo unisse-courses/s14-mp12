@@ -1,0 +1,220 @@
+#homepage {
+    margin-top: 50px;
+}
+
+#banner {
+    max-width: 100%;
+}
+
+#banner-carousel {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+#banner-carousel > ol > li {
+    height: 15px!important;
+    width: 15px!important;
+    border: none;
+    border-radius: 50%;
+    margin-bottom: 10px!important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#banner-carousel > .carousel-inner > .carousel-item > img {
+    max-width: 100%;
+}
+
+#new-popular > .sort-area {
+    display: flex;
+    flex-direction: row;
+    flex-basis: inherit;
+    font-weight: 500;
+}
+
+#new-popular > .sort-area > .button-area {
+    display: flex;
+    flex-direction: row;
+}
+
+#new-popular {
+    margin-top: 50px;
+}
+
+#no-posts > .no-blog,
+#new-popular > .sort-area,
+#post-here > .blog-posts,
+#page-here > .page-area {
+    margin: auto;
+}
+
+#no-posts > .no-blog {
+    margin-top: 30px;
+}
+
+#post-here > .blog-posts {
+    margin-bottom: 50px;
+}
+
+#new-link {
+    width: 80px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #ffffff;
+}
+
+#popular-link {
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #ffffff;
+}
+
+#new, #popular {
+    color: #000000;
+}
+
+#new-link.active,
+#popular-link.active {
+    background-color: #ff9600;
+}
+
+#new-link:hover.active,
+#popular-link:hover.active  {
+    pointer-events: none;
+}
+
+#new-link:hover:not(.active),
+#popular-link:hover:not(.active) {
+    background-color: #d7d7d7;
+    cursor: pointer;
+}
+
+#new-popular > .sort-area > .star-area {
+    margin-left: auto;
+    display: block;
+}
+
+#star-dd > button {
+    width: 70px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: none;
+    font-weight: 500;
+}
+
+#star-dd > .dropdown-menu {
+    text-align: center;
+}
+
+#post-here, #page-here {
+    margin-top: 50px;
+}
+
+#blog > .card-body > a {
+    color: #000000;
+    word-wrap: break-word;
+    font-size: 35px;
+}
+
+#blog > .card-body > a:hover {
+    color: #ff9600;
+}
+
+#blog > .card-body > .card-text {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+#blog > .card-body > .tags > .tag-name {
+    color: #9d9b98;
+    text-transform: uppercase;
+}
+
+#blog > .card-body > .tags > .post-tags {
+    color: #ff9600;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid #ff9600;
+    border-color: #ff9600;
+    border-radius: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+#blog > .card-footer {
+    vertical-align: middle;
+}
+
+#blog > .card-footer > #username {
+    font-weight: 500;
+    color: #ff9600;
+    text-decoration: none;
+}
+
+#blog > .card-footer > #username:hover {
+    color: #000000;
+    text-decoration: none;
+}
+
+#blog > .card-footer > .comments {
+    float: right;
+}
+
+#blog > .card-footer > .comments > .ratings {
+    background-color: #ff9600;
+    color: #ffffff;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    border-radius: 15px;
+}
+
+#blog > .card-footer > .comments > .ratings > .ratings-nope {
+    color: #c2773e;
+}
+
+#page-here > .page-area > .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-here > .page-area > .pagination > li > a,
+#page-here > .page-area > .pagination > li > a {
+    border: none;
+    color: #000000;
+    font-weight: 450;
+}
+
+#page-here > .page-area > .pagination > li > a.disabled {
+    color: #a9a9a9;
+}
+
+#page-here > .page-area > .pagination > li > a.active {
+    background-color: #ff9600;
+    pointer-events: none;
+}
+
+#page-here > .page-area > .pagination > li > a.active {
+    background-color: #ff9600;
+    pointer-events: none;
+}
+
+#account-text-1 {
+    margin-top: 20px;
+}
+
+#account-text-2 {
+    margin-top: 50px;
+    margin-bottom: 300px;
+}
