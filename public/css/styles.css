@@ -34,3 +34,7 @@ a:visited {
 .emp {
     font-weight: 500;
 }
+
+#page-here {
+    display: none;
+}

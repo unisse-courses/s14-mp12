@@ -63,35 +63,36 @@
         {{!-- RIGHT --}}
         <div class="col" id="user-acc-right">
 
-            {{!-- SORT AREA --}}
+            {{#if userPosts}}
+            {{!-- Sort Row --}}
             <div class="row no-gutters" id="new-popular">
                 <div class="col sort-area">
                     {{!-- Buttons for Sorting --}}
                     <div class="button-area">
                         {{!-- New --}}
-                    <div class="sort-link 
-                        {{#if new}}
-                            active
-                        {{/if}}
-                        " id="new-link">
-                        <a class="new" id="new" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/new?page=1">
-                            <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
-                        </a>
+                        <div class="sort-link 
+                            {{#if new}}
+                                active
+                            {{/if}}
+                            " id="new-link">
+                            <a class="new" id="new" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/new?page=1">
+                                <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                            </a>
+                        </div>
+                        {{!-- Popular --}}
+                        <div class="sort-link
+                            {{#if popular}}
+                                active
+                            {{/if}}
+                            " id="popular-link">
+                            <a class="popular" id="popular" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular?page=1">
+                                <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                            </a>
+                        </div>
                     </div>
-                    {{!-- Popular --}}
-                    <div class="sort-link
-                        {{#if popular}}
-                            active
-                        {{/if}}
-                        " id="popular-link">
-                        <a class="popular" id="popular" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular?page=1">
-                            <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
-                        </a>
-                    </div>
-                </div>
 
-                {{#if popular}}
-                {{!-- Stars for Popular --}}
+                    {{#if popular}}
+                    {{!-- Stars for Popular --}}
                     <div class="star-area">
                         <div class="btn-group dropleft" id="star-dd">
                             <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
@@ -108,13 +109,11 @@
                             </div>
                         </div>
                     </div>
-                {{/if}}
-
+                    {{/if}}
                 </div>
             </div>
-            
-            {{#if userPosts}}
-            {{!-- POSTS --}}
+
+            {{!-- Post Row --}}
             <div class="row no-gutters" id="post-here">
                 
                 <div class="col blog-posts">
@@ -185,7 +184,7 @@
                 </div>
             </div>
 
-            {{!-- PAGINATION --}}
+            {{!-- Pagination Row --}}
             <div class="row no-gutters" id="page-here">
                 {{!-- Page Navigation --}}
                 <div class="col-8 page-area">
@@ -207,15 +206,70 @@
                     </ul>
                 </div>
             </div>
-            
             {{else}}
-            <div class="row no-gutters" id="post-here"></div>
                 {{#if star}}
-                <h5 id="account-text">There are no posts with {{star}}-star rating.</h5>
+                {{!-- Sort Row --}}
+                <div class="row no-gutters" id="new-popular">
+                    <div class="col sort-area">
+                        {{!-- Buttons for Sorting --}}
+                        <div class="button-area">
+                            {{!-- New --}}
+                            <div class="sort-link 
+                                {{#if new}}
+                                    active
+                                {{/if}}
+                                " id="new-link">
+                                <a class="new" id="new" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/new?page=1">
+                                    <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                                </a>
+                            </div>
+                            {{!-- Popular --}}
+                            <div class="sort-link
+                                {{#if popular}}
+                                    active
+                                {{/if}}
+                                " id="popular-link">
+                                <a class="popular" id="popular" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular?page=1">
+                                    <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                                </a>
+                            </div>
+                        </div>
+
+                        {{#if popular}}
+                        {{!-- Stars for Popular --}}
+                        <div class="star-area">
+                            <div class="btn-group dropleft" id="star-dd">
+                                <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                                    <i class="fas fa-caret-left"></i>
+                                    &nbsp;Sort
+                                </button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular/5star?page=1">5-star</a>
+                                    <a class="dropdown-item" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular/4star?page=1">4-star</a>
+                                    <a class="dropdown-item" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular/3star?page=1">3-star</a>
+                                    <a class="dropdown-item" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular/2star?page=1">2-star</a>
+                                    <a class="dropdown-item" href="{{#if viewProfile}}/viewProfile{{else}}/viewUser/{{user.username}}{{/if}}/popular/1star?page=1">1-star</a>
+                                </div>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+
+                {{!-- No STAR rating text. --}}
+                <div class="row no-gutters" id="no-posts">
+                    <div class="col no-area">
+                        <h5 id="account-text-1">There are no posts with {{star}}-star rating.</h5>
+                    </div>
+                </div>
                 {{else}}
-                <h5 id="account-text">There are no posts made by the user yet.</h5>
+                <div class="row no-gutters" id="no-posts">
+                    <div class="col no-area">
+                        <h5 id="account-text-2">There are no posts made by the user yet.</h5>
+                    </div>
+                </div>
                 {{/if}}
-            </div>
             {{/if}}
         </div>
     </div>

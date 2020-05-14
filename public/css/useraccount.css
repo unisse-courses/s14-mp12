@@ -254,3 +254,7 @@
     text-transform: capitalize;
     float: right;
 }
+
+#account-text-1 {
+    margin-top: 50px;
+}
