@@ -114,6 +114,8 @@ Of course, you can also make you own account. Have fun navigating the site!
 ## DEPENDENCIES & LIBRARIES —
 * bcryptjs                  2.4.3
 * body-parser               1.19.0
+* bootstrap-css             4.4.1
+* bootstrap-js              4.4.1
 * cookie-parser             1.4.5
 * cors                      2.8.5
 * dotenv                    8.2.0
@@ -122,6 +124,7 @@ Of course, you can also make you own account. Have fun navigating the site!
 * express-session           1.17.0
 * gridfs-stream             1.1.1
 * handlebars                4.7.6
+* jquery                    3.4.1
 * moment                    2.24.0
 * mongodb                   3.5.5
 * mongoose                  5.9.4
@@ -133,3 +136,4 @@ Of course, you can also make you own account. Have fun navigating the site!
 * passport                  0.4.1
 * passport-local            1.0.0
 * passport-local-mongoose   6.0.1
+* popper                    1.16.0
