@@ -38,9 +38,9 @@ run. You also have to connect to a database that will provide the information to
 the application.
 
 Please follow the next procedure to accomplish the run smoothly.
-<!-- 1. After downloading the repository, open the command prompt of that specific location.
+1. After downloading the repository, open the command prompt of that specific location.
 2. Type `npm install` to download the included dependencies.
-3. Run the server by typing `npm start`. -->
+3. Run the server by typing `npm start`.
 
 Once successfully done, you will have to run the app on any browser.
 1. Go to `http://localhost:3000`.
