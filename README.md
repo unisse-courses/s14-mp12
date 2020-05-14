@@ -46,6 +46,7 @@ For this phase of the project, the current working features involve:
 * Logged in users can rate a post only once. Rating cannot be changed.
 * User (even if logged in or logged out) can search for a post. Search is conducted by comparing the tags and search keyword and displaying posts where the same search keyword is found.
 * User (even if logged in or logged out) can sort by new and popular (and by stars) in the search page.
+* About page that contains npm packages and third-party libraries are found in the footer section.
 
 ## HOW TO RUN —
 Since the application is already deployed to Heroku, you can access it by simply opening the link below.
