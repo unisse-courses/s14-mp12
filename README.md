@@ -21,16 +21,31 @@ Link: https://tinyurl.com/S14MP12-IntendedSpecifications
 
 ## FEATURES —
 For this phase of the project, the current working features involve:
-* View homepage posts as is.
-* User can register for an account.
-* User can login if he/she has an account.
-* User can logout from a logged in account.
-* User can view a profile page of a registed user.
-* If logged in, user can view his/her own profile page through his/her icon or username.
-* Logged in user can create a post.
-* Users can click on a post's title to view full post.
-* Logged in user can post a comment.
-* Logged in user can rate a post.
+* Upon opening the site, user will be greeted with the homepage. User can navigate homepage in logged out mode, but certain features are only available for logged in users like comment, rate, and creating a post.
+* In the homepage, user is given the sorting of by new -- meaning posts made most recently are seen first.
+* In the homepage, user can sort by popular, which is based on the current rating of all posts. Posts with highest stars will be seen first.
+* In the homepage, user can sort by popular and by stars, which filters posts based on their star rating.
+* In the homepage, if logged out user attempts to make a comment or rating, they will be redirected to login page.
+* In the register page, user can create an account. Username, email, password, picture, and profile description are required.
+* Once successful with registration, user will be redirected to login page to enter login credentials.
+* In register page, if register credentials are already in the database, user will be prompted to change their username or email.
+* In the login page, user can login if he/she has registered account.
+* In the login page, if email or password is not recognized, prompt will come out and ask user to log in again.
+* If user is logged in, he/she can log out whenever they want.
+* If user is logged in, he/she can access his/her profile page via the icon in the navigation bar.
+* User stays logged in even if they exit the site.
+* User (even if logged in or logged out) can view the profile page of any user that has a post.
+* Like in the homepage, user can sort by new and popular (and by stars) in the profile page, whether logged in or logged out.
+* Logged in users can create a post.
+* Logged in users can edit their own post.
+* Logged in users stays logged in even after they exit the webpage.
+* User (even if logged in or logged out) can view a post as long as they have the link to it or if they can click on it via any page in the app.
+* User (even if logged in or logged out) can share a post via clicking the Share button. They will be given a URL of the page which they need to append to the main domain URL.
+* Logged in users can put a comment on a post.
+* Logged in users can edit their own comment.
+* Logged in users can rate a post only once. Rating cannot be changed.
+* User (even if logged in or logged out) can search for a post. Search is conducted by comparing the tags and search keyword and displaying posts where the same search keyword is found.
+* User (even if logged in or logged out) can sort by new and popular (and by stars) in the search page.
 
 ## HOW TO RUN —
 Since the application is already deployed to Heroku, you can access it by simply opening the link below.
