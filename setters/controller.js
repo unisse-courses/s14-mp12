@@ -154,7 +154,6 @@ module.exports.getOtherUser = (req, res) => {
         params.layout = 'loggedIn';
     }
 
-    console.log(params.viewProfile);
     /* Checking Path */
     if(req.path.includes('new')) {
         params.new = true;
@@ -210,6 +209,7 @@ module.exports.getOtherUser = (req, res) => {
                     });
                 });
 
+            // Need to alert no user found (anything that can say)
             } else {
                 res.render('homepage',params);
             }
@@ -539,7 +539,7 @@ module.exports.homepage = (req, res) => {
                     params.navProfPic = req.session.profPic;
                 }
 
-                res.render('search', params);
+                res.render('homepage', params);
             });
 
         } else {
@@ -571,7 +571,7 @@ module.exports.homepage = (req, res) => {
                     params.navProfPic = req.session.profPic;
                 }
 
-                res.render('search', params);
+                res.render('homepage', params);
             });
         }
     }
