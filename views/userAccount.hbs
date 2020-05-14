@@ -69,7 +69,7 @@
                             active
                         {{/if}}
                         " id="new-link">
-                        <a class="new" id="new" href="/viewProfile/new/?page=1">
+                        <a class="new" id="new" href="/viewProfile/new?page=1">
                             <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
                         </a>
                     </div>
@@ -150,9 +150,9 @@
 
                             {{!-- Username --}}
                             {{#if ../viewProfile}}
-                            <a href="/viewProfile" id="username">
+                            <a href="/viewProfile/new?page=1" id="username">
                             {{else}}
-                            <a href="/viewUser/{{../user.username}}" id="username">
+                            <a href="/viewUser/{{../user.username}}/new?page=1" id="username">
                             {{/if}}
                             {{../user.username}}</a>
 
