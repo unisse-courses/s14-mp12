@@ -166,4 +166,8 @@ router.get('/logout', function (req, res, next) {
   }
 });
 
+router.get('/about', function (req, res) {
+  res.render('aboutPage', {layout: 'loggedOut'});
+})
+
 module.exports = router;
