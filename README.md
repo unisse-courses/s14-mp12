@@ -36,7 +36,7 @@ For this phase of the project, the current working features involve:
 Since the application is already deployed to Heroku, you can access it by simply opening the link below.
 > **https://recipeep-app.herokuapp.com**
 
-## HOW TO RUN (FURTHER DETAILS) —
+## HOW TO RUN (FURTHER DETAILS  ) —
 
 If you want, you can login using accounts made beforehand to check logged in features.
 
@@ -100,7 +100,9 @@ Details: Has 4 posts in the account.
 Profile URL: https://recipeep-app.herokuapp.com/viewUser/marklee/new?page=1
 ```
 
-Of course, you can also make you own account. Have fun navigating the site!
+Of course, you can also make you own account. 
+
+Have fun navigating the site!
 
 ## DEPENDENCIES & LIBRARIES —
 * bcryptjs                  2.4.3
