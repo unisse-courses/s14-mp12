@@ -33,18 +33,8 @@ For this phase of the project, the current working features involve:
 * Logged in user can rate a post.
 
 ## HOW TO RUN —
-Since the application is already deployed to Heroku, you can access it by simply opening the link
-In order to run the application, you will have to initialize modules that will make the application 
-run. You also have to connect to a database that will provide the information to be displayed in
-the application.
-
-Please follow the next procedure to accomplish the run smoothly.
-1. After downloading the repository, open the command prompt of that specific location.
-2. Type `npm install` to download the included dependencies.
-3. Run the server by typing `npm start`.
-
-Once successfully done, you will have to run the app on any browser.
-1. Go to `http://localhost:3000`.
+Since the application is already deployed to Heroku, you can access it by simply opening the link below.
+1. Go to `https://recipeep-app.herokuapp.com`.
 
 Congratulations. You can now navigate the site.
 
@@ -57,7 +47,7 @@ Email: irenekim@email.com
 Password: irenekim
 
 Details: Has 5 posts in the account.
-Profile URL: http://localhost:3000/viewUser/irenekim/new?page=1
+Profile URL: https://recipeep-app.herokuapp.com/viewUser/irenekim/new?page=1
 ```
 
 Account # 2:
@@ -67,7 +57,7 @@ Email: gordonramsay@official.com
 Password: officialgordon
 
 Details: Has 6 posts in the account.
-Profile URL: http://localhost:3000/viewUser/officialgordon/new?page=1
+Profile URL: https://recipeep-app.herokuapp.com/viewUser/officialgordon/new?page=1
 ```
 
 Account # 3:
@@ -77,7 +67,7 @@ Email: seanko@email.com
 Password: seanko
 
 Details: Has 4 posts in the account.
-Profile URL: http://localhost:3000/viewUser/seanko/new?page=1
+Profile URL: https://recipeep-app.herokuapp.com/viewUser/seanko/new?page=1
 ```
 
 Account # 4:
@@ -87,7 +77,7 @@ Email: loricortel@email.com
 Password: lorilorisee
 
 Details: Has 0 post in the account.
-Profile URL: http://localhost:3000/viewUser/lorilorisee/new?page=1
+Profile URL: https://recipeep-app.herokuapp.com/viewUser/lorilorisee/new?page=1
 ```
 
 Account # 5:
@@ -97,7 +87,7 @@ Email: dluther@email.com
 Password: dennisluther
 
 Details: Has 1 post in the account.
-Profile URL: http://localhost:3000/viewUser/dennisluther/new?page=1
+Profile URL: https://recipeep-app.herokuapp.com/viewUser/dennisluther/new?page=1
 ```
 
 Account # 6:
@@ -107,7 +97,7 @@ Email: marklee@email.com
 Password: marklee
 
 Details: Has 4 posts in the account.
-Profile URL: http://localhost:3000/viewUser/marklee/new?page=1
+Profile URL: https://recipeep-app.herokuapp.com/viewUser/marklee/new?page=1
 ```
 
 Of course, you can also make you own account. Have fun navigating the site!
