@@ -2,6 +2,10 @@
     <script src="../../scripts/register.js"></script> 
 {{/section}}
 
+{{#section 'scriptJQ'}}
+    <script src="../../scripts/register-jq.js"></script> 
+{{/section}}
+
 {{#section 'headCSS'}}
     <link rel="stylesheet" href="../../css/register.css">
 {{/section}}
@@ -73,3 +77,27 @@
         </div>
     </div>
 </div>
+
+{{#if message}}
+<div class="modal fade" id="register-not-success" tabindex="-1" role="dialog" aria-hidden="true">
+
+    {{!-- Modal Dialogue Box --}}
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+
+            {{!-- Modal Header --}}
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button class="close" type="button" data-dismiss="modal">
+                    <span class="close-button">&times;</span>
+                </button>
+            </div>
+
+            {{!-- Modal Body --}}
+            <div class="modal-body">
+                <p class="body-text">{{message}}</p>                    
+            </div>
+        </div>
+    </div>
+</div>
+{{/if}}

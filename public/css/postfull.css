@@ -168,12 +168,12 @@
 }
 
 #edit-comment {
-    margin-right: 20px;
     color: #9d9b98;
 }
 
 #delete-comment {
     color: #9d9b98;
+    margin-left: 20px;
 }
 
 #edit-comment:hover,
@@ -313,7 +313,6 @@ fieldset, label {
     margin-top: 10px;
     width: 100%;
     max-width: 100%;
-
 }
 
 #image-modal > .modal-dialog > .modal-content {

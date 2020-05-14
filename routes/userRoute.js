@@ -48,11 +48,6 @@ const storage = new GridFsStorage({
 const upload = multer({ storage: storage });
 
 
-// Render register page
-router.get('/register', function (req, res) {
-  res.render('register', {layout: 'loggedOut'})
-});
-
 // Register User
 router.post('/register', upload.single('profPic'), (req, res) => {
   // Finding Same User Name
@@ -60,14 +55,14 @@ router.post('/register', upload.single('profPic'), (req, res) => {
     .then(result => {
       // If There's existing user
       if (result != null) {
-        console.log("User exists!");
-        res.redirect('register');
+        console.log("Username exists!");
+        res.redirect('/register?message=Username already exists.');
       } else {
         UserAccount.findOne({ email: req.body.email })
           .then(result => {
             if (result != null) {
               console.log("Email exists!");
-              res.redirect('register');
+              res.redirect('/register?message=Email addressed used already exists.');
             } else {
               // Create User
               const userAcct = new UserAccount({
@@ -97,6 +92,15 @@ router.post('/register', upload.single('profPic'), (req, res) => {
           });
       }
     });
+});
+
+// Render register page
+router.get('/register', function (req, res) {
+  var params = {
+    layout: 'loggedOut',
+    message: req.query.message
+  }
+  res.render('register', params)
 });
 
 // Render login page
