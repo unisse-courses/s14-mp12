@@ -512,7 +512,7 @@ module.exports.homepage = (req, res) => {
 
         if(sort == true){
 
-            postFullModel.find({pfNumberRating: star}).skip(skip)/* .limit(20) */.exec((err, posts) =>{
+            postFullModel.find({pfNumberRating: star}).skip(skip).populate('pfUser')/* .limit(20) */.exec((err, posts) =>{
                 let postArray = [];
 
                 posts.forEach((doc) => {
