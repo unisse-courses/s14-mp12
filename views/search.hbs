@@ -22,7 +22,6 @@
     </div>
 
     {{#if posts}}
-    {{!-- Posts Content --}}
     <div class="container-fluid" id="posts">
         <div class="row no-gutters" id="new-popular">
             <div class="col-8 sort-area">
@@ -160,16 +159,73 @@
         </div>
     </div>
     {{else}}
-    <div class="container-fluid" id="posts">
-        <div class="row no-gutters" id="no-posts">
-            <div class="col-8 no-blog">
-            No post/s found with tag "<span class="emp">{{searchTag}}</span>" 
-            {{#if star}}
-            which have <span class="emp">{{star}}</span> stars
-            {{/if}}
-        .
+        {{#if star}}
+        <div class="container-fluid" id="posts">
+            {{!-- Sort Row if STAR. --}}
+            <div class="row no-gutters" id="new-popular">
+                <div class="col-8 sort-area">
+                    {{!-- Buttons for Sorting --}}
+                    <div class="button-area">
+                        {{!-- New --}}
+                        <div class="sort-link 
+                            {{#if new}}
+                                active
+                            {{/if}}
+                            " id="new-link">
+                            <a class="new" id="new" href="/search/new/?page=1&search={{searchTag}}">
+                                <i class="fa fa-certificate"></i>&nbsp;&nbsp;New
+                            </a>
+                        </div>
+                        {{!-- Popular --}}
+                        <div class="sort-link
+                            {{#if popular}}
+                                active
+                            {{/if}}
+                            " id="popular-link">
+                            <a class="popular" id="popular" href="/search/popular?page=1&search={{searchTag}}">
+                                <i class="fa fa-fire-alt"></i>&nbsp;&nbsp;Popular
+                            </a>
+                        </div>
+                    </div>
+
+                    {{#if popular}}
+                    {{!-- Stars for Popular --}}
+                    <div class="star-area">
+                        <div class="btn-group dropright" id="star-dd">
+                            <button type="button" class="btndropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                                Sort&nbsp;
+                                <i class="fas fa-caret-right"></i>
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/search/popular/5star?page=1&search={{searchTag}}">5-star</a>
+                                <a class="dropdown-item" href="/search/popular/4star?page=1&search={{searchTag}}">4-star</a>
+                                <a class="dropdown-item" href="/search/popular/3star?page=1&search={{searchTag}}">3-star</a>
+                                <a class="dropdown-item" href="/search/popular/2star?page=1&search={{searchTag}}">2-star</a>
+                                <a class="dropdown-item" href="/search/popular/1star?page=1&search={{searchTag}}">1-star</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+
+                </div>
+            </div>
+
+            {{!-- No STAR rating text. --}}
+            <div class="row no-gutters" id="no-posts">
+                <div class="col-8 no-blog">
+                    <p id="account-text-1">No post found with the tag "<span class="emp">{{searchTag}}</span>" with <span class="emp">{{star}}</span>-star rating.</p>
+                </div>
             </div>
         </div>
-    </div>
+        {{else}}
+        <div class="container-fluid" id="posts">
+            <div class="row no-gutters" id="no-posts">
+                <div class="col-8 no-blog">
+                    <p id="account-text-2">No post found with the tag "<span class="emp">{{searchTag}}</span>".</p>
+                </div>
+            </div>
+        </div>
+        {{/if}}
     {{/if}}
 </div>
