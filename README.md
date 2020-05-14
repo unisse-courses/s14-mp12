@@ -42,8 +42,6 @@ If you don't want to copy paste, just click the link below.
 
 * * *
 
-Congratulations. You can now navigate the site.
-
 If you want, you can login using accounts made beforehand to check logged in features.
 
 Account # 1:
