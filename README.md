@@ -17,7 +17,7 @@ and progressive environment for individuals who have a passion for cooking.
 CCAPDEV - S14
 
 ## INTENDED MACHINE SPECIFICATIONS —
-Link: https://docs.google.com/document/d/17t066OShfbmbDkyEOFIN6LzqJt0zx66XL0CRnJMbAzY/edit?usp=sharing
+Link: https://tinyurl.com/S14MP12-IntendedSpecifications
 
 ## FEATURES —
 For this phase of the project, the current working features involve:
@@ -33,6 +33,7 @@ For this phase of the project, the current working features involve:
 * Logged in user can rate a post.
 
 ## HOW TO RUN —
+Since the application is already deployed to Heroku, you can access it by simply opening the link
 In order to run the application, you will have to initialize modules that will make the application 
 run. You also have to connect to a database that will provide the information to be displayed in
 the application.
@@ -65,7 +66,7 @@ Username: officialgordon
 Email: gordonramsay@official.com
 Password: officialgordon
 
-Details: Has 8 posts in the account.
+Details: Has 6 posts in the account.
 Profile URL: http://localhost:3000/viewUser/officialgordon/new?page=1
 ```
 
