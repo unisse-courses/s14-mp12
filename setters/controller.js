@@ -171,7 +171,7 @@ module.exports.getOtherUser = (req, res) => {
                 collection.find({ filename: filename }).toArray(function (err, docs) {
 
                     //Retrieving the chunks from the db
-                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: 1 }).toArray(function (err, chunks) {
+                    collectionChunks.find({ files_id: docs[0]._id }).sort({ n: -1 }).toArray(function (err, chunks) {
                         
                         //Append Chunks
                         let fileData = [];
