@@ -34,8 +34,6 @@ For this phase of the project, the current working features involve:
 
 ## HOW TO RUN —
 Since the application is already deployed to Heroku, you can access it by simply opening the link below.
-1. Go to `https://recipeep-app.herokuapp.com`.
-
 > **https://recipeep-app.herokuapp.com**
 
 * * *
