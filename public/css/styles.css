@@ -38,3 +38,7 @@ a:visited {
 #page-here {
     display: none;
 }
+
+#page-nav-comments {
+    display: none;
+}
