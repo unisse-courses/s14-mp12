@@ -89,7 +89,7 @@ router.post('/register', upload.single('profPic'), (req, res) => {
                   userAcct.save()
                     .then(acct => {
                       console.log(userAcct);
-                      res.redirect('/login?message=Register successfully!');
+                      res.redirect('/login?message=Registered successfully!');
                     })
                     .catch(err => console.log(err));
                 }));
