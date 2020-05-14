@@ -55,7 +55,8 @@ Username: irenekim
 Email: irenekim@email.com
 Password: irenekim
 
-Details: c
+Details: Has 5 posts in the account.
+Profile URL: http://localhost:3000/viewUser/irenekim/new?page=1
 ```
 
 Account # 2:
@@ -63,27 +64,49 @@ Account # 2:
 Username: officialgordon
 Email: gordonramsay@official.com
 Password: officialgordon
+
+Details: Has 8 posts in the account.
+Profile URL: http://localhost:3000/viewUser/officialgordon/new?page=1
 ```
 
 Account # 3:
 ```
 Username: seanko
-Email: seanko@official.com
+Email: seanko@email.com
 Password: seanko
+
+Details: Has 4 posts in the account.
+Profile URL: http://localhost:3000/viewUser/seanko/new?page=1
 ```
 
 Account # 4:
 ```
 Username: lorilorisee
-Email: loricortel@official.com
+Email: loricortel@email.com
 Password: lorilorisee
+
+Details: Has 0 post in the account.
+Profile URL: http://localhost:3000/viewUser/lorilorisee/new?page=1
 ```
 
 Account # 5:
 ```
 Username: dennisluther
-Email: dluther@official.com
+Email: dluther@email.com
 Password: dennisluther
+
+Details: Has 1 posts in the account.
+Profile URL: http://localhost:3000/viewUser/dennisluther/new?page=1
+```
+
+Account # 6:
+```
+Username: marklee
+Email: marklee@email.com
+Password: marklee
+
+Details: Has 4 posts in the account.
+Profile URL: http://localhost:3000/viewUser/marklee/new?page=1
 ```
 
 Of course, you can also make you own account. Have fun navigating the site!
