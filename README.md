@@ -65,21 +65,28 @@ Password: officialgordon
 
 Account # 3:
 ```
-Username: officialgordon
-Email: gordonramsay@official.com
-Password: officialgordon
+Username: shaunko
+Email: shaunko@official.com
+Password: shaunko
 ```
 
 Account # 4:
 ```
-Username: officialgordon
-Email: gordonramsay@official.com
-Password: officialgordon
+Username: lorilorisee
+Email: loricortel@official.com
+Password: lorilorisee
+```
+
+Account # 5:
+```
+Username: dennisluther
+Email: dluther@official.com
+Password: dennisluther
 ```
 
 Of course, you can also make you own account. Have fun navigating the site!
 
-## DEPENDENCIES —
+## DEPENDENCIES & LIBRARIES —
 * bcryptjs                  2.4.3
 * body-parser               1.19.0
 * cookie-parser             1.4.5
