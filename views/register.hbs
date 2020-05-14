@@ -53,13 +53,13 @@
                 {{!-- Image Upload --}}
                 <div class="formRow">
                     <label for="ProfilePicture" class="forLabels">Avatar Upload</label>
-                    <input type="file" id="profPic" name ="profPic" accept=".jpg, .jpeg, .png" onchange="validateFileType()">
+                    <input type="file" id="profPic" name ="profPic" accept=".jpg, .jpeg, .png" onchange="validateFileType()" required>
                 </div>
 
                 {{!-- Short Description --}}
                 <div class="formRow">
                     <label for="description" class="forLabels description">Short<br>Description<br>(Optional)</label>
-                    <textarea type="text" id="description" name="description" class="description" placeholder="Short Description"></textarea>
+                    <textarea type="text" id="description" name="description" class="description" placeholder="Short Description" required></textarea>
                 </div>
 
                 <hr>
