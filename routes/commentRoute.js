@@ -19,7 +19,7 @@ router.post('/viewPost/:postId/addComment', (req,res) => {
     if(!req.session.user) {
         console.log("User is not logged in.")
 
-        res.redirect('/login' + '?message=You need to login first.');
+        res.redirect('/login' + '?message=Commenting is for logged in users. Please login first.');
     }
 
     else{

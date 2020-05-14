@@ -79,7 +79,7 @@ function getRatingLayout(rating) {
 module.exports.renderUser = (req, res) => {
     
     if (!req.isAuthenticated()) {
-        res.redirect('/login?message=You need to login first.');
+        res.redirect('/login?message=You need to log in first.');
     } else {
         const fileName = res.locals.photo;
         var userId = req.session.passport.user;     
@@ -326,7 +326,7 @@ module.exports.getUser = (req, res) => {
 
     //Others
     if (!req.isAuthenticated()) {
-        res.redirect('/login?message=You need to login first.');
+        res.redirect('/login?message=You need to log in first.');
     } else {
         var params = {
             layout: 'loggedIn',
