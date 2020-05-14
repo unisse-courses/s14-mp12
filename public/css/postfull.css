@@ -336,3 +336,7 @@ fieldset, label {
     padding-bottom: 10px!important;
     margin: 0px!important;
 }
+
+#share-post {
+    cursor: pointer;
+}
